@@ -1,4 +1,4 @@
-NAME		:=	minishell
+NAME		:=	cub3d
 COMPILER	:=	cc
 DEBUG_MODE	:=	
 FLAGS		:= 	-Wall -Wextra -Werror
@@ -8,6 +8,10 @@ MLX			:=	./minilibx-linux
 MLXLIB		:= $(MLX)/build/libmlx42.a
 HEADERS		:= 	-I libft -I includes/ -I $(MLX)/include/
 SRCS		:= 	main.c \
+				parser/parser.c \
+				parser/map_opener.c \
+				error_free/error.c \
+				error_free/free.c \
 			
 
 SRCDIR 		:= 	./srcs
@@ -31,6 +35,12 @@ Bold		= "\033[1m"			# Text Style Bold
 ifdef DEBUG
 	COMPILER += -g -fsanitize=address
 	LIBFT_DEBUG += DEBUG=1
+	DEBUG_MODE += "(debug mode)"
+endif
+
+ifdef VALGRIND
+	COMPILER += -g
+	LIBFT_DEBUG += VALGRIND=1
 	DEBUG_MODE += "(debug mode)"
 endif
 

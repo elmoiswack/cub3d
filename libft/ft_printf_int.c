@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_int.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhussain <dhussain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dantehussain <dantehussain@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 12:16:28 by dhussain          #+#    #+#             */
-/*   Updated: 2022/12/14 11:27:18 by dhussain         ###   ########.fr       */
+/*   Updated: 2023/11/28 22:41:28 by dantehussai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_printf_int(va_list ptr, int len)
 		return (len + 1);
 	str = ft_mallocaaa(j);
 	if (!str)
-		return ((char) NULL);
+		return (0);
 	len = ftwrite(j, str, len);
 	free(str);
 	return (len);

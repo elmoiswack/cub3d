@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_pointer.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhussain <dhussain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dantehussain <dantehussain@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 12:15:48 by dhussain          #+#    #+#             */
-/*   Updated: 2022/12/23 11:57:55 by dhussain         ###   ########.fr       */
+/*   Updated: 2023/11/28 22:41:17 by dantehussai      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ int	ft_printf_pointer(va_list ptr, int len)
 {
 	void				*tempptr;
 	char				*tempstr;
-	int					i;
 	unsigned long long	j;
 	char				*str;
 
 	write(1, "0x", 2);
-	i = 0;
 	tempptr = va_arg(ptr, void *);
 	if (!tempptr)
 	{
@@ -34,7 +32,7 @@ int	ft_printf_pointer(va_list ptr, int len)
 	j = (unsigned long long)tempptr;
 	tempstr = ft_mallocaaa(j);
 	if (!tempstr)
-		return ((char) NULL);
+		return (0);
 	str = "0123456789abcdef";
 	return (convert(j, tempstr, len, str));
 }

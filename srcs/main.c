@@ -1,17 +1,18 @@
 #include "../includes/cub3d.h"
 
-void	error_print(const char *str)
-{
-	printf("%s\n", str);
-}
-
 int	main(int argc, char *argv[])
 {
-	t_mainstruct *main_s;
+	t_parser *parser_s;
 
 	if (argc != 2)
 	{
-		error_print()
-	}	
+		printf("Only one additional argument is excepted as input. ./cub3d 'name of the mapfile'.");
+		exit (1);
+	}
+	parser_s = ft_calloc(1, sizeof(t_parser));
+	if (!parser_s)
+		error_parser(parser_s, "allocation of mainstruct failed");
+	parser_s = parser(parser_s, argv);
+	return (0);
 }
 
