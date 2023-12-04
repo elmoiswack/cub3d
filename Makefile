@@ -10,6 +10,7 @@ HEADERS		:= 	-I libft -I includes/ -I $(MLX)/include/
 SRCS		:= 	main.c \
 				parser/parser.c \
 				parser/map_opener.c \
+				parser/content_sorter.c \
 				error_free/error.c \
 				error_free/free.c \
 			

@@ -19,70 +19,58 @@ int	check_argv(char **argv)
 	return (1);
 }
 
-char	*gnl_join(char *s1, char *s2)
-{
-	int		i;
-	int		j;
-	char	*ptr;
-	
-	ptr =  ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1, sizeof(char));
-	if (!ptr)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1[i])
-	{
-		ptr[j] = s1[i];
-		j++;
-		i++;
-	}
-	i = 0;
-	while (s2[i])
-	{
-		ptr[j] = s2[i];
-		j++;
-		i++;
-	}
-	free(s1);
-	return (ptr);
-}
-
-char	*get_content_into_line(int fd)
+int	get_content_into_line(int fd)
 {
 	char	*gnl_line;
-	char	*full;
+	int		count;
 
+	count = 0;
 	gnl_line = get_next_line(fd);
 	if (!gnl_line)
-		return (NULL);
-	full = ft_calloc(1, sizeof(char));
-	if (!full)
-		return (NULL);
+		return (-1);
 	while (gnl_line)
 	{
-		full = gnl_join(full, gnl_line);
-		if (!full)
-		{
-			free(gnl_line);
-			return (NULL);
-		}
+		count++;
 		free(gnl_line);
 		gnl_line = get_next_line(fd);
 	}
-	return (full);
+	return (count);
 }
 
-char	**get_content_map(int fd)
+char	**get_content_into_array(char **array, int fd, int count)
 {
-	char	*full_line;
-	char	**array;
+	int index;
 
-	full_line = get_content_into_line(fd);
-	if (!full_line)
+	index = 0;
+	while (index < count)
+	{
+		array[index] = get_next_line(fd);
+		if (!array[index])
+			break ;
+		index++;
+	}
+	return (array);
+}
+
+char	**get_content_map(int fd, char *argv[])
+{
+	char	**array;
+	int		count;
+
+	count = get_content_into_line(fd);
+	if (count == -1)
 		return (NULL);
-	array = ft_split(full_line, '\n');
+	array = ft_calloc(count + 1, sizeof(char *));
 	if (!array)
 		return (NULL);
+	close(fd);
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+	{
+		free_2d_array(array);
+		return (NULL);	
+	}
+	array = get_content_into_array(array, fd, count);
 	return (array);
 }
 
@@ -95,7 +83,7 @@ t_parser *get_info_map(t_parser *parser_s, char *argv[])
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (error_parser(parser_s, "file couldn't be opened"), NULL);
-	parser_s->full_file = get_content_map(fd);
+	parser_s->full_file = get_content_map(fd, argv);
 	close(fd);
 	if (!parser_s->full_file)
 		return (error_parser(parser_s, "getting the maps content failed"), NULL);

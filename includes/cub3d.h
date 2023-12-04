@@ -28,6 +28,9 @@ t_parser *parser(t_parser *parser_s, char *argv[]);
 t_parser *get_info_map(t_parser *parser_s, char *argv[]);
 int			check_argv(char **agrv);
 
+	//content_sorter.c
+t_parser *sort_content(t_parser *parser_s);
+
 	//free.c
 void	free_parser_struct(t_parser *parser_s);
 void	free_2d_array(char	**array);
