@@ -72,14 +72,26 @@ int	get_start_map(t_parser *parser_s)
 t_parser *get_map(t_parser *parser_s , int index)
 {
 	int	count;
+	int	i;
 
+	i = 0;
 	count = index;
 	while (parser_s->full_file[count])
 		count++;
 	parser_s->map = ft_calloc((count - index) + 1, sizeof(char *));
 	if (!parser_s->map)
 		return (error_parser(parser_s, "allocation of map failed"), NULL);
-	
+	while (parser_s->full_file[index])
+	{
+		parser_s->map[i] = ft_calloc(ft_strlen(parser_s->full_file[index]) + 2, sizeof(char));
+		if (!parser_s->map[i])
+			return (error_parser(parser_s, "allocation and filling map failed"), NULL);
+		ft_strlcpy(parser_s->map[i], parser_s->full_file[index], ft_strlen(parser_s->full_file[index]) + 1);
+		i++;
+		index++;
+	}
+	parser_s->map[i] = NULL;
+	return (parser_s);
 }
 
 t_parser *sort_content(t_parser *parser_s)

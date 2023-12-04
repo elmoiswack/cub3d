@@ -3,16 +3,8 @@
 
 void	print_parser(t_parser *parser_s)
 {
-	int	i = 0;
 	int	j = 0;
 
-	printf("FULL MAP\n");
-	while(parser_s->full_file[i])
-	{
-		printf("%s", parser_s->full_file[i]);
-		i++;
-	}
-	printf("\n\n");
 	printf("NO = %s\n", parser_s->n_texture);
 	printf("SO = %s\n", parser_s->s_texture);
 	printf("EA = %s\n", parser_s->e_texture);
@@ -35,7 +27,8 @@ t_parser *parser(t_parser *parser_s, char *argv[])
 {
 	parser_s = get_info_map(parser_s, argv);
 	parser_s = sort_content(parser_s);
+	parser_s = parser_checks(parser_s);
 	print_parser(parser_s);
-	error_parser(parser_s, "dshajdksahkdsa\n");
+	error_parser(parser_s, "\n");
 	return (parser_s);
 }

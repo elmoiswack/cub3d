@@ -11,6 +11,8 @@ SRCS		:= 	main.c \
 				parser/parser.c \
 				parser/map_opener.c \
 				parser/content_sorter.c \
+				parser/check_content.c \
+				parser/map_checks.c \
 				error_free/error.c \
 				error_free/free.c \
 			

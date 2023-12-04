@@ -2,8 +2,9 @@
 # define CUB3D_H
 
 #include "../libft/libft.h"
-//#include "../minilibx-linux/mlx_int.h"
-//#include "../minilibx-linux/mlx.h"
+#include "../minilibx-linux/include/MLX42/MLX42.h"
+#include "../minilibx-linux/include/MLX42/MLX42_Int.h"
+#include "../minilibx-linux/include/MLX42/MLX42_Input.h"
 
 typedef struct s_parser
 {
@@ -15,7 +16,6 @@ typedef struct s_parser
 	char	*w_texture;
 	char	*rgb_floor;
 	char	*rgb_ceiling;
-
 } t_parser;
 
 
@@ -30,6 +30,12 @@ int			check_argv(char **agrv);
 
 	//content_sorter.c
 t_parser *sort_content(t_parser *parser_s);
+
+	//check_content.c
+t_parser *parser_checks(t_parser *parser_s);
+
+	//map_check.c
+int		map_checker(char **map);
 
 	//free.c
 void	free_parser_struct(t_parser *parser_s);

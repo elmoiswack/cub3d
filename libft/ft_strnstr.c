@@ -6,44 +6,37 @@
 /*   By: dhussain <dhussain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 12:02:01 by dhussain          #+#    #+#             */
-/*   Updated: 2022/10/19 14:07:53 by dhussain         ###   ########.fr       */
+/*   Updated: 2023/12/04 10:35:35 by dhussain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <string.h>
 
-static char	*ftfinish(int i, int j, const char *haystack, const char *ptr)
-{
-	i = i - j;
-	ptr = &haystack[i];
-	return ((char *)ptr);
-}
-
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	size_t		i;
-	size_t		j;
-	size_t		chck;
-	const char	*ptr;
+	char	*h;
+	char	*n;
+	size_t	a;
+	size_t	b;
 
-	i = 0;
-	j = 0;
-	if ((needle[j] == '\0') || (needle == haystack))
-		return ((char *)haystack);
-	while ((haystack[i] != '\0') && (i < len))
+	h = (char *)haystack;
+	n = (char *)needle;
+	a = 0;
+	if (n[0] == '\0')
+		return (h);
+	while (h[a] != '\0')
 	{
-		chck = i;
-		while ((haystack[i] == needle[j]) && (needle[j]) && (haystack[i]))
+		b = 0;
+		while (h[a + b] == n[b] && (a + b) < len)
 		{
-			i++;
-			j++;
-			if ((needle[j] == '\0') && (i <= len))
-				return (ftfinish(i, j, haystack, ptr));
+			if (n[b] == '\0' && h[a + b] == '\0')
+				return (&h[a]);
+		b++;
 		}
-		i = chck;
-		i++;
-		j = 0;
+		if (n[b] == '\0')
+			return (h + a);
+		a++;
 	}
 	return (0);
 }
