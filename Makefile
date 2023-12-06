@@ -4,9 +4,10 @@ DEBUG_MODE	:=
 FLAGS		:= 	-Wall -Wextra -Werror
 
 LIBS		:= 	./libft/libft.a
-MLX			:=	./minilibx-linux
-MLXLIB		:= $(MLX)/build/libmlx42.a
-HEADERS		:= 	-I libft -I includes/ -I $(MLX)/include/
+#MLX			:=	./minilibx-linux
+#MLXLIB 	    := $(MLX)/libmlx42.a -I include -lglfw -L "/Users/dantehussain/.brew/opt/glfw/lib/" 
+#-lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+HEADERS		:= 	-I ./libft/ -I ./includes/ -I $(MLX)/include/
 SRCS		:= 	main.c \
 				parser/parser.c \
 				parser/map_opener.c \
@@ -47,7 +48,12 @@ ifdef VALGRIND
 	DEBUG_MODE += "(debug mode)"
 endif
 
-all: $(NAME)
+all: libs $(NAME)
+
+libs:
+	$(MAKE) -C libft
+	
+#$(MAKE) -C minilibx-linux DEBUG=1
 
 $(NAME): $(OBJS)
 	@$(MAKE) -C libft $(LIBFT_DEBUG) 
@@ -63,10 +69,14 @@ $(OBJDIR):
 clean:
 	@rm -rf $(OBJDIR)
 	@$(MAKE) -C libft clean
+	
+#@$(MAKE) -C minilibx-linux clean
 
 fclean:	clean
 	@rm -f $(NAME) 
 	@$(MAKE) -C libft fclean
+	
+#@$(MAKE) -C minilibx-linux fclean
 
 re:	fclean all
 
