@@ -1,4 +1,4 @@
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 #include "stdio.h"
 
 char	*line_into_struct(char	*line, t_parser *parser_s)

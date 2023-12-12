@@ -1,4 +1,4 @@
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 #include "stdio.h"
 
 void	print_parser(t_parser *parser_s)

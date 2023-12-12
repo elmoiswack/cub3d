@@ -9,11 +9,13 @@ LIBS		:= 	./libft/libft.a
 #-lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
 HEADERS		:= 	-I ./libft/ -I ./includes/ -I $(MLX)/include/
 SRCS		:= 	main.c \
+				utils.c \
 				parser/parser.c \
 				parser/map_opener.c \
 				parser/content_sorter.c \
 				parser/check_content.c \
 				parser/map_checks.c \
+				parser/map_checks_utils.c \
 				error_free/error.c \
 				error_free/free.c \
 			

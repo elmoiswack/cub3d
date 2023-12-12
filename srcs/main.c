@@ -6,7 +6,7 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		printf("Only one additional argument is excepted as input. ./cub3d 'name of the mapfile'.");
+		printf("Only one additional argument is excepted as input. ./cub3d 'path to the mapfile'\n");
 		exit (1);
 	}
 	parser_s = ft_calloc(1, sizeof(t_parser));
