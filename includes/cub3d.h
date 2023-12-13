@@ -63,6 +63,16 @@ int			skip_whitespaces(char *line, int index);
 int			valid_char(char c);
 int			is_whitespace(char c);
 
+	//rgb_content_check.c
+int			alpha_in_path(char *line);
+int			check_chars_rgb(char *line);
+int			range_compare(char *line);
+int			check_range_rgb(char *line);
+
+	//rgb_content_utils.c
+int			overflow_check(char *line);
+int			ammount_input_rgb(char *line);
+
 	//free.c
 void	free_parser_struct(t_parser *parser_s);
 void	free_2d_array(char	**array);

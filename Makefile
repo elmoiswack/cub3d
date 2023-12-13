@@ -4,9 +4,11 @@ DEBUG_MODE	:=
 FLAGS		:= 	-Wall -Wextra -Werror
 
 LIBS		:= 	./libft/libft.a
-#MLX			:=	./minilibx-linux
-#MLXLIB 	    := $(MLX)/libmlx42.a -I include -lglfw -L "/Users/dantehussain/.brew/opt/glfw/lib/" 
-#-lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+MLX			:=	./minilibx-linux
+MLXLIB 	    := -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit #codam_pc
+
+
+#$(MLX)/libmlx42.a -I include -lglfw -L "/Users/dantehussain/.brew/opt/glfw/lib/" home_laptop
 HEADERS		:= 	-I ./libft/ -I ./includes/ -I $(MLX)/include/
 SRCS		:= 	main.c \
 				utils.c \
@@ -16,6 +18,8 @@ SRCS		:= 	main.c \
 				parser/check_content.c \
 				parser/map_checks.c \
 				parser/map_checks_utils.c \
+				parser/rgb_content_check.c \
+				parser/rgb_content_utils.c \
 				error_free/error.c \
 				error_free/free.c \
 			
@@ -54,8 +58,7 @@ all: libs $(NAME)
 
 libs:
 	$(MAKE) -C libft
-	
-#$(MAKE) -C minilibx-linux DEBUG=1
+	$(MAKE) -C minilibx-linux DEBUG=1
 
 $(NAME): $(OBJS)
 	@$(MAKE) -C libft $(LIBFT_DEBUG) 
@@ -71,14 +74,12 @@ $(OBJDIR):
 clean:
 	@rm -rf $(OBJDIR)
 	@$(MAKE) -C libft clean
-	
-#@$(MAKE) -C minilibx-linux clean
+	@$(MAKE) -C minilibx-linux clean
 
 fclean:	clean
 	@rm -f $(NAME) 
 	@$(MAKE) -C libft fclean
-	
-#@$(MAKE) -C minilibx-linux fclean
+	@$(MAKE) -C minilibx-linux fclean
 
 re:	fclean all
 
