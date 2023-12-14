@@ -1,7 +1,7 @@
 #include "../../includes/cub3d.h"
 #include "stdio.h"
 
-int	alpha_in_path(char *line)
+int	alpha_in_texture(char *line)
 {
 	int	index;
 	int	count;

@@ -80,12 +80,12 @@ t_parser *get_map(t_parser *parser_s , int index)
 		count++;
 	parser_s->map = ft_calloc((count - index) + 1, sizeof(char *));
 	if (!parser_s->map)
-		return (error_parser(parser_s, "allocation of map failed"), NULL);
+		error_parser(parser_s, "allocation of map failed");
 	while (parser_s->full_file[index])
 	{
 		parser_s->map[i] = ft_calloc(ft_strlen(parser_s->full_file[index]) + 2, sizeof(char));
 		if (!parser_s->map[i])
-			return (error_parser(parser_s, "allocation and filling map failed"), NULL);
+			error_parser(parser_s, "allocation and filling map failed");
 		ft_strlcpy(parser_s->map[i], parser_s->full_file[index], ft_strlen(parser_s->full_file[index]) + 1);
 		i++;
 		index++;
@@ -100,10 +100,10 @@ t_parser *sort_content(t_parser *parser_s)
 
 	parser_s = get_textures_rgb_path(parser_s);
 	if (!parser_s)
-		return (error_parser(parser_s, "getting textures failed"), NULL);
+		error_parser(parser_s, "getting textures failed");
 	index = get_start_map(parser_s);
 	if (index == -1)
-		return (error_parser(parser_s, "failed to get the map"), NULL);
+		error_parser(parser_s, "failed to get the map");
 	parser_s = get_map(parser_s, index);
 	return (parser_s);
 }

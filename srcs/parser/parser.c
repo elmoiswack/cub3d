@@ -23,12 +23,21 @@ void	print_parser(t_parser *parser_s)
 	}
 	return ;
 }
+
+t_parser *parser_checks(t_parser *parser_s)
+{
+	if (are_there_empty_inputs(parser_s) == -1)
+		error_parser(parser_s, "Missing important information");
+	if (map_checker(parser_s->map, parser_s) == -1)
+		error_parser(parser_s, "Invalid map");
+	return (parser_s);
+}
+
 t_parser *parser(t_parser *parser_s, char *argv[])
 {
 	parser_s = get_info_map(parser_s, argv);
 	parser_s = sort_content(parser_s);
 	parser_s = parser_checks(parser_s);
 	print_parser(parser_s);
-	error_parser(parser_s, "\n");
 	return (parser_s);
 }

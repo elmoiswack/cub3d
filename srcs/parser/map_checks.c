@@ -26,7 +26,7 @@ int	check_howmany_start(char **map)
 	return (1);
 }
 
-void	get_start_pos(char **map, int *x, int *y)
+void	get_start_pos(char **map, int *x, int *y, char *start_derection)
 {
 	int	index;
 	int	i;
@@ -42,6 +42,7 @@ void	get_start_pos(char **map, int *x, int *y)
 			{
 				*x = i;
 				*y = index;
+				*start_derection = map[index][i];
 				return ;
 			}
 			i++;

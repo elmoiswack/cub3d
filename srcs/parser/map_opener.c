@@ -79,13 +79,13 @@ t_parser *get_info_map(t_parser *parser_s, char *argv[])
 	int	fd;
 	
 	if (check_argv(argv) == -1)
-		return (error_parser(parser_s, "map doesn't end with .cub"), NULL);
+		error_parser(parser_s, "map doesn't end with .cub");
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		return (error_parser(parser_s, "file couldn't be opened"), NULL);
+		error_parser(parser_s, "file couldn't be opened");
 	parser_s->full_file = get_content_map(fd, argv);
 	close(fd);
 	if (!parser_s->full_file)
-		return (error_parser(parser_s, "getting the maps content failed"), NULL);
+		error_parser(parser_s, "getting the maps content failed");
 	return (parser_s);
 }

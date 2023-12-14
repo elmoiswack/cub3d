@@ -7,7 +7,6 @@ LIBS		:= 	./libft/libft.a
 MLX			:=	./minilibx-linux
 MLXLIB 	    := -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit #codam_pc
 
-
 #$(MLX)/libmlx42.a -I include -lglfw -L "/Users/dantehussain/.brew/opt/glfw/lib/" home_laptop
 HEADERS		:= 	-I ./libft/ -I ./includes/ -I $(MLX)/include/
 SRCS		:= 	main.c \
@@ -20,6 +19,7 @@ SRCS		:= 	main.c \
 				parser/map_checks_utils.c \
 				parser/rgb_content_check.c \
 				parser/rgb_content_utils.c \
+				convert_data.c \
 				error_free/error.c \
 				error_free/free.c \
 			
