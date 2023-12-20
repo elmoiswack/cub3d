@@ -1,10 +1,13 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-EA ./path_to_the_east_texture
-WE ./path_to_the_west_texture
+NO ./textures/kisspng-bert-ernie-elmo-big-bird-cookie-monster-wall-hole-5adfbb633b4e06.9805700015246119392429.png
+SO ./textures/kisspng-cookie-monster-elmo-zoe-big-bird-ernie-cookie-monster-5ac2f8919b73c5.3587261415227270576367.png
+EA ./textures/kisspng-elmo-cookie-monster-oscar-the-grouch-ernie-big-bir-sesame-5abf4dc3815831.6555985015224867235298.png
+WE ./textures/kisspng-grover-ernie-elmo-bert-sesame-street-5-patitos-de-sesame-street-5ad7ef06905772.8839695915241008705912.png
+
 F 220,100,0
 C 255,30,0
 
-111
-1N1
-111
+11111
+100S1
+10001
+10001
+11111

@@ -1,16 +1,22 @@
-NAME		:=	cub3d
-COMPILER	:=	cc
-DEBUG_MODE	:=	
-FLAGS		:= 	-Wall -Wextra -Werror
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: oscarmathot <oscarmathot@student.42.fr>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/03 17:33:31 by        #+#    #+#              #
+#    Updated: 2023/12/04 12:08:33 by       ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-LIBS		:= 	./libft/libft.a
-MLX			:=	./minilibx-linux
-MLXLIB 	    := -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit #codam_pc
+#---------------------------------
+#VARIABLES
 
-#$(MLX)/libmlx42.a -I include -lglfw -L "/Users/dantehussain/.brew/opt/glfw/lib/" home_laptop
-HEADERS		:= 	-I ./libft/ -I ./includes/ -I $(MLX)/include/
-SRCS		:= 	main.c \
+NAME 	:= cub3d
+SRC 	:= main.c \
 				utils.c \
+				placing_images.c \
 				parser/parser.c \
 				parser/map_opener.c \
 				parser/content_sorter.c \
@@ -22,65 +28,44 @@ SRCS		:= 	main.c \
 				convert_data.c \
 				error_free/error.c \
 				error_free/free.c \
-			
 
-SRCDIR 		:= 	./srcs
-OBJDIR 		:= 	./objs
-OBJS		:= 	$(addprefix $(OBJDIR)/,$(SRCS:.c=.o))
-SRCS		:= 	$(addprefix $(SRCDIR)/,$(SRCS))
+SUBDIR	:= srcs
+OBJDIR 	:= ./objs
+SRCS	:= $(addprefix $(SUBDIR),$(SRC))
+OBJS	:= 	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
+LIBFT_A	:= libft/libft.a
+MLX42_A	:= minilibx-linux/libmlx42.a
+CMP		:= gcc
+FLAGS 	:= -Werror -Wall -Wextra -g -fsanitize=address -I lib -Iinclude -ldl -lglfw -pthread -lm
+HEADERS	:= 	-I libft/libft.h -I includes/cub3d.h -I $(MLX)/include/
 
-# Colors #############################################
-Black		= "\033[0;30m"		# Black
-Red			= "\033[0;31m"		# Red
-Green		= "\033[0;32m"		# Green
-Yellow		= "\033[0;33m"		# Yellow
-Blue		= "\033[0;34m"		# Blue
-Purple		= "\033[0;35m"		# Purple
-Cyan		= "\033[0;36m"		# Cyan
-White		= "\033[0;37m"		# White
-Text_Off	= "\033[0m"			# Text Style Off
-Bold		= "\033[1m"			# Text Style Bold
-######################################################
 
-ifdef DEBUG
-	COMPILER += -g -fsanitize=address
-	LIBFT_DEBUG += DEBUG=1
-	DEBUG_MODE += "(debug mode)"
-endif
+all	: $(NAME)
 
-ifdef VALGRIND
-	COMPILER += -g
-	LIBFT_DEBUG += VALGRIND=1
-	DEBUG_MODE += "(debug mode)"
-endif
+$(NAME) : $(OBJS) $(LIBFT_A) $(MLX42_A) includes/cub3d.h
+		@$(CC) $(FLAGS) $(HEADERS) $(OBJS) $(LIBFT_A) $(MLX42_A) -o $(NAME)
 
-all: libs $(NAME)
-
-libs:
-	$(MAKE) -C libft
-	$(MAKE) -C minilibx-linux DEBUG=1
-
-$(NAME): $(OBJS)
-	@$(MAKE) -C libft $(LIBFT_DEBUG) 
-	@$(COMPILER) $^ $(LIBS) -o $(NAME)
-
-$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
-	@mkdir -p $(@D) 
-	@$(COMPILER) $(FLAGS) $(HEADERS) -c $< -o $@
+$(OBJDIR)/%.o: $(SUBDIR)/%.c | $(OBJDIR)
+		@mkdir -p $(@D)
+		$(CMP) -c $(FLAGS) -o $@ $<
 
 $(OBJDIR):
 	@mkdir $@
 
-clean:
-	@rm -rf $(OBJDIR)
-	@$(MAKE) -C libft clean
-	@$(MAKE) -C minilibx-linux clean
+$(LIBFT_A) :
+		@echo "$(BLUE)Building libft library...$(RESET)\n"
+		@make -C /libft
 
-fclean:	clean
-	@rm -f $(NAME) 
-	@$(MAKE) -C libft fclean
-	@$(MAKE) -C minilibx-linux fclean
+$(MLX42_A) :
+		(cd ./minilibx-linux && cmake -B build)
+		(cd ./minilibx-linux && cmake --build build -j4)
 
-re:	fclean all
+clean :
+		@rm -f $(OBJS) ./libft/libft.a
 
-.PHONY:	all, clean, fclean, re
+fclean :
+		@rm -f $(NAME) $(OBJS)
+
+re : fclean all
+
+.PHONY : clean fclean re hardclean

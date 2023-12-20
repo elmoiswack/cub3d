@@ -1,6 +1,18 @@
 #include "../../includes/cub3d.h"
 #include "stdlib.h"
 
+void	delete_textures(t_gamestruct *game)
+{
+	mlx_delete_texture(game->north_textu);
+	game->north_textu = NULL;
+	mlx_delete_texture(game->east_textu);
+	game->east_textu = NULL;
+	mlx_delete_texture(game->south_textu);
+	game->south_textu = NULL;
+	mlx_delete_texture(game->west_textu);
+	game->west_textu = NULL;
+}
+
 void	free_2d_array(char	**array)
 {
 	int i;
@@ -18,14 +30,7 @@ void	free_game_struct(t_gamestruct *game)
 {
 	if (!game)
 		return ;
-	if (game->north_textu)
-		mlx_delete_texture(game->north_textu);
-	if (game->east_textu)
-		mlx_delete_texture(game->east_textu);
-	if (game->south_textu)
-		mlx_delete_texture(game->south_textu);
-	if (game->west_textu)
-		mlx_delete_texture(game->west_textu);
+	delete_textures(game);
 	if (game->north)
 		mlx_delete_image(game->mlx, game->north);
 	if (game->east)
@@ -38,6 +43,10 @@ void	free_game_struct(t_gamestruct *game)
 		mlx_terminate(game->mlx);
 	if (game->map)
 		free_2d_array(game->map);
+	if (game->floor_rgb)
+		free(game->floor_rgb);
+	if (game->ceiling_rgb)
+		free(game->ceiling_rgb);
 	free(game);
 }
 

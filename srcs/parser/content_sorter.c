@@ -14,7 +14,7 @@ char	*line_into_struct(char	*line, t_parser *parser_s)
 		return (error_parser(parser_s, "allocation of line_into_struct failed"), NULL);
 	while (line[index] && (ft_isalpha(line[index]) || line[index] == ' '))
 		index++;
-	while (line[index])
+	while (line[index] && line[index] != '\n')
 	{
 		new_line[index_new] = line[index];
 		index++;

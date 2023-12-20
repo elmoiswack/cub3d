@@ -18,6 +18,11 @@ int	main(int argc, char *argv[])
 	if (!gamestruct)
 		error_parser(parser_s, "failed to allocate gamestruct!");
 	gamestruct = convert_data(parser_s, gamestruct);
+	gamestruct->mlx = mlx_init(1920, 1080, "cub3d", false);
+	if (!gamestruct->mlx)
+		error_convert(parser_s, gamestruct, "failed to initialize mlx!");
+	gamestruct = getting_images(parser_s, gamestruct);
+	placing_images(gamestruct);
 	error_convert(parser_s, gamestruct, "");
 	return (0);
 }

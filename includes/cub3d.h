@@ -1,10 +1,8 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include "../libft/libft.h"
-#include "../minilibx-linux/include/MLX42/MLX42.h"
-#include "../minilibx-linux/include/MLX42/MLX42_Int.h"
-#include "../minilibx-linux/include/MLX42/MLX42_Input.h"
+# include "../libft/libft.h"
+# include "../minilibx-linux/include/MLX42/MLX42.h"
 
 typedef struct s_parser
 {
@@ -95,8 +93,14 @@ int			ammount_input_rgb(char *line);
 
 
 
+//placing_images.c
+void			placing_images(t_gamestruct *game);
+
 //convert_data.c
 t_gamestruct	*convert_data(t_parser *parser_s, t_gamestruct *gamestruct);
+t_gamestruct	*getting_images(t_parser *parser, t_gamestruct *game);
+t_gamestruct	*texture_to_images(t_gamestruct *game, t_parser *parser);
+
 
 
 	//UTILS
@@ -105,6 +109,7 @@ t_gamestruct	*convert_data(t_parser *parser_s, t_gamestruct *gamestruct);
 void		free_parser_struct(t_parser *parser_s);
 void		free_game_struct(t_gamestruct *gamestruct);
 void		free_2d_array(char	**array);
+void			delete_textures(t_gamestruct *game);
 
 	//error.c
 void		error_parser( t_parser *parser_s, const char *str);

@@ -1,13 +1,5 @@
 #include "../includes/cub3d.h"
 
-void	delete_textures(t_gamestruct *game)
-{
-	mlx_delete_texture(game->north_textu);
-	mlx_delete_texture(game->east_textu);
-	mlx_delete_texture(game->south_textu);
-	mlx_delete_texture(game->west_textu);
-}
-
 t_gamestruct *texture_to_images(t_gamestruct *game, t_parser *parser)
 {
 	game->north = mlx_texture_to_image(game->mlx, game->north_textu);
@@ -28,7 +20,7 @@ t_gamestruct *texture_to_images(t_gamestruct *game, t_parser *parser)
 
 t_gamestruct *getting_images(t_parser *parser, t_gamestruct *game)
 {
-	game->north_textu = mlx_load_png(parser->n_texture);
+	game->north_textu = mlx_load_png("./textures/kisspng-bert-ernie-elmo-big-bird-cookie-monster-wall-hole-5adfbb633b4e06.9805700015246119392429.png");
 	if (!game->north_textu)
 		error_convert(parser, game, "failed to load northern texture!");
 	game->east_textu = mlx_load_png(parser->e_texture);
@@ -55,11 +47,5 @@ t_gamestruct *convert_data(t_parser *parser_s, t_gamestruct *gamestruct)
 	gamestruct->ceiling_rgb = ft_strdup(parser_s->rgb_ceiling);
 	if (!gamestruct->ceiling_rgb || !gamestruct->floor_rgb)
 		error_convert(parser_s, gamestruct, "failed to duplicate floor or ceiling colours!");
-	gamestruct->mlx = mlx_init(1920, 1080, "cub3d", false);
-	if (!gamestruct->mlx)
-		error_convert(parser_s, gamestruct, "failed to initialize mlx!");
-	for (int i = 0; i < 100000; i++)
-		i++;
-	gamestruct = getting_images(parser_s, gamestruct);
 	return (gamestruct);
 }
