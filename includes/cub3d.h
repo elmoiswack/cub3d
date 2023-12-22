@@ -19,6 +19,20 @@ typedef struct s_parser
 	char	start_direction;
 } t_parser;
 
+typedef struct s_playerdirections
+{
+	char		start_direction;
+	double		player_posx;
+	double		player_posy;
+	double		directionx;
+	double		directiony;
+	double		plane_x;
+	double		plane_y;
+	double		camerax;
+	double		raydir_x;
+	double		raydir_y;
+} t_playerinfo;
+
 typedef struct s_gamestruct
 {
 	mlx_texture_t *north_textu;
@@ -32,11 +46,13 @@ typedef struct s_gamestruct
 	char		*floor_rgb;
 	char		*ceiling_rgb;
 	char		**map;
-	int			start_x;
-	int			start_y;
-	char		start_direction;
 	mlx_t		*mlx;
 } t_gamestruct;
+
+# define SCREEN_WIDTH 1320
+# define SCREEN_HEIGHT 720
+
+
 
 	//MAIN.C
 int			main(int argc, char *argv[]);
@@ -44,6 +60,8 @@ int			main(int argc, char *argv[]);
 int			get_max_2d(char **array);
 char		**copy_2d_array(char **array);
 
+	//raycaster.c
+void	basic_raycaster(t_gamestruct *game, t_playerinfo *player);
 
 	//PARSER
 
@@ -97,7 +115,7 @@ int			ammount_input_rgb(char *line);
 void			placing_images(t_gamestruct *game);
 
 //convert_data.c
-t_gamestruct	*convert_data(t_parser *parser_s, t_gamestruct *gamestruct);
+t_gamestruct	*convert_data(t_parser *parser_s, t_gamestruct *gamestruct, t_playerinfo *player);
 t_gamestruct	*getting_images(t_parser *parser, t_gamestruct *game);
 t_gamestruct	*texture_to_images(t_gamestruct *game, t_parser *parser);
 
@@ -109,6 +127,10 @@ t_gamestruct	*texture_to_images(t_gamestruct *game, t_parser *parser);
 void		free_parser_struct(t_parser *parser_s);
 void		free_game_struct(t_gamestruct *gamestruct);
 void		free_2d_array(char	**array);
+void		free_all_structs(t_parser *parser_s, t_gamestruct *game, t_playerinfo *player);
+void	free_player_struct(t_playerinfo *player);
+
+	//mlx_free.c
 void			delete_textures(t_gamestruct *game);
 
 	//error.c

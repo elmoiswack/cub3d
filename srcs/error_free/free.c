@@ -1,18 +1,6 @@
 #include "../../includes/cub3d.h"
 #include "stdlib.h"
 
-void	delete_textures(t_gamestruct *game)
-{
-	mlx_delete_texture(game->north_textu);
-	game->north_textu = NULL;
-	mlx_delete_texture(game->east_textu);
-	game->east_textu = NULL;
-	mlx_delete_texture(game->south_textu);
-	game->south_textu = NULL;
-	mlx_delete_texture(game->west_textu);
-	game->west_textu = NULL;
-}
-
 void	free_2d_array(char	**array)
 {
 	int i;
@@ -24,6 +12,18 @@ void	free_2d_array(char	**array)
 		i++;
 	}
 	free(array);
+}
+
+void	free_all_structs(t_parser *parser_s, t_gamestruct *game, t_playerinfo *player)
+{
+	free_parser_struct(parser_s);
+	free_game_struct(game);
+	free_player_struct(player);
+}
+
+void	free_player_struct(t_playerinfo *player)
+{
+	free(player);
 }
 
 void	free_game_struct(t_gamestruct *game)

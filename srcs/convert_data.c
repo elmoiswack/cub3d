@@ -37,12 +37,12 @@ t_gamestruct *getting_images(t_parser *parser, t_gamestruct *game)
 }
 
 
-t_gamestruct *convert_data(t_parser *parser_s, t_gamestruct *gamestruct)
+t_gamestruct *convert_data(t_parser *parser_s, t_gamestruct *gamestruct, t_playerinfo *player)
 {
 	gamestruct->map = copy_2d_array(parser_s->map);
-	gamestruct->start_x = parser_s->start_posx;
-	gamestruct->start_y = parser_s->start_posy;
-	gamestruct->start_direction = parser_s->start_direction;
+	player->player_posx = parser_s->start_posx;
+	player->player_posy = parser_s->start_posy;
+	player->start_direction = parser_s->start_direction;
 	gamestruct->floor_rgb = ft_strdup(parser_s->rgb_floor);
 	gamestruct->ceiling_rgb = ft_strdup(parser_s->rgb_ceiling);
 	if (!gamestruct->ceiling_rgb || !gamestruct->floor_rgb)
