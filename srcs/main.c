@@ -25,7 +25,7 @@ int	main(int argc, char *argv[])
 	gamestruct->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d", false);
 	if (!gamestruct->mlx)
 		error_convert(parser_s, gamestruct, "failed to initialize mlx!");
-	// gamestruct = getting_images(parser_s, gamestruct);
+	//gamestruct = getting_images(parser_s, gamestruct);
 	// free_parser_struct(parser_s);
 	// placing_images(gamestruct);
 	basic_raycaster(gamestruct, player);

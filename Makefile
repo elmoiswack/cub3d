@@ -22,38 +22,50 @@ OBJDIR 	:= ./objs
 SRCS	:= $(addprefix $(SUBDIR),$(SRC))
 OBJS	:= 	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
-LIBFT_A	:= ./libft/libft.a
-MLX42_A	:= ./minilibx-linux/libmlx42.a
 
-CMP		:= gcc
-FLAGS 	:= -Werror -Wall -Wextra
-HEADERS	:= 	-I ./libft/-I includes/cub3d.h -I $(MLX)/include/ -I lib -Iinclude -ldl -lglfw -pthread -lm
+LIBFTLIB := ./libft
+LIBFT_A	:= ./libft/libft.a
+MLXLIB	:= ./minilibx-linux
+MLX42_A	:= ./minilibx-linux/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 LIBS	:= $(LIBFT_A) $(MLX42_A)
 
-all	: $(NAME)
+CMP		:= gcc 
+FLAGS 	:= -Wall -Wextra
+HEADER	:= -I ./includes/
+HEADERS	:= -I ./libft/ -I $(MLX)/include/
+
+ifdef DEBUG
+	CMP += -g -fsanitize=address
+endif
+
+ifdef VALGRIND
+	CMP += -g
+endif
+
+all: libmlx $(NAME)
+
+libmlx:
+	@cmake $(MLXLIB) -B $(MLXLIB)/build && make -C $(MLXLIB)/build -j4
+	@$(MAKE) -C libft
 
 $(NAME) : $(OBJS)
-		@make -C ./libft
-		@make -C ./minilibx-linux
-		@$(CMP) $^ $(LIBS) -o $(NAME)
+		$(CMP) $^ $(LIBS) -o $(NAME)
 
-$(OBJDIR)/%.o: $(SUBDIR)/%.c | $(OBJDIR)
-		@mkdir -p $(@D)
-		$(CMP) -c $(FLAGS) -o $@ $<
+$(OBJDIR)/%.o: $(SUBDIR)/%.c
+		mkdir -p $(@D)
+		$(CMP) $(FLAGS) -o $@ -c $<
 
-$(OBJDIR):
-	@mkdir $@
-
-clean:
+clean:	
+	@rm -rf $(MLXLIB)/build
 	@rm -rf $(OBJDIR)
 	@$(MAKE) -C libft clean
-	@$(MAKE) -C minilibx-linux clean
 
-fclean:	clean
-	@rm -f $(NAME) 
+fclean:
+	@rm -rf $(OBJDIR)
+	@rm -rf $(MLXLIB)/build
 	@$(MAKE) -C libft fclean
-	@$(MAKE) -C minilibx-linux fclean
+	@rm -f $(NAME)
 
-re : fclean all
+re: fclean all
 
-.PHONY : all clean fclean re
+.PHONY: all clean fclean re libmlx

@@ -108,7 +108,7 @@ int			check_range_rgb(char *line);
 	//rgb_content_utils.c
 int			overflow_check(char *line);
 int			ammount_input_rgb(char *line);
-
+void		convert_rgb_to_hex(t_gamestruct *game);
 
 
 //placing_images.c
