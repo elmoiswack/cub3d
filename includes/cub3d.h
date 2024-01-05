@@ -43,10 +43,12 @@ typedef struct s_gamestruct
 	mlx_image_t	*south;
 	mlx_image_t *west;
 	mlx_image_t *east;
+	mlx_image_t *raycaster_img;
 	char		*floor_rgb;
 	char		*ceiling_rgb;
 	char		**map;
 	mlx_t		*mlx;
+	t_playerinfo *player;
 } t_gamestruct;
 
 # define SCREEN_WIDTH 1320
@@ -62,6 +64,8 @@ char		**copy_2d_array(char **array);
 
 	//raycaster.c
 void	basic_raycaster(t_gamestruct *game, t_playerinfo *player);
+
+void	start_game(t_gamestruct *game, t_playerinfo *player);
 
 	//PARSER
 

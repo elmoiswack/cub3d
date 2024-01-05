@@ -15,35 +15,8 @@ int	compute_color(int r, int g, int b)
 	return (r << 24 | g << 16 | b << 8 | 255);
 }
 
-
-//void	basic_raycaster(t_gamestruct *game, t_playerinfo *player)
-//{
-
-	//MAKES THE ENTIRE SCREEN WHITE
-	// mlx_image_t *new_image = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	// mlx_image_to_window(game->mlx, new_image, 0, 0);
-	// int	color = compute_color(255, 255, 255);
-	// int y = 0;
-	// int	x = 0;
-	// while (y < (SCREEN_HEIGHT - 1))
-	// {
-	// 	x = 0;
-	// 	while (x < (SCREEN_WIDTH - 1))
-	// 	{
-	// 		mlx_put_pixel(new_image, x, y, color);
-	// 		x++;
-	// 	}
-	// 	printf("x = %i\ny = %i\n", x, y);
-	// 	y++;
-	// }
-
-	//mlx_loop(game->mlx);
-	//return ;
-//}
-
 void 	draw_line_screen(mlx_image_t *new_image, int x, int drstart, int drend, int colour)
 {
-	int y = 0;
 	while (drstart < drend)
 	{
 		mlx_put_pixel(new_image, x, drstart, colour);
@@ -68,15 +41,26 @@ void	basic_raycaster(t_gamestruct *game, t_playerinfo *player)
 	int	j = 0;
 	index = 0;
 	player = set_vars_player(player);
-	mlx_image_t *new_image = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	mlx_image_to_window(game->mlx, new_image, 0, 0);
+	if (!game->raycaster_img)
+	{
+		game->raycaster_img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+		mlx_image_to_window(game->mlx, game->raycaster_img, 0, 0);
+	}
+	else
+	{
+		mlx_delete_image(game->mlx, game->raycaster_img);
+		game->raycaster_img = NULL;
+		game->raycaster_img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+		mlx_image_to_window(game->mlx, game->raycaster_img, 0, 0);			
+	}
 	while (index < SCREEN_WIDTH)
 	{
 		player->camerax = 2 * index / (double)SCREEN_WIDTH - 1;
 		player->raydir_x = player->directionx + player->plane_x * player->camerax;
 		player->raydir_y = player->directiony + player->plane_y * player->camerax;
-		mapX = player->player_posx;
-		mapY = player->player_posy;
+		
+		mapX = player->player_posx;// - 0.5; //if i want the camera to be centered
+		mapY = player->player_posy;// - 0.5; //if i want the camera to be centered 
 
 		if (player->raydir_x == 0)
 			deltaDistX = 1e30;
@@ -128,8 +112,18 @@ void	basic_raycaster(t_gamestruct *game, t_playerinfo *player)
        		   mapY += stepY;
         	   side = 1;
        		}
-        	if(game->map[(int)mapX][(int)mapY] == '1')
+        	if(game->map[(int)mapY][(int)mapX] == '1')
+			{
 				hit = 1;
+				if ((mapY - 1 > 0) && (game->map[(int)(mapY - 1)][(int)mapX] == '0'))
+					j = 0;
+				else if ((mapY + 1 < get_max_2d(game->map)) && (game->map[(int)(mapY + 1)][(int)mapX] == '0'))
+					j = 1;
+				else if ((mapX - 1 > 0) && (game->map[(int)mapY][(int)(mapX - 1)] == '0'))
+					j = 2;
+				else if ((mapX + 1 < ft_strlen(game->map[(int)mapY])) && (game->map[(int)mapY][(int)(mapX + 1)] == '0'))
+					j = 3;
+			}
      	}
 		
 		if (side == 0)
@@ -144,15 +138,8 @@ void	basic_raycaster(t_gamestruct *game, t_playerinfo *player)
      	int drawEnd = lineheight / 2 + SCREEN_HEIGHT / 2;
 		if(drawEnd >= SCREEN_HEIGHT) 
 			drawEnd = SCREEN_HEIGHT - 1;
-		if (index == 400)
-			j++;
-		if (index == 600)
-			j++;
-		if (index == 900)
-			j++;
-		draw_line_screen(new_image, index, drawStart, drawEnd, colours[j]);
+		draw_line_screen(game->raycaster_img, index, drawStart, drawEnd, colours[j]);
 		index++;
 	}
-	mlx_loop(game->mlx);
 	return ;
 }

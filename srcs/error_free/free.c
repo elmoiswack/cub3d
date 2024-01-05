@@ -47,6 +47,7 @@ void	free_game_struct(t_gamestruct *game)
 		free(game->floor_rgb);
 	if (game->ceiling_rgb)
 		free(game->ceiling_rgb);
+	free_player_struct(game->player);
 	free(game);
 }
 

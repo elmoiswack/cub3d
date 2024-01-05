@@ -50,6 +50,7 @@ int	map_checker(char **map, t_parser *parser_s)
 		return (-1);
 	}
 	free_2d_array(map_copy);
+	map[parser_s->start_posy][parser_s->start_posx] = '0';
 	return (1);
 }
 

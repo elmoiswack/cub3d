@@ -22,14 +22,13 @@ int	main(int argc, char *argv[])
 	if (!player)
 		error_convert(parser_s, gamestruct, "failed to allocate player struct!");
 	gamestruct = convert_data(parser_s, gamestruct, player);
+	free_parser_struct(parser_s);
 	gamestruct->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d", false);
 	if (!gamestruct->mlx)
 		error_convert(parser_s, gamestruct, "failed to initialize mlx!");
-	//gamestruct = getting_images(parser_s, gamestruct);
-	// free_parser_struct(parser_s);
-	// placing_images(gamestruct);
-	basic_raycaster(gamestruct, player);
-	free_all_structs(parser_s, gamestruct, player);
+	start_game(gamestruct, player);
+	free_player_struct(player);
+	free_game_struct(gamestruct);
 	return (0);
 }
 
