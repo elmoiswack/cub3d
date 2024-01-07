@@ -16,3 +16,10 @@ void	error_convert(t_parser *parser, t_gamestruct *game, const char *str)
 	printf("%s\n", str);
 	exit(1);
 }
+
+void	error_game(t_gamestruct *game, const char *str)
+{
+	printf("%s\n", str);
+	free_game_struct(game);
+	exit(1);
+}

@@ -27,7 +27,6 @@ int	main(int argc, char *argv[])
 	if (!gamestruct->mlx)
 		error_convert(parser_s, gamestruct, "failed to initialize mlx!");
 	start_game(gamestruct, player);
-	free_player_struct(player);
 	free_game_struct(gamestruct);
 	return (0);
 }

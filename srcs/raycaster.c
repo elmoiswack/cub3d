@@ -59,8 +59,8 @@ void	basic_raycaster(t_gamestruct *game, t_playerinfo *player)
 		player->raydir_x = player->directionx + player->plane_x * player->camerax;
 		player->raydir_y = player->directiony + player->plane_y * player->camerax;
 		
-		mapX = player->player_posx;// - 0.5; //if i want the camera to be centered
-		mapY = player->player_posy;// - 0.5; //if i want the camera to be centered 
+		mapX = player->player_posx - 0.5; //if i want the camera to be centered
+		mapY = player->player_posy - 0.5; //if i want the camera to be centered 
 
 		if (player->raydir_x == 0)
 			deltaDistX = 1e30;

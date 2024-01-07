@@ -14,18 +14,6 @@ void	free_2d_array(char	**array)
 	free(array);
 }
 
-void	free_all_structs(t_parser *parser_s, t_gamestruct *game, t_playerinfo *player)
-{
-	free_parser_struct(parser_s);
-	free_game_struct(game);
-	free_player_struct(player);
-}
-
-void	free_player_struct(t_playerinfo *player)
-{
-	free(player);
-}
-
 void	free_game_struct(t_gamestruct *game)
 {
 	if (!game)
@@ -39,6 +27,14 @@ void	free_game_struct(t_gamestruct *game)
 		mlx_delete_image(game->mlx, game->west);
 	if (game->south)
 		mlx_delete_image(game->mlx, game->south);
+	if (game->minimap->screen_background)
+		mlx_delete_image(game->mlx, game->minimap->screen_background);
+	if (game->minimap->screen_floor)
+		mlx_delete_image(game->mlx, game->minimap->screen_floor);
+	if (game->minimap->screen_wall)
+		mlx_delete_image(game->mlx, game->minimap->screen_wall);
+	if (game->minimap->screen_player)
+		mlx_delete_image(game->mlx, game->minimap->screen_player);
 	if (game->mlx)
 		mlx_terminate(game->mlx);
 	if (game->map)
@@ -47,7 +43,8 @@ void	free_game_struct(t_gamestruct *game)
 		free(game->floor_rgb);
 	if (game->ceiling_rgb)
 		free(game->ceiling_rgb);
-	free_player_struct(game->player);
+	free(game->player);
+	free(game->minimap);
 	free(game);
 }
 

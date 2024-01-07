@@ -2,9 +2,9 @@ NAME 	:= cub3d
 
 SRC 	:= main.c \
 				utils.c \
-				placing_images.c \
 				raycaster.c \
 				game.c \
+				minimap.c \
 				parser/parser.c \
 				parser/map_opener.c \
 				parser/content_sorter.c \
