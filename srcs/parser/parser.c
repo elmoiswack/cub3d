@@ -33,11 +33,37 @@ t_parser *parser_checks(t_parser *parser_s)
 	return (parser_s);
 }
 
+int	transfer_colour(int r, int g, int b)
+{
+	return (r << 24 | g << 16 | b << 8 | 255);
+}
+
+int	transfer_rgb_to_int(char *rgb)
+{
+	int	r;
+	int	g;
+	int	b;
+	char	**temp;
+
+	temp = ft_split(rgb, ',');
+	if (!temp)
+		return (0);
+	r = ft_atoi(temp[0]);
+	g = ft_atoi(temp[1]);
+	b = ft_atoi(temp[2]);
+	free_2d_array(temp);
+	return (transfer_colour(r, g, b));
+}
+
 t_parser *parser(t_parser *parser_s, char *argv[])
 {
 	parser_s = get_info_map(parser_s, argv);
 	parser_s = sort_content(parser_s);
 	parser_s = parser_checks(parser_s);
+	parser_s->rgb_floor_int = transfer_rgb_to_int(parser_s->rgb_floor);
+	parser_s->rgb_ceiling_int = transfer_rgb_to_int(parser_s->rgb_ceiling);
+	if (parser_s->rgb_ceiling_int == 0 || parser_s->rgb_floor_int == 0 )
+		error_parser(parser_s, "failed to transfer rgb to uint");
 	//print_parser(parser_s);
 	return (parser_s);
 }

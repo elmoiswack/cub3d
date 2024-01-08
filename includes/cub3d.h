@@ -14,6 +14,8 @@ typedef struct s_parser
 	char	*w_texture;
 	char	*rgb_floor;
 	char	*rgb_ceiling;
+	uint32_t rgb_floor_int;
+	uint32_t rgb_ceiling_int;
 	int		start_posx;
 	int		start_posy;
 	char	start_direction;
@@ -56,8 +58,8 @@ typedef struct s_gamestruct
 	mlx_image_t *west;
 	mlx_image_t *east;
 	mlx_image_t *raycaster_img;
-	char		*floor_rgb;
-	char		*ceiling_rgb;
+	uint32_t	floor_rgb;
+	uint32_t	ceiling_rgb;
 	char		**map;
 	mlx_t		*mlx;
 	t_playerinfo *player;
@@ -81,7 +83,7 @@ void	basic_raycaster(t_gamestruct *game, t_playerinfo *player);
 
 void	start_game(t_gamestruct *game, t_playerinfo *player);
 
-int	compute_color(int r, int g, int b);
+int	transfer_colour(int r, int g, int b);
 
 	//minimap.c
 void		minimap(t_minimap *minimap);

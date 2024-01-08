@@ -43,9 +43,7 @@ t_gamestruct *convert_data(t_parser *parser_s, t_gamestruct *gamestruct, t_playe
 	player->player_posx = parser_s->start_posx;
 	player->player_posy = parser_s->start_posy;
 	player->start_direction = parser_s->start_direction;
-	gamestruct->floor_rgb = ft_strdup(parser_s->rgb_floor);
-	gamestruct->ceiling_rgb = ft_strdup(parser_s->rgb_ceiling);
-	if (!gamestruct->ceiling_rgb || !gamestruct->floor_rgb)
-		error_convert(parser_s, gamestruct, "failed to duplicate floor or ceiling colours!");
+	gamestruct->floor_rgb = parser_s->rgb_floor_int;
+	gamestruct->ceiling_rgb = parser_s->rgb_ceiling_int;
 	return (gamestruct);
 }

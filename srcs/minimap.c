@@ -24,7 +24,7 @@ void	mm_draw_background(t_minimap *minimap)
 		y = 0;
 		while (y < (MINIMAP_HEIGHT))
 		{
-			mlx_put_pixel(minimap->screen_background, x, y, compute_color(0, 0, 0));
+			mlx_put_pixel(minimap->screen_background, x, y, transfer_colour(0, 0, 0));
 			y++;
 		}
 		x++;
@@ -52,7 +52,7 @@ void	mm_make_walls(t_minimap *mini)
 		y = 0;
 		while (y < MINIMAP_WIDTH / 16)
 		{
-			mlx_put_pixel(mini->screen_wall, x, y, compute_color(255, 255, 255));
+			mlx_put_pixel(mini->screen_wall, x, y, transfer_colour(255, 255, 255));
 			y++;
 		}
 		x++;
@@ -101,7 +101,7 @@ void	mm_make_floors(t_minimap *mini)
 		y = 0;
 		while (y < MINIMAP_WIDTH / 16)
 		{
-			mlx_put_pixel(mini->screen_floor, x, y, compute_color(0, 255, 0));
+			mlx_put_pixel(mini->screen_floor, x, y, transfer_colour(0, 255, 0));
 			y++;
 		}
 		x++;
@@ -150,7 +150,7 @@ int x;
 		y = 0;
 		while (y < MINIMAP_WIDTH / 40)
 		{
-			mlx_put_pixel(mini->screen_player, x, y, compute_color(255, 0, 0));
+			mlx_put_pixel(mini->screen_player, x, y, transfer_colour(255, 0, 0));
 			y++;
 		}
 		x++;

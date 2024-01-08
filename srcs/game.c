@@ -11,8 +11,9 @@ void 	movement_player(void *param)
 		game->minimap->player_y = game->player->player_posy;
 		game->minimap->player_x = game->player->player_posx;
 		basic_raycaster(game, game->player);
-		mm_make_player(game->minimap);
-		mm_place_player(game->minimap);
+		// mm_make_player(game->minimap);
+		// mm_place_player(game->minimap);
+		minimap(game->minimap);
 	}
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_S) && (game->map[(int)(game->player->player_posy)][(int)(game->player->player_posx + 0.3)] != '1'))
 	{
@@ -20,8 +21,9 @@ void 	movement_player(void *param)
 		game->minimap->player_y = game->player->player_posy;
 		game->minimap->player_x = game->player->player_posx;
 		basic_raycaster(game, game->player);
-		mm_make_player(game->minimap);
-		mm_place_player(game->minimap);
+		// mm_make_player(game->minimap);
+		// mm_place_player(game->minimap);
+		minimap(game->minimap);
 	}
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_D) && (game->map[(int)(game->player->player_posy + 0.3)][(int)(game->player->player_posx)] != '1'))
 	{
@@ -29,8 +31,9 @@ void 	movement_player(void *param)
 		game->minimap->player_y = game->player->player_posy;
 		game->minimap->player_x = game->player->player_posx;
 		basic_raycaster(game, game->player);
-		mm_make_player(game->minimap);
-		mm_place_player(game->minimap);
+		// mm_make_player(game->minimap);
+		// mm_place_player(game->minimap);
+		minimap(game->minimap);
 	}
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_W) && (game->map[(int)(game->player->player_posy)][(int)(game->player->player_posx - 0.8)] != '1'))
 	{
@@ -38,8 +41,10 @@ void 	movement_player(void *param)
 		game->minimap->player_y = game->player->player_posy;
 		game->minimap->player_x = game->player->player_posx;
 		basic_raycaster(game, game->player);
-		mm_make_player(game->minimap);
-		mm_place_player(game->minimap);
+		// mm_make_player(game->minimap);
+		// mm_place_player(game->minimap);
+		minimap(game->minimap);
+
 	}
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{

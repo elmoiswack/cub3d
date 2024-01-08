@@ -3,8 +3,8 @@ SO ./textures/kisspng-cookie-monster-elmo-zoe-big-bird-ernie-cookie-monster-5ac2
 EA ./textures/kisspng-elmo-cookie-monster-oscar-the-grouch-ernie-big-bir-sesame-5abf4dc3815831.6555985015224867235298.png
 WE ./textures/kisspng-grover-ernie-elmo-bert-sesame-street-5-patitos-de-sesame-street-5ad7ef06905772.8839695915241008705912.png
 
-F 220,100,0
-C 255,30,0
+F 0,180,0
+C 0,60,0
 
 1111111111111111111111111
 1000000000110000000000001

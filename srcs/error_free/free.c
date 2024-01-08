@@ -39,10 +39,6 @@ void	free_game_struct(t_gamestruct *game)
 		mlx_terminate(game->mlx);
 	if (game->map)
 		free_2d_array(game->map);
-	if (game->floor_rgb)
-		free(game->floor_rgb);
-	if (game->ceiling_rgb)
-		free(game->ceiling_rgb);
 	free(game->player);
 	free(game->minimap);
 	free(game);
