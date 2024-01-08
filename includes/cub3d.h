@@ -38,6 +38,7 @@ typedef struct s_playerdirections
 typedef struct s_minimap
 {
 	bool		redraw;
+	bool		open;
 	char		**file_map;
 	double		player_x;
 	double		player_y;
@@ -73,6 +74,9 @@ typedef struct s_gamestruct
 # define MINIMAP_WIDTH (SCREEN_WIDTH / 4)
 # define MINIMAP_HEIGHT (SCREEN_HEIGHT / 4)
 
+# define FULLMAP_WIDTH (SCREEN_WIDTH - 100)
+# define FULLMAP_HEIGHT (SCREEN_HEIGHT - 80)
+
 	//MAIN.C
 int			main(int argc, char *argv[]);
 	//utils.c
@@ -87,20 +91,32 @@ void	start_game(t_gamestruct *game, t_playerinfo *player);
 int	transfer_colour(int r, int g, int b);
 
 	//minimap.c
-void	minimap(t_minimap *minimap);
+void	create_minimap(t_minimap *minimap);
 void	minimap_check(t_minimap *minimap);
 
 	//creating.c
 void	mm_make_walls(t_minimap *mini);
 void	mm_make_floors(t_minimap *mini);
 void	mm_make_player(t_minimap *mini);
-
 	//placing.c
 void	mm_draw_background(t_minimap *minimap);
 void	mm_place_walls(t_minimap *mini);
 void	mm_place_floors(t_minimap *mini);
 void	mm_place_player(t_minimap *mini);
 
+	//fullmap.c
+void 	minimap_fullmap_window(t_minimap *mini);
+void 	minimap_close_fullmap(t_minimap *mini);
+
+	//fm_creating.c
+void	fullmap_make_player(t_minimap *mini);
+void	fullmap_make_floors(t_minimap *mini);
+void	fullmap_make_walls(t_minimap *mini);
+
+	//fm_placing.c
+void	fullmap_place_player(t_minimap *mini);
+void	fullmap_place_floors(t_minimap *mini);
+void	fullmap_place_walls(t_minimap *mini);
 
 	//PARSER
 

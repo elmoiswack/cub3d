@@ -7,6 +7,9 @@ SRC 	:= main.c \
 				minimap/minimap.c \
 				minimap/creating.c \
 				minimap/placing.c \
+				minimap/fullmap.c \
+				minimap/fm_creating.c \
+				minimap/fm_placing.c \
 				parser/parser.c \
 				parser/map_opener.c \
 				parser/content_sorter.c \
