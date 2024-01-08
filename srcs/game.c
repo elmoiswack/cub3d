@@ -1,5 +1,8 @@
 #include "../includes/cub3d.h"
 
+//if a key is pressed and the conditions are met, the player posx or posy are changed
+//because the player position has changed, we need to redraw the screen coherrently
+//this will be done by the raycaster with the updated positions and the minimap
 void 	movement_player(void *param)
 {
 	t_gamestruct *game;
@@ -54,6 +57,9 @@ void 	movement_player(void *param)
 	}
 }
 
+//this is the main start of the game
+//the raycaster creates the line be drawn on the screen, this loop goes on untill you have cover the entire screen
+//mlx_loop starts the game loop
 void	start_game(t_gamestruct *game, t_playerinfo *player)
 {
 	game->player = player;
@@ -65,7 +71,9 @@ void	start_game(t_gamestruct *game, t_playerinfo *player)
 	game->minimap->mlx = game->mlx;
 	game->minimap->player_y = game->player->player_posy;
 	game->minimap->player_x = game->player->player_posx;
+	game->minimap->redraw = true;
 	minimap(game->minimap);
+	game->minimap->redraw = false;
 	mlx_loop_hook(game->mlx, &movement_player, game);
 	mlx_loop(game->mlx);
 	mlx_close_window(game->mlx);

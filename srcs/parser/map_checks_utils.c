@@ -7,6 +7,7 @@ int	is_whitespace(char c)
 	return (-1);
 }
 
+//only the valid chars that are accepted inside the map
 int	valid_char(char c)
 {
 	if (c == 'N')

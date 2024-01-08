@@ -4,7 +4,9 @@ SRC 	:= main.c \
 				utils.c \
 				raycaster.c \
 				game.c \
-				minimap.c \
+				minimap/minimap.c \
+				minimap/creating.c \
+				minimap/placing.c \
 				parser/parser.c \
 				parser/map_opener.c \
 				parser/content_sorter.c \

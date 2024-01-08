@@ -1,6 +1,8 @@
 #include "../../includes/cub3d.h"
 #include "stdio.h"
 
+//this ft copies the line passed into a new_line and returns it
+//this line will be put into the struct in another function but this is used as a copy ft
 char	*line_into_struct(char	*line, t_parser *parser_s)
 {
 	char	*new_line;
@@ -23,6 +25,7 @@ char	*line_into_struct(char	*line, t_parser *parser_s)
 	return (new_line);
 }
 
+//places all of the content from the full_file into the parser struct except for the map itself
 t_parser *get_textures_rgb_path(t_parser *parser_s)
 {
 	int	index;
@@ -47,6 +50,7 @@ t_parser *get_textures_rgb_path(t_parser *parser_s)
 	return (parser_s);
 }
 
+//gets the index on which the map starts in full_file
 int	get_start_map(t_parser *parser_s)
 {
 	int	index;
@@ -69,6 +73,7 @@ int	get_start_map(t_parser *parser_s)
 	return (-1);	
 }
 
+//this allocates and copies the map from full_file into parser_s->map
 t_parser *get_map(t_parser *parser_s , int index)
 {
 	int	count;
@@ -94,6 +99,8 @@ t_parser *get_map(t_parser *parser_s , int index)
 	return (parser_s);
 }
 
+//the main of putting everything into the right place of full_file
+//so putting all the corresponding values of full_file into the struct
 t_parser *sort_content(t_parser *parser_s)
 {
 	int	index;
