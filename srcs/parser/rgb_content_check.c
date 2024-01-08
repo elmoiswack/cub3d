@@ -1,6 +1,8 @@
 #include "../../includes/cub3d.h"
 #include "stdio.h"
 
+//checks if there are letters inside of the texture adresses
+//if not, the texture is 100% invalid because it's in a folder called textures
 int	alpha_in_texture(char *line)
 {
 	int	index;
@@ -19,6 +21,8 @@ int	alpha_in_texture(char *line)
 	return (1);
 }
 
+//checks if there are only numbers and a ','
+//the ',' is used to seperate the r, g and b
 int	check_chars_rgb(char *line)
 {
 	int	index;
@@ -33,6 +37,8 @@ int	check_chars_rgb(char *line)
 	return (1);
 }
 
+//checks that the current r, g or b is between 0 and 255
+//if not, it is an invalid r, g or b value and -1 is returned
 int	range_compare(char *line)
 {
 	int	temp;
@@ -49,6 +55,7 @@ int	range_compare(char *line)
 	return (1);
 }
 
+//the ft is a loop checks if the entire rgb is valid
 int	check_range_rgb(char *line)
 {
 	int		index;

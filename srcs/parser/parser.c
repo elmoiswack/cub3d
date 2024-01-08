@@ -1,29 +1,7 @@
 #include "../../includes/cub3d.h"
 #include "stdio.h"
 
-void	print_parser(t_parser *parser_s)
-{
-	int	j = 0;
-
-	printf("NO = %s\n", parser_s->n_texture);
-	printf("SO = %s\n", parser_s->s_texture);
-	printf("EA = %s\n", parser_s->e_texture);
-	printf("WE = %s\n", parser_s->w_texture);
-	printf("C = %s\n", parser_s->rgb_ceiling);
-	printf("F = %s\n", parser_s->rgb_floor);
-	printf("\n");
-	if (parser_s->map)
-	{
-		printf("MAP\n");
-		while (parser_s->map[j])
-		{
-			printf("%s", parser_s->map[j]);
-			j++;
-		}
-	}
-	return ;
-}
-
+//safety checks for the parser
 t_parser *parser_checks(t_parser *parser_s)
 {
 	if (are_there_empty_inputs(parser_s) == -1)
@@ -33,11 +11,13 @@ t_parser *parser_checks(t_parser *parser_s)
 	return (parser_s);
 }
 
+//transfers the idividual r,g,b into a single uint32_t
 int	transfer_colour(int r, int g, int b)
 {
 	return (r << 24 | g << 16 | b << 8 | 255);
 }
 
+//turns a string of rgb number into a uint32_t
 int	transfer_rgb_to_int(char *rgb)
 {
 	int	r;
@@ -54,6 +34,8 @@ int	transfer_rgb_to_int(char *rgb)
 	free_2d_array(temp);
 	return (transfer_colour(r, g, b));
 }
+
+//beginning of the parser
 
 t_parser *parser(t_parser *parser_s, char *argv[])
 {

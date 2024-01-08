@@ -1,6 +1,8 @@
 #include "../../includes/cub3d.h"
 #include <fcntl.h>
 
+//this checks if the file passed in argv ends with .cub
+//only that is checks in reverse, so it checks for buc.
 int	check_argv(char **argv)
 {
 	const char str[] = "buc.";
@@ -19,7 +21,8 @@ int	check_argv(char **argv)
 	return (1);
 }
 
-int	get_content_into_line(int fd)
+//this ft counts how many lines there are in a file so that we can allocate the 2d array
+int	how_many_lines(int fd)
 {
 	char	*gnl_line;
 	int		count;
@@ -37,6 +40,7 @@ int	get_content_into_line(int fd)
 	return (count);
 }
 
+//this ft places the file using get_next_line into the 2d arrray
 char	**get_content_into_array(char **array, int fd, int count)
 {
 	int index;
@@ -52,12 +56,13 @@ char	**get_content_into_array(char **array, int fd, int count)
 	return (array);
 }
 
+//this ft allocates a 2d array to store the map in
 char	**get_content_map(int fd, char *argv[])
 {
 	char	**array;
 	int		count;
 
-	count = get_content_into_line(fd);
+	count = how_many_lines(fd);
 	if (count == -1)
 		return (NULL);
 	array = ft_calloc(count + 1, sizeof(char *));
@@ -74,6 +79,7 @@ char	**get_content_map(int fd, char *argv[])
 	return (array);
 }
 
+//the main of getting the entire file into full_file
 t_parser *get_info_map(t_parser *parser_s, char *argv[])
 {
 	int	fd;

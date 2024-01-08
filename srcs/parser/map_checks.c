@@ -1,6 +1,8 @@
 #include "../../includes/cub3d.h"
 #include "stdio.h"
 
+//ft checks how many start_positions there are
+//if there isn't one, -1 is returned and when there are more then 1 start_positions
 int	check_howmany_start(char **map)
 {
 	int	count;
@@ -26,6 +28,7 @@ int	check_howmany_start(char **map)
 	return (1);
 }
 
+//gets the start_position of the player and the direction they are facing
 void	get_start_pos(char **map, int *x, int *y, char *start_derection)
 {
 	int	index;
@@ -52,6 +55,7 @@ void	get_start_pos(char **map, int *x, int *y, char *start_derection)
 	return ;
 }
 
+//checks all the chars in the map to see if there is an invalid char
 int	check_char_map(char	**map)
 {
 	int	index;
@@ -74,6 +78,8 @@ int	check_char_map(char	**map)
 	return (1);
 }
 
+//checks the border of the map
+//say there are whitespaces inbetween walls, it skips them to check if the next occurence of a char is a '1'
 int	border_check(char **map)
 {
 	int	index;

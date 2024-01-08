@@ -1,5 +1,6 @@
 #include "../includes/cub3d.h"
 
+//converts all the textures we have into usable images for mlx
 t_gamestruct *texture_to_images(t_gamestruct *game, t_parser *parser)
 {
 	game->north = mlx_texture_to_image(game->mlx, game->north_textu);
@@ -18,9 +19,10 @@ t_gamestruct *texture_to_images(t_gamestruct *game, t_parser *parser)
 	return (game);
 }
 
+//loading all paths of the textures we got from the parser and puts them into a mlx_texture_t in the game_struct
 t_gamestruct *getting_images(t_parser *parser, t_gamestruct *game)
 {
-	game->north_textu = mlx_load_png("./textures/kisspng-bert-ernie-elmo-big-bird-cookie-monster-wall-hole-5adfbb633b4e06.9805700015246119392429.png");
+	game->north_textu = mlx_load_png(parser->n_texture);
 	if (!game->north_textu)
 		error_convert(parser, game, "failed to load northern texture!");
 	game->east_textu = mlx_load_png(parser->e_texture);
@@ -36,7 +38,7 @@ t_gamestruct *getting_images(t_parser *parser, t_gamestruct *game)
 	return (game);
 }
 
-
+//puts everything that we gathered from the parser into the gamestruct and playerstruct
 t_gamestruct *convert_data(t_parser *parser_s, t_gamestruct *gamestruct, t_playerinfo *player)
 {
 	gamestruct->map = copy_2d_array(parser_s->map);
