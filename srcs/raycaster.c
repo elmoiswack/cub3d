@@ -1,12 +1,38 @@
 #include "../includes/cub3d.h"
 #include <math.h>
 
+//With this function the goal is having a different player view when the user select a different
+//spawn direction.
 t_playerinfo *set_vars_player(t_playerinfo *player)
 {
-	player->directionx = -1;
-	player->directiony = 0;
-	player->plane_x = 0;
-	player->plane_y = 0.66;
+	if (player->start_direction == 'N')
+	{
+		player->directionx = -1;
+		player->directiony = 0;
+		player->plane_x = 0;
+		player->plane_y = 0.66;
+	}
+	else if (player->start_direction == 'S')
+	{
+		player->directionx = 1;
+		player->directiony = 0;
+		player->plane_x = 0;
+		player->plane_y = -0.66;
+	}
+	else if (player->start_direction == 'E')
+	{
+		player->directionx = 0;
+		player->directiony = -1;
+		player->plane_x = -0.66;
+		player->plane_y = 0;
+	}
+	else if (player->start_direction == 'W')
+	{
+		player->directionx = 0;
+		player->directiony = 1;
+		player->plane_x = 0.66;
+		player->plane_y = 0;
+	}
 	return (player);
 }
 
