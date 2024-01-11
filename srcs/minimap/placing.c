@@ -33,51 +33,19 @@ void	mm_draw_background(t_minimap *minimap)
 }
 
 //draws the walls onto the screen
-void	mm_place_walls(t_minimap *mini)
+void	mm_place_walls(t_minimap *mini, int x, int y)
 {
-	int	x;
-	int	y;
-
-	y = 0;
-	while (mini->file_map[y])
-	{
-		x = 0;
-		while (mini->file_map[y][x])
-		{
-			if (mini->file_map[y][x] == '1')
-			{
-				mlx_image_to_window(mini->mlx, mini->screen_wall, (x * MINIMAP_WIDTH / 30 + (MINIMAP_WIDTH / 11)), (y * MINIMAP_HEIGHT / 10 + (MINIMAP_WIDTH / 15)));
-			}
-			x++;
-		}
-		y++;
-	}
+	mlx_image_to_window(mini->mlx, mini->screen_wall, (x * (MINIMAP_WIDTH / 3)), (y * (MINIMAP_HEIGHT / 3)));
 }
 
 //draws the floors onto the screen
-void	mm_place_floors(t_minimap *mini)
+void	mm_place_floors(t_minimap *mini, int x, int y)
 {
-	int	x;
-	int	y;
-
-	y = 0;
-	while (mini->file_map[y])
-	{
-		x = 0;
-		while (mini->file_map[y][x])
-		{
-			if (mini->file_map[y][x] == '0')
-			{
-				mlx_image_to_window(mini->mlx, mini->screen_floor, (x * MINIMAP_WIDTH / 30 + (MINIMAP_WIDTH / 11)), (y * MINIMAP_HEIGHT / 10 + (MINIMAP_WIDTH / 15)));
-			}
-			x++;
-		}
-		y++;
-	}
+	mlx_image_to_window(mini->mlx, mini->screen_floor, (x * (MINIMAP_WIDTH / 3)), (y * (MINIMAP_HEIGHT / 3)));
 }
 
 //draws the player onto the screen
 void	mm_place_player(t_minimap *mini)
 {
-	mlx_image_to_window(mini->mlx, mini->screen_player, ((mini->player_x - 0.5) * MINIMAP_WIDTH / 30 + (MINIMAP_WIDTH / 11)), ((mini->player_y - 0.5) * MINIMAP_HEIGHT / 10 + (MINIMAP_WIDTH / 15)));
+	mlx_image_to_window(mini->mlx, mini->screen_player, MINIMAP_WIDTH / 2 - 23, MINIMAP_HEIGHT / 2 + 23);
 }

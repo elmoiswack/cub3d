@@ -14,7 +14,7 @@ void	fullmap_place_walls(t_minimap *mini)
 		{
 			if (mini->file_map[y][x] == '1')
 			{
-				mlx_image_to_window(mini->mlx, mini->screen_wall, (x * FULLMAP_WIDTH / 40 + (FULLMAP_WIDTH / 25) + 45), (y * FULLMAP_HEIGHT / 40 + (FULLMAP_WIDTH / 25) + 25));
+				mlx_image_to_window(mini->mlx, mini->fullm_wall, (x * FULLMAP_WIDTH / 27.8 + (FULLMAP_WIDTH / 15.5) + 40), (y * FULLMAP_HEIGHT / 9 + (FULLMAP_HEIGHT / 10) + 25));
 			}
 			x++;
 		}
@@ -37,7 +37,7 @@ void	fullmap_place_floors(t_minimap *mini)
 		{
 			if (mini->file_map[y][x] == '0')
 			{
-				mlx_image_to_window(mini->mlx, mini->screen_floor, (x * FULLMAP_WIDTH / 40 + (FULLMAP_WIDTH / 25) + 45), (y * FULLMAP_HEIGHT / 40 + (FULLMAP_WIDTH / 25) + 25));
+				mlx_image_to_window(mini->mlx, mini->fullm_floor, (x * FULLMAP_WIDTH / 40 + (FULLMAP_WIDTH / 25) + 40), (y * FULLMAP_HEIGHT / 40 + (FULLMAP_WIDTH / 25) + 25));
 			}
 			x++;
 		}
@@ -49,5 +49,5 @@ void	fullmap_place_floors(t_minimap *mini)
 //draws the player onto the screen
 void	fullmap_place_player(t_minimap *mini)
 {
-	mlx_image_to_window(mini->mlx, mini->screen_player, ((mini->player_x - 0.5) * FULLMAP_WIDTH / 160 + (FULLMAP_WIDTH / 122)), ((mini->player_y - 0.5) * FULLMAP_HEIGHT / 40 + (FULLMAP_WIDTH / 35)));
+	mlx_image_to_window(mini->mlx, mini->fullm_player, ((mini->player_x - 0.5) * FULLMAP_WIDTH / 27.8 + (FULLMAP_WIDTH / 15.5) + 40), (mini->player_y * FULLMAP_HEIGHT / 19 + (FULLMAP_WIDTH / 10) + 25));
 }

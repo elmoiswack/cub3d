@@ -37,8 +37,7 @@ typedef struct s_playerdirections
 
 typedef struct s_minimap
 {
-	bool		redraw;
-	bool		open;
+	bool        fm_open;
 	char		**file_map;
 	double		player_x;
 	double		player_y;
@@ -47,6 +46,10 @@ typedef struct s_minimap
 	mlx_image_t *screen_wall;
 	mlx_image_t *screen_floor;
 	mlx_image_t *screen_player;
+	mlx_image_t	*fullm_background;
+	mlx_image_t *fullm_wall;
+	mlx_image_t *fullm_floor;
+	mlx_image_t *fullm_player;
 } t_minimap;
 
 typedef struct s_gamestruct
@@ -100,8 +103,8 @@ void	mm_make_floors(t_minimap *mini);
 void	mm_make_player(t_minimap *mini);
 	//placing.c
 void	mm_draw_background(t_minimap *minimap);
-void	mm_place_walls(t_minimap *mini);
-void	mm_place_floors(t_minimap *mini);
+void	mm_place_walls(t_minimap *mini, int x, int y);
+void	mm_place_floors(t_minimap *mini, int x, int y);
 void	mm_place_player(t_minimap *mini);
 
 	//fullmap.c
