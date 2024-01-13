@@ -59,3 +59,22 @@ void	fullmap_make_player(t_minimap *mini)
 		x++;
 	}		
 }
+
+void	fullmap_make_background(t_minimap *mini)
+{
+	int	x;
+	int y;
+
+	mini->fullm_background = mlx_new_image(mini->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	x = 0;
+	while (x < SCREEN_WIDTH)
+	{
+		y = 0;
+		while (y < SCREEN_HEIGHT)
+		{
+			mlx_put_pixel(mini->fullm_background, x, y, transfer_colour(0, 0, 0));
+			y++;
+		}
+		x++;
+	}
+}

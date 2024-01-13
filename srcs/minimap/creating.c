@@ -8,16 +8,7 @@ void	mm_make_walls(t_minimap *mini)
 	int y;
 
 	x = 0;
-	if (!mini->screen_wall)
-	{
-		mini->screen_wall = mlx_new_image(mini->mlx, MINIMAP_WIDTH / 3, MINIMAP_WIDTH / 3);
-	}
-	else
-	{
-		mlx_delete_image(mini->mlx, mini->screen_wall);
-		mini->screen_wall = NULL;
-		mini->screen_wall = mlx_new_image(mini->mlx, MINIMAP_WIDTH / 3, MINIMAP_WIDTH / 3);	
-	}
+	mini->screen_wall = mlx_new_image(mini->mlx, MINIMAP_WIDTH / 3, MINIMAP_WIDTH / 3);
 	while (x < MINIMAP_WIDTH / 3)
 	{
 		y = 0;
@@ -37,16 +28,7 @@ void	mm_make_floors(t_minimap *mini)
 	int y;
 
 	x = 0;
-	if (!mini->screen_floor)
-	{
-		mini->screen_floor = mlx_new_image(mini->mlx, MINIMAP_WIDTH / 3, MINIMAP_WIDTH / 3);
-	}
-	else
-	{
-		mlx_delete_image(mini->mlx, mini->screen_floor);
-		mini->screen_floor = NULL;
-		mini->screen_floor = mlx_new_image(mini->mlx, MINIMAP_WIDTH / 3, MINIMAP_WIDTH / 3);	
-	}
+	mini->screen_floor = mlx_new_image(mini->mlx, MINIMAP_WIDTH / 3, MINIMAP_WIDTH / 3);
 	while (x < MINIMAP_WIDTH / 3)
 	{
 		y = 0;
@@ -66,16 +48,7 @@ void	mm_make_player(t_minimap *mini)
 	int y;
 
 	x = 0;
-	if (!mini->screen_player)
-	{
-		mini->screen_player = mlx_new_image(mini->mlx, MINIMAP_WIDTH / 20, MINIMAP_WIDTH / 20);
-	}
-	else
-	{
-		mlx_delete_image(mini->mlx, mini->screen_player);
-		mini->screen_player = NULL;
-		mini->screen_player = mlx_new_image(mini->mlx, MINIMAP_WIDTH / 20, MINIMAP_WIDTH / 20);	
-	}
+	mini->screen_player = mlx_new_image(mini->mlx, MINIMAP_WIDTH / 20, MINIMAP_WIDTH / 20);
 	while (x < MINIMAP_WIDTH / 20)
 	{
 		y = 0;

@@ -37,7 +37,6 @@ typedef struct s_playerdirections
 
 typedef struct s_minimap
 {
-	bool        fm_open;
 	char		**file_map;
 	double		player_x;
 	double		player_y;
@@ -95,12 +94,16 @@ int	transfer_colour(int r, int g, int b);
 
 	//minimap.c
 void	create_minimap(t_minimap *minimap);
-void	minimap_check(t_minimap *minimap);
+void	delete_minimap(t_minimap *mini);
+void	allocate_images(t_minimap *mini);
+void	enable_minimap(t_minimap *mini);
+void	disable_minimap(t_minimap *mini);
 
 	//creating.c
 void	mm_make_walls(t_minimap *mini);
 void	mm_make_floors(t_minimap *mini);
 void	mm_make_player(t_minimap *mini);
+
 	//placing.c
 void	mm_draw_background(t_minimap *minimap);
 void	mm_place_walls(t_minimap *mini, int x, int y);
@@ -108,18 +111,24 @@ void	mm_place_floors(t_minimap *mini, int x, int y);
 void	mm_place_player(t_minimap *mini);
 
 	//fullmap.c
-void 	minimap_fullmap_window(t_minimap *mini);
-void 	minimap_close_fullmap(t_minimap *mini);
+void	allocate_fullmap(t_minimap *mini);
+void 	place_fullmap(t_minimap *mini);
+void	disable_fullmap(t_minimap *mini);
+void	enable_fullmap(t_minimap *mini);
+void	delete_fullmap(t_minimap *minimap);
+void	create_fullmap(t_minimap *mini);
 
 	//fm_creating.c
 void	fullmap_make_player(t_minimap *mini);
 void	fullmap_make_floors(t_minimap *mini);
 void	fullmap_make_walls(t_minimap *mini);
+void	fullmap_make_background(t_minimap *mini);
 
 	//fm_placing.c
 void	fullmap_place_player(t_minimap *mini);
 void	fullmap_place_floors(t_minimap *mini);
 void	fullmap_place_walls(t_minimap *mini);
+void	fullmap_place_background(t_minimap *mini);
 
 	//PARSER
 

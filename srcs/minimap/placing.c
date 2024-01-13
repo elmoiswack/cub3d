@@ -8,18 +8,8 @@ void	mm_draw_background(t_minimap *minimap)
 	int y;
 
 	x = 0;
-	if (!minimap->screen_background)
-	{
-		minimap->screen_background = mlx_new_image(minimap->mlx, (MINIMAP_WIDTH), (MINIMAP_HEIGHT));
-		mlx_image_to_window(minimap->mlx, minimap->screen_background, 0, 0);
-	}
-	else
-	{
-		mlx_delete_image(minimap->mlx, minimap->screen_background);
-		minimap->screen_background = NULL;
-		minimap->screen_background = mlx_new_image(minimap->mlx, MINIMAP_WIDTH, (MINIMAP_HEIGHT));
-		mlx_image_to_window(minimap->mlx, minimap->screen_background, 0, 0);		
-	}
+	minimap->screen_background = mlx_new_image(minimap->mlx, (MINIMAP_WIDTH), (MINIMAP_HEIGHT));
+	mlx_image_to_window(minimap->mlx, minimap->screen_background, 0, 0);
 	while (x < MINIMAP_WIDTH)
 	{
 		y = 0;

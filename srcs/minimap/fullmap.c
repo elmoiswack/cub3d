@@ -1,39 +1,47 @@
 #include "../../includes/cub3d.h"
 #include <stdio.h>
 
-void	fullmap_place_background(t_minimap *mini)
-{
-	int	x;
-	int y;
-	
-	mini->fullm_background = mlx_new_image(mini->mlx, FULLMAP_WIDTH, FULLMAP_HEIGHT);
-	mlx_image_to_window(mini->mlx, mini->fullm_background, 20, 15);
-	x = 40;
-	while (x < FULLMAP_WIDTH)
-	{
-		y = 25;
-		while (y < FULLMAP_HEIGHT)
-		{
-			mlx_put_pixel(mini->fullm_background, x, y, transfer_colour(0, 0, 0));
-			y++;
-		}
-		x++;
-	}
-}
-
-void 	minimap_fullmap_window(t_minimap *mini)
+void	allocate_fullmap(t_minimap *mini)
 {
 	fullmap_make_floors(mini);
-	fullmap_make_walls(mini);
 	fullmap_make_player(mini);
+	fullmap_make_walls(mini);
+	fullmap_make_background(mini);
+}
+
+void 	place_fullmap(t_minimap *mini)
+{
 	fullmap_place_background(mini);
 	fullmap_place_floors(mini);
 	fullmap_place_walls(mini);
 	fullmap_place_player(mini);
-	mini->fm_open = true;
 }
 
-void	minimap_close_fullmap(t_minimap *minimap)
+void	create_fullmap(t_minimap *mini)
+{
+	allocate_fullmap(mini);
+	place_fullmap(mini);
+}
+
+void	disable_fullmap(t_minimap *mini)
+{
+	mini->fullm_background->enabled = false;
+	mini->fullm_floor->enabled = false;
+	mini->fullm_wall->enabled = false;
+	mini->fullm_player->enabled = false;
+	mlx_delete_image(mini->mlx, mini->fullm_player);
+}
+
+void	enable_fullmap(t_minimap *mini)
+{
+	mini->fullm_background->enabled = true;
+	mini->fullm_floor->enabled = true;
+	mini->fullm_wall->enabled = true;
+	fullmap_make_player(mini);
+	fullmap_place_player(mini);
+}
+
+void	delete_fullmap(t_minimap *minimap)
 {
 	if (minimap->fullm_background)
 	{
@@ -55,5 +63,4 @@ void	minimap_close_fullmap(t_minimap *minimap)
 	   mlx_delete_image(minimap->mlx, minimap->fullm_wall);
     	minimap->fullm_wall = NULL;
 	}
-	minimap->fm_open = false;
 }

@@ -22,7 +22,6 @@ void	fullmap_place_walls(t_minimap *mini)
 	}
 }
 
-
 //draws the floors onto the screen
 void	fullmap_place_floors(t_minimap *mini)
 {
@@ -43,6 +42,11 @@ void	fullmap_place_floors(t_minimap *mini)
 		}
 		y++;
 	}
+}
+
+void	fullmap_place_background(t_minimap *mini)
+{
+	mlx_image_to_window(mini->mlx, mini->fullm_background, 0, 0);
 }
 
 
