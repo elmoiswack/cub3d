@@ -161,6 +161,7 @@ void	enable_minimap(t_minimap *mini)
 	mini->screen_floor->enabled = true;
 	mini->screen_player->enabled = true;
 	mini->screen_wall->enabled = true;
+	mini->minimap_enabled = true;
 }
 
 void	disable_minimap(t_minimap *mini)
@@ -169,6 +170,7 @@ void	disable_minimap(t_minimap *mini)
 	mini->screen_floor->enabled = false;
 	mini->screen_player->enabled = false;
 	mini->screen_wall->enabled = false;
+	mini->minimap_enabled = false;
 }
 
 void	delete_minimap(t_minimap *mini)

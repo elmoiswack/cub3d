@@ -8,48 +8,56 @@ void 	movement_player(void *param)
 	t_gamestruct *game;
 
 	game = (t_gamestruct *)param;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_A) && (game->map[(int)(game->player->player_posy - 0.8)][(int)(game->player->player_posx)] != '1'))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A) && (game->map[(int)(game->player->player_posy - 0.5)][(int)(game->player->player_posx)] != '1'))
 	{
-		disable_fullmap(game->minimap);
-		enable_minimap(game->minimap);
+		if (game->minimap->fullmap_enabled == true)
+			disable_fullmap(game->minimap);
 		game->raycaster_img->enabled = true;
 		game->player->player_posy -= 0.2;
 		game->minimap->player_y = game->player->player_posy;
 		game->minimap->player_x = game->player->player_posx;
 		basic_raycaster(game, game->player);
+		if (game->minimap->minimap_enabled == false)
+			enable_minimap(game->minimap);
 		create_minimap(game->minimap);
 	}
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_S) && (game->map[(int)(game->player->player_posy)][(int)(game->player->player_posx + 0.3)] != '1'))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_S) && (game->map[(int)(game->player->player_posy)][(int)(game->player->player_posx + 0.5)] != '1'))
 	{
-		disable_fullmap(game->minimap);
-		enable_minimap(game->minimap);
+		if (game->minimap->fullmap_enabled == true)
+			disable_fullmap(game->minimap);
 		game->raycaster_img->enabled = true;
 		game->player->player_posx += 0.2;
 		game->minimap->player_y = game->player->player_posy;
 		game->minimap->player_x = game->player->player_posx;
 		basic_raycaster(game, game->player);
+		if (game->minimap->minimap_enabled == false)
+			enable_minimap(game->minimap);
 		create_minimap(game->minimap);
 	}
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_D) && (game->map[(int)(game->player->player_posy + 0.3)][(int)(game->player->player_posx)] != '1'))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_D) && (game->map[(int)(game->player->player_posy + 0.5)][(int)(game->player->player_posx)] != '1'))
 	{
-		disable_fullmap(game->minimap);
-		enable_minimap(game->minimap);
+		if (game->minimap->fullmap_enabled == true)
+			disable_fullmap(game->minimap);
 		game->raycaster_img->enabled = true;
 		game->player->player_posy += 0.2;
 		game->minimap->player_y = game->player->player_posy;
 		game->minimap->player_x = game->player->player_posx;
 		basic_raycaster(game, game->player);
+		if (game->minimap->minimap_enabled == false)
+			enable_minimap(game->minimap);
 		create_minimap(game->minimap);
 	}
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_W) && (game->map[(int)(game->player->player_posy)][(int)(game->player->player_posx - 0.8)] != '1'))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_W) && (game->map[(int)(game->player->player_posy)][(int)(game->player->player_posx - 0.5)] != '1'))
 	{
-		disable_fullmap(game->minimap);
-		enable_minimap(game->minimap);
+		if (game->minimap->fullmap_enabled == true)
+			disable_fullmap(game->minimap);
 		game->raycaster_img->enabled = true;
 		game->player->player_posx -= 0.2;
 		game->minimap->player_y = game->player->player_posy;
 		game->minimap->player_x = game->player->player_posx;
 		basic_raycaster(game, game->player);
+		if (game->minimap->minimap_enabled == false)
+			enable_minimap(game->minimap);
 		create_minimap(game->minimap);
 	}
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
@@ -81,10 +89,11 @@ void	start_game(t_gamestruct *game, t_playerinfo *player)
 	game->minimap->mlx = game->mlx;
 	game->minimap->player_y = game->player->player_posy;
 	game->minimap->player_x = game->player->player_posx;
+	game->minimap->minimap_enabled = true;
+	game->minimap->fullmap_enabled = false;
 	create_fullmap(game->minimap);
 	basic_raycaster(game, game->player);
 	create_minimap(game->minimap);
 	mlx_loop_hook(game->mlx, &movement_player, game);
 	mlx_loop(game->mlx);
-	mlx_close_window(game->mlx);
 }

@@ -37,6 +37,8 @@ typedef struct s_playerdirections
 
 typedef struct s_minimap
 {
+	bool		fullmap_enabled;
+	bool		minimap_enabled;
 	char		**file_map;
 	double		player_x;
 	double		player_y;
