@@ -37,7 +37,8 @@ typedef struct s_playerdirections
 
 typedef struct s_minimap
 {
-	bool		redraw;
+	bool		fullmap_enabled;
+	bool		minimap_enabled;
 	char		**file_map;
 	double		player_x;
 	double		player_y;
@@ -46,6 +47,10 @@ typedef struct s_minimap
 	mlx_image_t *screen_wall;
 	mlx_image_t *screen_floor;
 	mlx_image_t *screen_player;
+	mlx_image_t	*fullm_background;
+	mlx_image_t *fullm_wall;
+	mlx_image_t *fullm_floor;
+	mlx_image_t *fullm_player;
 } t_minimap;
 
 typedef struct s_gamestruct
@@ -73,6 +78,9 @@ typedef struct s_gamestruct
 # define MINIMAP_WIDTH (SCREEN_WIDTH / 4)
 # define MINIMAP_HEIGHT (SCREEN_HEIGHT / 4)
 
+# define FULLMAP_WIDTH (SCREEN_WIDTH - 100)
+# define FULLMAP_HEIGHT (SCREEN_HEIGHT - 80)
+
 	//MAIN.C
 int			main(int argc, char *argv[]);
 	//utils.c
@@ -87,8 +95,11 @@ void	start_game(t_gamestruct *game, t_playerinfo *player);
 int	transfer_colour(int r, int g, int b);
 
 	//minimap.c
-void	minimap(t_minimap *minimap);
-void	minimap_check(t_minimap *minimap);
+void	create_minimap(t_minimap *minimap);
+void	delete_minimap(t_minimap *mini);
+void	allocate_images(t_minimap *mini);
+void	enable_minimap(t_minimap *mini);
+void	disable_minimap(t_minimap *mini);
 
 	//creating.c
 void	mm_make_walls(t_minimap *mini);
@@ -97,10 +108,29 @@ void	mm_make_player(t_minimap *mini);
 
 	//placing.c
 void	mm_draw_background(t_minimap *minimap);
-void	mm_place_walls(t_minimap *mini);
-void	mm_place_floors(t_minimap *mini);
+void	mm_place_walls(t_minimap *mini, int x, int y);
+void	mm_place_floors(t_minimap *mini, int x, int y);
 void	mm_place_player(t_minimap *mini);
 
+	//fullmap.c
+void	allocate_fullmap(t_minimap *mini);
+void 	place_fullmap(t_minimap *mini);
+void	disable_fullmap(t_minimap *mini);
+void	enable_fullmap(t_minimap *mini);
+void	delete_fullmap(t_minimap *minimap);
+void	create_fullmap(t_minimap *mini);
+
+	//fm_creating.c
+void	fullmap_make_player(t_minimap *mini);
+void	fullmap_make_floors(t_minimap *mini);
+void	fullmap_make_walls(t_minimap *mini);
+void	fullmap_make_background(t_minimap *mini);
+
+	//fm_placing.c
+void	fullmap_place_player(t_minimap *mini);
+void	fullmap_place_floors(t_minimap *mini);
+void	fullmap_place_walls(t_minimap *mini);
+void	fullmap_place_background(t_minimap *mini);
 
 	//PARSER
 
