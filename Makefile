@@ -4,9 +4,10 @@ SRC 	:= main.c \
 				utils.c \
 				raycaster.c \
 				game.c \
+				minimap/initialize.c \
 				minimap/minimap.c \
-				minimap/creating.c \
-				minimap/placing.c \
+				minimap/mm_creating.c \
+				minimap/mm_placing.c \
 				minimap/fullmap.c \
 				minimap/fm_creating.c \
 				minimap/fm_placing.c \

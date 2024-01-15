@@ -39,11 +39,14 @@ typedef struct s_minimap
 {
 	bool		fullmap_enabled;
 	bool		minimap_enabled;
+	int			mm_scaler;
+	int			fm_scaler;
+	int			fm_offset;
 	char		**file_map;
 	double		player_x;
 	double		player_y;
 	mlx_t		*mlx;
-	mlx_image_t	*screen_background;
+	mlx_image_t	*screen_border;
 	mlx_image_t *screen_wall;
 	mlx_image_t *screen_floor;
 	mlx_image_t *screen_player;
@@ -75,11 +78,8 @@ typedef struct s_gamestruct
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
 
-# define MINIMAP_WIDTH (SCREEN_WIDTH / 4)
-# define MINIMAP_HEIGHT (SCREEN_HEIGHT / 4)
-
-# define FULLMAP_WIDTH (SCREEN_WIDTH - 100)
-# define FULLMAP_HEIGHT (SCREEN_HEIGHT - 80)
+# define MINIMAP_WIDTH (SCREEN_WIDTH / 5)
+# define MINIMAP_HEIGHT (SCREEN_HEIGHT / 5)
 
 	//MAIN.C
 int			main(int argc, char *argv[]);
@@ -94,9 +94,16 @@ void	start_game(t_gamestruct *game, t_playerinfo *player);
 
 int	transfer_colour(int r, int g, int b);
 
+
+//////////////MINIMAP///////////////////////////////////////////////////////////////////////////////////////////
+
+	//initialize.c
+void	set_vars_minimap(t_gamestruct *game);
+void	calculate_fm_scaler(t_minimap *mini);
+int		get_size_biggest_line(char **map);
+
 	//minimap.c
 void	create_minimap(t_minimap *minimap);
-void	delete_minimap(t_minimap *mini);
 void	allocate_images(t_minimap *mini);
 void	enable_minimap(t_minimap *mini);
 void	disable_minimap(t_minimap *mini);
@@ -105,19 +112,19 @@ void	disable_minimap(t_minimap *mini);
 void	mm_make_walls(t_minimap *mini);
 void	mm_make_floors(t_minimap *mini);
 void	mm_make_player(t_minimap *mini);
+void	mm_make_border(t_minimap *mini);
 
 	//placing.c
-void	mm_draw_background(t_minimap *minimap);
+void	mm_place_border(t_minimap *mini, int x, int y);
 void	mm_place_walls(t_minimap *mini, int x, int y);
 void	mm_place_floors(t_minimap *mini, int x, int y);
-void	mm_place_player(t_minimap *mini);
+void	mm_place_player(t_minimap *mini, int x, int y);
 
 	//fullmap.c
 void	allocate_fullmap(t_minimap *mini);
 void 	place_fullmap(t_minimap *mini);
 void	disable_fullmap(t_minimap *mini);
 void	enable_fullmap(t_minimap *mini);
-void	delete_fullmap(t_minimap *minimap);
 void	create_fullmap(t_minimap *mini);
 
 	//fm_creating.c
@@ -132,7 +139,7 @@ void	fullmap_place_floors(t_minimap *mini);
 void	fullmap_place_walls(t_minimap *mini);
 void	fullmap_place_background(t_minimap *mini);
 
-	//PARSER
+//////////////PARSER///////////////////////////////////////////////////////////////////////////////////////////
 
 	//parser.c
 t_parser	*parser(t_parser *parser_s, char *argv[]);
@@ -187,7 +194,7 @@ t_gamestruct	*texture_to_images(t_gamestruct *game, t_parser *parser);
 
 
 
-	//UTILS
+//////////////FREE AND ERROR/////////////////////////////////////////////////////////////////////////////////////
 
 	//free.c
 void		free_parser_struct(t_parser *parser_s);
@@ -196,7 +203,9 @@ void		free_2d_array(char	**array);
 
 
 	//mlx_free.c
-void			delete_textures(t_gamestruct *game);
+void		delete_textures(t_gamestruct *game);
+void		delete_fullmap(t_minimap *minimap);
+void		delete_minimap(t_minimap *mini);
 
 	//error.c
 void		error_parser( t_parser *parser_s, const char *str);

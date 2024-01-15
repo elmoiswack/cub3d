@@ -27,8 +27,8 @@ void	free_game_struct(t_gamestruct *game)
 		mlx_delete_image(game->mlx, game->west);
 	if (game->south)
 		mlx_delete_image(game->mlx, game->south);
-	if (game->minimap->screen_background)
-		mlx_delete_image(game->mlx, game->minimap->screen_background);
+	if (game->minimap->screen_border)
+		mlx_delete_image(game->mlx, game->minimap->screen_border);
 	if (game->minimap->screen_floor)
 		mlx_delete_image(game->mlx, game->minimap->screen_floor);
 	if (game->minimap->screen_wall)

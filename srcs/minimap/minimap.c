@@ -1,126 +1,74 @@
 #include "../../includes/cub3d.h"
 #include <stdio.h>
 
-void	mm_place_content(char	**map, int x, int y, t_minimap *mini)
+void	mm_place_content(char **array, t_minimap *mini)
 {
-	mm_place_floors(mini, 1, 1);
-	if (map[y][x + 1])
+	int y;
+	int x;
+
+	y = 0;
+	while (array[y])
 	{
-		if (map[y][x + 1] == '0')
-			mm_place_floors(mini, x + 1, y);
-		else if (map[y][x + 1] == '1')
-			mm_place_walls(mini, x + 1, y);
-	}
-	if (map[y][x - 1])
-	{
-		if (map[y][x - 1] == '0')
-			mm_place_floors(mini, x - 1, y);
-		else if (map[y][x - 1] == '1')
-			mm_place_walls(mini, x - 1, y);
-	}
-	if (map[y + 1][x])
-	{
-		if (map[y + 1][x] == '0')
-			mm_place_floors(mini, x, y + 1);
-		else if (map[y + 1][x] == '1')
-			mm_place_walls(mini, x, y + 1);
-	}
-	if (map[y - 1][x])
-	{
-		if (map[y - 1][x] == '0')
-			mm_place_floors(mini, x, y - 1);
-		else if (map[y - 1][x] == '1')
-			mm_place_walls(mini, x, y - 1);
-	}
-	if (map[y + 1][x + 1])
-	{
-		if (map[y + 1][x + 1] == '0')
-			mm_place_floors(mini, x + 1, y + 1);
-		else if (map[y + 1][x + 1] == '1')
-			mm_place_walls(mini, x + 1, y + 1);
-	}
-	if (map[y - 1][x + 1])
-	{
-		if (map[y - 1][x + 1] == '0')
-			mm_place_floors(mini, x + 1, y - 1);
-		else if (map[y - 1][x + 1] == '1')
-			mm_place_walls(mini, x + 1, y - 1);
-	}
-	if (map[y + 1][x - 1])
-	{
-		if (map[y + 1][x - 1] == '0')
-			mm_place_floors(mini, x - 1, y + 1);
-		else if (map[y + 1][x - 1] == '1')
-			mm_place_walls(mini, x - 1, y + 1);
-	}
-	if (map[y - 1][x - 1])
-	{
-		if (map[y - 1][x - 1] == '0')
-			mm_place_floors(mini, x - 1, y - 1);
-		else if (map[y - 1][x - 1] == '1')
-			mm_place_walls(mini, x - 1, y - 1);
+		x = 0;
+		while (array[y][x])
+		{
+			if (array[y][x] == '-')	
+				mm_place_border(mini, x, y);
+			else if (array[y][x] == '0')
+				mm_place_floors(mini, x, y);
+			else if (array[y][x] == '1')
+				mm_place_walls(mini, x, y);
+			else if (array[y][x] == 'P')
+			{
+				mm_place_floors(mini, x, y);
+				mm_place_player(mini, x, y);
+			}
+			x++;
+		}
+		y++;
 	}
 }
 
-char	**fill_array(char **array, char **map, int player_x, int player_y)
+bool		out_of_border_x(char **map, int player_x, int player_y, int x)
 {
-	array[1][1] = 'P';
-	if (map[player_y][player_x + 1])
+	if (player_x + x > (int)ft_strlen(map[player_y]) - 2)
+		return (true);
+	if (player_x + x < 0)
+		return (true);
+	return (false); 
+}
+
+bool		out_of_border_y(char **map, int player_y, int y)
+{
+	if (player_y + y > get_max_2d(map) - 1)
+		return (true);
+	if (player_y + y < 0)
+		return (true);
+	return (false);
+}
+
+char **fill_array(char **array, char **map, int player_x, int player_y)
+{
+	int	y;
+	int	x;
+
+	y = -2;
+	while (y < 3)
 	{
-		if (map[player_y][player_x + 1] == '0')
-			array[1][2] = '0';
-		if (map[player_y][player_x + 1] == '1')
-			array[1][2] = '1';
+		x = -2;
+		while (x < 3)
+		{
+			if (out_of_border_x(map, player_x, player_y, x) == true || out_of_border_y(map, player_y, y) == true)
+				array[y + 2][x + 2] = '-';
+			else if (map[player_y + y][player_x + x] == '0')
+				array[y + 2][x + 2] = '0';
+			else if (map[player_y + y][player_x + x] == '1')
+				array[y + 2][x + 2] = '1';
+			x++;
+		}
+		y++;
 	}
-	if (map[player_y][player_x - 1])
-	{
-		if (map[player_y][player_x - 1] == '0')
-			array[1][0] = '0';
-		if (map[player_y][player_x - 1] == '1')
-			array[1][0] = '1';
-	}
-	if (map[player_y + 1][player_x])
-	{
-		if (map[player_y + 1][player_x] == '0')
-			array[2][1] = '0';
-		if (map[player_y + 1][player_x] == '1')
-			array[2][1] = '1';
-	}
-	if (map[player_y - 1][player_x])
-	{
-		if (map[player_y - 1][player_x] == '0')
-			array[0][1] = '0';
-		if (map[player_y - 1][player_x] == '1')
-			array[0][1] = '1';
-	}
-	if (map[player_y + 1][player_x + 1])
-	{
-		if (map[player_y + 1][player_x + 1] == '0')
-			array[2][2] = '0';
-		if (map[player_y + 1][player_x + 1] == '1')
-			array[2][2] = '1';
-	}
-	if (map[player_y - 1][player_x + 1])
-	{
-		if (map[player_y - 1][player_x + 1] == '0')
-			array[0][2] = '0';
-		if (map[player_y - 1][player_x + 1] == '1')
-			array[0][2] = '1';
-	}
-	if (map[player_y + 1][player_x - 1])
-	{
-		if (map[player_y + 1][player_x - 1] == '0')
-			array[2][0] = '0';
-		if (map[player_y + 1][player_x - 1] == '1')
-			array[2][0] = '1';
-	}
-	if (map[player_y - 1][player_x - 1])
-	{
-		if (map[player_y - 1][player_x - 1] == '0')
-			array[0][0] = '0';
-		if (map[player_y - 1][player_x - 1] == '1')
-			array[0][0] = '1';
-	}
+	array[2][2] = 'P';
 	return (array);
 }
 
@@ -132,8 +80,8 @@ void	allocate_images(t_minimap *mini)
 		mm_make_walls(mini);
 	if (!mini->screen_floor)
 		mm_make_floors(mini);
-	if (!mini->screen_background)
-		mm_draw_background(mini);
+	if (!mini->screen_border)
+		mm_make_border(mini);
 }
 
 //the main minimap start
@@ -142,22 +90,23 @@ void	create_minimap(t_minimap *minimap)
 	char	**arr;
 
 	delete_minimap(minimap);
-	arr = ft_calloc(4, sizeof(char *));
-	arr[0] = ft_calloc(4, sizeof(char));
-	arr[1] = ft_calloc(4, sizeof(char));
-	arr[2] = ft_calloc(4, sizeof(char));
-	arr[3] = NULL;
+	arr = ft_calloc(6, sizeof(char *));
+	arr[0] = ft_calloc(6, sizeof(char));
+	arr[1] = ft_calloc(6, sizeof(char));
+	arr[2] = ft_calloc(6, sizeof(char));
+	arr[3] = ft_calloc(6, sizeof(char));
+	arr[4] = ft_calloc(6, sizeof(char));
+	arr[5] = NULL;
 	arr = fill_array(arr, minimap->file_map, minimap->player_x, minimap->player_y);
 	allocate_images(minimap);
-	mm_place_content(arr, 1, 1, minimap);
-	mm_place_player(minimap);
+	mm_place_content(arr, minimap);
 	free_2d_array(arr);
 	return ;
 }
 
 void	enable_minimap(t_minimap *mini)
 {
-	mini->screen_background->enabled = true;
+	mini->screen_border->enabled = true;
 	mini->screen_floor->enabled = true;
 	mini->screen_player->enabled = true;
 	mini->screen_wall->enabled = true;
@@ -166,33 +115,9 @@ void	enable_minimap(t_minimap *mini)
 
 void	disable_minimap(t_minimap *mini)
 {
-	mini->screen_background->enabled = false;
+	mini->screen_border->enabled = false;
 	mini->screen_floor->enabled = false;
 	mini->screen_player->enabled = false;
 	mini->screen_wall->enabled = false;
 	mini->minimap_enabled = false;
-}
-
-void	delete_minimap(t_minimap *mini)
-{
-	if (mini->screen_background)
-	{
-		mlx_delete_image(mini->mlx, mini->screen_background);
-		mini->screen_background = NULL;
-	}
-	if (mini->screen_floor)
-	{
-		mlx_delete_image(mini->mlx, mini->screen_floor);
-		mini->screen_floor = NULL;
-	}
-	if (mini->screen_player)
-	{
-		mlx_delete_image(mini->mlx, mini->screen_player);
-		mini->screen_player = NULL;
-	}
-	if (mini->screen_wall)
-	{
-		mlx_delete_image(mini->mlx, mini->screen_wall);
-		mini->screen_wall = NULL;
-	}
 }

@@ -79,18 +79,14 @@ void 	movement_player(void *param)
 //this is the main start of the game
 //the raycaster creates the line be drawn on the screen, this loop goes on untill you have cover the entire screen
 //mlx_loop starts the game loop
+
 void	start_game(t_gamestruct *game, t_playerinfo *player)
 {
 	game->player = player;
 	game->minimap = ft_calloc(1, sizeof(t_minimap));
 	if (!game->minimap)
 		error_game(game, "Allocation of minimap failed!");
-	game->minimap->file_map = game->map;
-	game->minimap->mlx = game->mlx;
-	game->minimap->player_y = game->player->player_posy;
-	game->minimap->player_x = game->player->player_posx;
-	game->minimap->minimap_enabled = true;
-	game->minimap->fullmap_enabled = false;
+	set_vars_minimap(game);
 	create_fullmap(game->minimap);
 	basic_raycaster(game, game->player);
 	create_minimap(game->minimap);
