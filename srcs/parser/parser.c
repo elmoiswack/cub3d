@@ -5,9 +5,9 @@
 t_parser *parser_checks(t_parser *parser_s)
 {
 	if (are_there_empty_inputs(parser_s) == -1)
-		error_parser(parser_s, "Missing important information");
+		error_parser(parser_s, "Missing important information from the file");
 	if (map_checker(parser_s->map, parser_s) == -1)
-		error_parser(parser_s, "Invalid map");
+		error_parser(parser_s, "The map inside the file is invalid!");
 	return (parser_s);
 }
 
@@ -27,7 +27,7 @@ int	transfer_rgb_to_int(char *rgb)
 
 	temp = ft_split(rgb, ',');
 	if (!temp)
-		return (0);
+		return (-1);
 	r = ft_atoi(temp[0]);
 	g = ft_atoi(temp[1]);
 	b = ft_atoi(temp[2]);
@@ -44,7 +44,7 @@ t_parser *parser(t_parser *parser_s, char *argv[])
 	parser_s = parser_checks(parser_s);
 	parser_s->rgb_floor_int = transfer_rgb_to_int(parser_s->rgb_floor);
 	parser_s->rgb_ceiling_int = transfer_rgb_to_int(parser_s->rgb_ceiling);
-	if (parser_s->rgb_ceiling_int == 0 || parser_s->rgb_floor_int == 0 )
-		error_parser(parser_s, "failed to transfer rgb to uint");
+	if (parser_s->rgb_ceiling_int == -1 || parser_s->rgb_floor_int == -1)
+		error_parser(parser_s, "Failed to transfer rgb to uint");
 	return (parser_s);
 }

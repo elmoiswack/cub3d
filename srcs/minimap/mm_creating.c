@@ -8,6 +8,8 @@ void	mm_make_border(t_minimap *mini)
 
 	x = 0;
 	mini->screen_border = mlx_new_image(mini->mlx, mini->mm_scaler, mini->mm_scaler);
+	if (!mini->screen_border)
+		error_game(mini->game, "Failed to allocate the border image mm!");
 	while (x < mini->mm_scaler)
 	{
 		y = 0;
@@ -28,6 +30,8 @@ void	mm_make_walls(t_minimap *mini)
 
 	x = 0;
 	mini->screen_wall = mlx_new_image(mini->mlx, mini->mm_scaler, mini->mm_scaler);
+	if (!mini->screen_wall)
+		error_game(mini->game, "Failed to allocate the wall image mm!");
 	while (x < mini->mm_scaler)
 	{
 		y = 0;
@@ -48,6 +52,8 @@ void	mm_make_floors(t_minimap *mini)
 
 	x = 0;
 	mini->screen_floor = mlx_new_image(mini->mlx, mini->mm_scaler, mini->mm_scaler);
+	if (!mini->screen_floor)
+		error_game(mini->game, "Failed to allocate the floor image mm!");
 	while (x < mini->mm_scaler)
 	{
 		y = 0;
@@ -68,6 +74,8 @@ void	mm_make_player(t_minimap *mini)
 
 	x = 0;
 	mini->screen_player = mlx_new_image(mini->mlx, mini->mm_scaler / 2, mini->mm_scaler / 2);
+	if (!mini->screen_player)
+		error_game(mini->game, "Failed to allocate the player image mm!");
 	while (x < mini->mm_scaler / 2)
 	{
 		y = 0;

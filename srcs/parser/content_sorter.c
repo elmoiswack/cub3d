@@ -50,29 +50,6 @@ t_parser *get_textures_rgb_path(t_parser *parser_s)
 	return (parser_s);
 }
 
-//gets the index on which the map starts in full_file
-int	get_start_map(t_parser *parser_s)
-{
-	int	index;
-	int	j;
-
-	index = 0;
-	j = 0;
-	while (parser_s->full_file[index])
-	{
-		while (parser_s->full_file[index][j])
-		{
-			if (ft_isalpha(parser_s->full_file[index][0]) == 1)
-				break ;
-			if (parser_s->full_file[index][j] == '1')
-				return (index);
-			j++;
-		}
-		index++;
-	}
-	return (-1);	
-}
-
 //this allocates and copies the map from full_file into parser_s->map
 t_parser *get_map(t_parser *parser_s , int index)
 {

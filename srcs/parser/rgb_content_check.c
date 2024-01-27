@@ -1,26 +1,6 @@
 #include "../../includes/cub3d.h"
 #include "stdio.h"
 
-//checks if there are letters inside of the texture adresses
-//if not, the texture is 100% invalid because it's in a folder called textures
-int	alpha_in_texture(char *line)
-{
-	int	index;
-	int	count;
-
-	index = 0;
-	count = 0;
-	while (line[index])
-	{
-		if (ft_isalpha(line[index]) == 1 || line[index] == '/')
-			count++;
-		index++;
-	}
-	if (count == 0)
-		return (-1);
-	return (1);
-}
-
 //checks if there are only numbers and a ','
 //the ',' is used to seperate the r, g and b
 int	check_chars_rgb(char *line)
@@ -55,12 +35,27 @@ int	range_compare(char *line)
 	return (1);
 }
 
+int	get_single_rgb_value(char *line, int index, int begin)
+{
+	char	*temp;
+
+	temp = ft_substr(line, begin, index - begin);
+	if (!temp)
+		return (-1);
+	if (range_compare(temp) == -1)
+	{
+		free(temp);
+		return (-1);
+	}
+	free(temp);
+	return (1);
+}
+
 //the ft is a loop checks if the entire rgb is valid
 int	check_range_rgb(char *line)
 {
 	int		index;
 	int		begin;
-	char	*temp;
 
 	index = 0;
 	while(line[index])
@@ -73,15 +68,8 @@ int	check_range_rgb(char *line)
 				begin--;
 			if (line[begin] == ',')
 				begin++;
-			temp = ft_substr(line, begin, index - begin);
-			if (!temp)
+			if (get_single_rgb_value(line, index, begin) == -1)
 				return (-1);
-			if (range_compare(temp) == -1)
-			{
-				free(temp);
-				return (-1);
-			}
-			free(temp);
 		}
 		if (line[index] != '\0')
 			index++;

@@ -11,6 +11,8 @@ SRC 	:= main.c \
 				minimap/fullmap.c \
 				minimap/fm_creating.c \
 				minimap/fm_placing.c \
+				minimap/enable_disable.c \
+				minimap/map_utils.c \
 				parser/parser.c \
 				parser/map_opener.c \
 				parser/content_sorter.c \

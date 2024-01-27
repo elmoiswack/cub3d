@@ -33,3 +33,26 @@ int	skip_whitespaces(char *line, int index)
 		index++;
 	return (1);
 }
+
+//gets the index on which the map starts in full_file
+int	get_start_map(t_parser *parser_s)
+{
+	int	index;
+	int	j;
+
+	index = 0;
+	j = 0;
+	while (parser_s->full_file[index])
+	{
+		while (parser_s->full_file[index][j])
+		{
+			if (ft_isalpha(parser_s->full_file[index][0]) == 1)
+				break ;
+			if (parser_s->full_file[index][j] == '1')
+				return (index);
+			j++;
+		}
+		index++;
+	}
+	return (-1);	
+}

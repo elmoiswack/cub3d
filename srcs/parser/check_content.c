@@ -71,6 +71,24 @@ int	rgb_checks(char *line)
 	return (1);
 }
 
+int	alpha_in_texture(char *line)
+{
+	int	index;
+	int	count;
+
+	index = 0;
+	count = 0;
+	while (line[index])
+	{
+		if (ft_isalpha(line[index]) == 1 || line[index] == '/')
+			count++;
+		index++;
+	}
+	if (count == 0)
+		return (-1);
+	return (1);
+}
+
 //safety check to see if there are any empty input
 //if so, error is thrown because we need all of them to run cub3d
 int	are_there_empty_inputs(t_parser *parser_s)

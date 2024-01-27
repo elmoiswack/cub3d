@@ -1,22 +1,5 @@
 #include "../../includes/cub3d.h"
 
-int	get_size_biggest_line(char **map)
-{
-	int	y;
-	int	size;
-	
-	y = 0;
-	size = (int)ft_strlen(map[y]);
-	y++;
-	while (map[y])
-	{
-		if ((int)ft_strlen(map[y]) > size)
-			size = (int)ft_strlen(map[y]);
-		y++;
-	}
-	return (size - 1);
-}
-
 void	calculate_fm_scaler(t_minimap *mini)
 {
 	int	line_width;
@@ -56,6 +39,7 @@ void	calculate_mm_scaler(t_minimap *mini)
 
 void	set_vars_minimap(t_gamestruct *game)
 {
+	game->minimap->game = game;
 	game->minimap->file_map = game->map;
 	game->minimap->mlx = game->mlx;
 	game->minimap->player_y = game->player->player_posy;
