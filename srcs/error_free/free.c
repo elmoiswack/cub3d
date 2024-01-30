@@ -18,7 +18,6 @@ void	free_minimap_struct(t_minimap *mini)
 {
 	delete_minimap(mini);
 	delete_fullmap(mini);
-	free_2d_array(mini->file_map);
 }
 
 void	free_game_struct(t_gamestruct *game)

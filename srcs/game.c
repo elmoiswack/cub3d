@@ -63,8 +63,6 @@ void 	movement_player(void *param)
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(game->mlx);
-		delete_fullmap(game->minimap);
-		delete_minimap(game->minimap);
 		free_game_struct(game);
 		exit(0);
 	}

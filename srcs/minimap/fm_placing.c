@@ -56,6 +56,6 @@ void	fullmap_place_background(t_minimap *mini)
 //draws the player onto the screen
 void	fullmap_place_player(t_minimap *mini)
 {
-	if (mlx_image_to_window(mini->mlx, mini->fullm_player, (mini->player_x * mini->fm_scaler - 0.5), (mini->player_y * mini->fm_scaler - 0.5 + mini->fm_offset)) == -1)
+	if (mlx_image_to_window(mini->mlx, mini->fullm_player, (mini->player_x * mini->fm_scaler + mini->fm_offset), (mini->player_y * mini->fm_scaler + mini->fm_offset)) == -1)
 		error_game(mini->game, "Failed to place the player fm!");
 }

@@ -23,8 +23,7 @@ void	disable_fullmap(t_minimap *mini)
 	mini->fullm_background->enabled = false;
 	mini->fullm_floor->enabled = false;
 	mini->fullm_wall->enabled = false;
-	mlx_delete_image(mini->mlx, mini->fullm_player);
-	mini->fullm_player = NULL;
+	mini->fullm_player->enabled = false;
 	mini->fullmap_enabled = false;
 }
 
@@ -33,7 +32,8 @@ void	enable_fullmap(t_minimap *mini)
 	mini->fullm_background->enabled = true;
 	mini->fullm_floor->enabled = true;
 	mini->fullm_wall->enabled = true;
-	fullmap_make_player(mini);
-	fullmap_place_player(mini);
+	mini->fullm_player->enabled = true;
+	mini->fullm_player->instances->x = mini->player_x * mini->fm_scaler;
+	mini->fullm_player->instances->y = mini->player_y * mini->fm_scaler + mini->fm_offset;
 	mini->fullmap_enabled = true;
 }
