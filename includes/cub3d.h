@@ -117,6 +117,8 @@ void	basic_raycaster(void *data);
 
 void	start_game(t_gamestruct *game, t_raycaster *player);
 
+void	set_vars_player(t_raycaster *player);
+
 uint32_t	transfer_colour(int r, int g, int b);
 
 //////////////PARSER///////////////////////////////////////////////////////////////////////////////////////////

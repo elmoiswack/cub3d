@@ -20,7 +20,7 @@ void 	movement_forward(void *param)
 	double			new_pos_y;
 
 	game = (t_gamestruct *)param;
-	move_speed = game->mlx->delta_time * 3.0;
+	move_speed = game->mlx->delta_time * 5.0;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 	{
 		if (game->minimap->fullmap_enabled == true)
@@ -34,9 +34,9 @@ void 	movement_forward(void *param)
 		}
 		game->minimap->player_y = game->player->player_pos_y;
 		game->minimap->player_x = game->player->player_pos_x;
-		// if (game->minimap->minimap_enabled == false)
-//			enable_minimap(game->minimap);
-		// create_minimap(game->minimap);
+		if (game->minimap->minimap_enabled == false)
+			enable_minimap(game->minimap);
+		create_minimap(game->minimap);
 	}
 }
 
@@ -48,7 +48,7 @@ void 	movement_backwards(void *param)
 	double			new_pos_y;
 
 	game = (t_gamestruct *)param;
-	move_speed = game->mlx->delta_time * 3.0;
+	move_speed = game->mlx->delta_time * 5.0;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
 	{
 		if (game->minimap->fullmap_enabled == true)
@@ -62,9 +62,9 @@ void 	movement_backwards(void *param)
 		}
 		game->minimap->player_y = game->player->player_pos_y;
 		game->minimap->player_x = game->player->player_pos_x;
-		// if (game->minimap->minimap_enabled == false)
-		// 	enable_minimap(game->minimap);
-		// create_minimap(game->minimap);
+		if (game->minimap->minimap_enabled == false)
+			enable_minimap(game->minimap);
+		create_minimap(game->minimap);
 	}
 }
 
@@ -76,7 +76,7 @@ void 	movement_right(void *param)
 	double			new_pos_y;
 
 	game = (t_gamestruct *)param;
-	move_speed = game->mlx->delta_time * 3.0;
+	move_speed = game->mlx->delta_time * 5.0;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 	{
 		if (game->minimap->fullmap_enabled == true)
@@ -90,9 +90,9 @@ void 	movement_right(void *param)
 		}
 		game->minimap->player_y = game->player->player_pos_y;
 		game->minimap->player_x = game->player->player_pos_x;
-		// if (game->minimap->minimap_enabled == false)
-		// 	enable_minimap(game->minimap);
-		// create_minimap(game->minimap);
+		if (game->minimap->minimap_enabled == false)
+			enable_minimap(game->minimap);
+		create_minimap(game->minimap);
 	}
 }
 
@@ -104,7 +104,7 @@ void	movement_left(void *param)
 	double			new_pos_y;
 
 	game = (t_gamestruct *)param;
-	move_speed = game->mlx->delta_time * 3.0;
+	move_speed = game->mlx->delta_time * 5.0;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 	{
 		if (game->minimap->fullmap_enabled == true)
@@ -118,9 +118,9 @@ void	movement_left(void *param)
 		}
 		game->minimap->player_y = game->player->player_pos_y;
 		game->minimap->player_x = game->player->player_pos_x;;
-		// if (game->minimap->minimap_enabled == false)
-		// 	enable_minimap(game->minimap);
-		// create_minimap(game->minimap);
+		if (game->minimap->minimap_enabled == false)
+			enable_minimap(game->minimap);
+		create_minimap(game->minimap);
 	}
 }
 
@@ -132,7 +132,7 @@ void 	view_player(void *param)
 	double			rots;
 
 	game = (t_gamestruct *) param;
-	rots = game->mlx->delta_time * 2.0;
+	rots = game->mlx->delta_time * 4.0;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 	{
 		old_dir_x = game->player->direction_x;
@@ -186,8 +186,9 @@ void	start_game(t_gamestruct *game, t_raycaster *player)
 	game->minimap = ft_calloc(1, sizeof(t_minimap));
 	if (!game->minimap)
 		error_game(game, "Allocation of minimap failed!");
-	//create_fullmap(game->minimap);
-//	create_minimap(game->minimap);
+	set_vars_minimap(game);
+	create_fullmap(game->minimap);
+	create_minimap(game->minimap);
 	mlx_loop_hook(game->mlx, &basic_raycaster, game);
 	mlx_loop_hook(game->mlx, &movement_forward, game);
 	mlx_loop_hook(game->mlx, &movement_backwards, game);
@@ -195,7 +196,6 @@ void	start_game(t_gamestruct *game, t_raycaster *player)
 	mlx_loop_hook(game->mlx, &movement_right, game);
 	mlx_loop_hook(game->mlx, &view_player, game);
 	mlx_loop_hook(game->mlx, &extra_features, game);
-	//mlx_loop_hook(game->mlx, &minimap, game);
 	mlx_loop(game->mlx);
 	mlx_close_window(game->mlx);
 }
