@@ -4,7 +4,7 @@ int	main(int argc, char *argv[])
 {
 	t_parser		*parser_s;
 	t_gamestruct	*gamestruct;
-	t_playerinfo	*player;
+	t_raycaster		*player;
 	
 	if (argc != 2)
 	{
@@ -18,7 +18,7 @@ int	main(int argc, char *argv[])
 	gamestruct = ft_calloc(1, sizeof(t_gamestruct));
 	if (!gamestruct)
 		error_parser(parser_s, "failed to allocate gamestruct!");
-	player = ft_calloc(1, sizeof(t_playerinfo));
+	player = ft_calloc(1, sizeof(t_raycaster));
 	if (!player)
 		error_convert(parser_s, gamestruct, "failed to allocate player struct!");
 	gamestruct = convert_data(parser_s, gamestruct, player);

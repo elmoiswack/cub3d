@@ -42,8 +42,8 @@ void	set_vars_minimap(t_gamestruct *game)
 	game->minimap->game = game;
 	game->minimap->file_map = game->map;
 	game->minimap->mlx = game->mlx;
-	game->minimap->player_y = game->player->player_posy;
-	game->minimap->player_x = game->player->player_posx;
+	game->minimap->player_y = game->player->player_pos_y;
+	game->minimap->player_x = game->player->player_pos_x;
 	game->minimap->minimap_enabled = true;
 	game->minimap->fullmap_enabled = false;
 	calculate_mm_scaler(game->minimap);

@@ -45,17 +45,17 @@ int	map_checker(char **map, t_parser *parser_s)
 		error_parser(parser_s, "An invalid character is inside the map!");
 	if (border_check(map) == -1)
 		error_parser(parser_s, "Unclosed borders!");
-	get_start_pos(map, &parser_s->start_posx, &parser_s->start_posy, &parser_s->start_direction);
+	get_start_pos(map, &parser_s->start_pos_x, &parser_s->start_pos_y, &parser_s->start_direction);
 	map_copy = copy_2d_array(map);
 	if (!map_copy)
 		error_parser(parser_s, "Allocation map_copy failed!");
-	if (floodfill(map_copy, parser_s->start_posx, parser_s->start_posy) == -1)
+	if (floodfill(map_copy, parser_s->start_pos_x, parser_s->start_pos_y) == -1)
 	{
 		free_2d_array(map_copy);
 		return (-1);
 	}
 	free_2d_array(map_copy);
-	map[parser_s->start_posy][parser_s->start_posx] = '0';
+	map[parser_s->start_pos_y][parser_s->start_pos_x] = '0';
 	return (1);
 }
 

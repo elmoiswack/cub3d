@@ -12,7 +12,7 @@ t_parser *parser_checks(t_parser *parser_s)
 }
 
 //transfers the idividual r,g,b into a single uint32_t
-int	transfer_colour(int r, int g, int b)
+uint32_t	transfer_colour(int r, int g, int b)
 {
 	return (r << 24 | g << 16 | b << 8 | 255);
 }

@@ -20,32 +20,31 @@ t_gamestruct *texture_to_images(t_gamestruct *game, t_parser *parser)
 }
 
 //loading all paths of the textures we got from the parser and puts them into a mlx_texture_t in the game_struct
-t_gamestruct *getting_images(t_parser *parser, t_gamestruct *game)
+static void	load_textures(t_gamestruct *game, t_parser *parse)
 {
-	game->north_textu = mlx_load_png(parser->n_texture);
+	game->north_textu = mlx_load_png(parse->n_texture);
 	if (!game->north_textu)
-		error_convert(parser, game, "failed to load northern texture!");
-	game->east_textu = mlx_load_png(parser->e_texture);
+		error_convert(parse, game, "failed to load northern texture!");
+	game->east_textu = mlx_load_png(parse->e_texture);
 	if (!game->east_textu)
-		error_convert(parser, game, "failed to load eastern texture!");
-	game->south_textu = mlx_load_png(parser->s_texture);
+		error_convert(parse, game, "failed to load eastern texture!");
+	game->south_textu = mlx_load_png(parse->s_texture);
 	if (!game->south_textu)
-		error_convert(parser, game, "failed to load southern texture!");
-	game->west_textu = mlx_load_png(parser->w_texture);
+		error_convert(parse, game, "failed to load southern texture!");
+	game->west_textu = mlx_load_png(parse->w_texture);
 	if (!game->west_textu)
-		error_convert(parser, game, "failed to load western texture!");
-	game = texture_to_images(game, parser);
-	return (game);
+		error_convert(parse, game, "failed to load western texture!");
 }
 
 //puts everything that we gathered from the parser into the gamestruct and playerstruct
-t_gamestruct *convert_data(t_parser *parser_s, t_gamestruct *gamestruct, t_playerinfo *player)
+t_gamestruct *convert_data(t_parser *parser_s, t_gamestruct *gamestruct, t_raycaster *player)
 {
 	gamestruct->map = copy_2d_array(parser_s->map);
-	player->player_posx = parser_s->start_posx;
-	player->player_posy = parser_s->start_posy;
+	player->player_pos_x = parser_s->start_pos_x;
+	player->player_pos_y = parser_s->start_pos_y;
 	player->start_direction = parser_s->start_direction;
 	gamestruct->floor_rgb = parser_s->rgb_floor_int;
 	gamestruct->ceiling_rgb = parser_s->rgb_ceiling_int;
+	load_textures(gamestruct, parser_s);
 	return (gamestruct);
 }

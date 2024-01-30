@@ -3,84 +3,229 @@
 
 //With this function the goal is having a different player view when the user select a different
 //spawn direction.
-t_playerinfo *set_vars_player(t_playerinfo *player)
+void	set_vars_player(t_raycaster *player)
 {
 	if (player->start_direction == 'N')
 	{
-		player->directionx = -1;
-		player->directiony = 0;
+		player->direction_x = -1;
+		player->direction_y = 0;
 		player->plane_x = 0;
 		player->plane_y = 0.66;
 	}
 	else if (player->start_direction == 'S')
 	{
-		player->directionx = 1;
-		player->directiony = 0;
+		player->direction_x = 1;
+		player->direction_y = 0;
 		player->plane_x = 0;
 		player->plane_y = -0.66;
 	}
 	else if (player->start_direction == 'E')
 	{
-		player->directionx = 0;
-		player->directiony = -1;
+		player->direction_x = 0;
+		player->direction_y = 1;
 		player->plane_x = -0.66;
 		player->plane_y = 0;
 	}
 	else if (player->start_direction == 'W')
 	{
-		player->directionx = 0;
-		player->directiony = 1;
+		player->direction_x = 0;
+		player->direction_y = -1;
 		player->plane_x = 0.66;
 		player->plane_y = 0;
 	}
-	return (player);
 }
 
-void 	draw_line_screen(mlx_image_t *new_image, int x, int drstart, int drend, int colour, t_gamestruct *game)
+static uint32_t get_pixel_from_texture(mlx_texture_t *texture, double x_mult, double y_mult)
 {
-	int	count;
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t b;
+	uint8_t a;
+	int int_x_mult = (int) x_mult;
+	int int_y_mult = (int) y_mult;
 
-	count = 0;
-	if (drstart > 0)
+	r = texture->pixels[(((int_y_mult % texture->width) * texture->width + int_x_mult % texture->width)) * texture->bytes_per_pixel];
+	g = texture->pixels[(((int_y_mult % texture->width) * texture->width + int_x_mult % texture->width)) * texture->bytes_per_pixel + 1];
+	b = texture->pixels[(((int_y_mult % texture->width) * texture->width + int_x_mult % texture->width)) * texture->bytes_per_pixel + 2];
+	a = texture->pixels[(((int_y_mult % texture->width) * texture->width + int_x_mult % texture->width)) * texture->bytes_per_pixel + 3];
+	return (transfer_colour(r, g, b));
+}
+
+mlx_texture_t	*put_texture(t_gamestruct *game, mlx_texture_t *current_texture)
+{
+	if ((game->player->map_y - 1 > 0) && (game->map[(int)(game->player->map_y - 1)][(int)game->player->map_x] == '0'))
+		current_texture = game->east_textu;
+	else if ((game->player->map_y + 1 < get_max_2d(game->map)) && (game->map[(int)(game->player->map_y + 1)][(int)game->player->map_x] == '0'))
+		current_texture = game->north_textu;
+	else if ((game->player->map_x - 1 > 0) && (game->map[(int)game->player->map_y][(int)(game->player->map_x - 1)] == '0'))
+		current_texture = game->south_textu;
+	else if ((game->player->map_x + 1 < ft_strlen(game->map[(int)game->player->map_y])) && (game->map[(int)game->player->map_y][(int)(game->player->map_x + 1)] == '0'))
+		current_texture = game->west_textu;
+	else
+		printf("out\n");
+	return (current_texture);
+}
+
+//calculation of the ray from one x or y side
+void	ray_length(t_gamestruct *game)
+{
+	if (game->player->raydir_x == 0)
+		game->player->delta_distance_x = 1e30;
+	else 
+		game->player->delta_distance_x = fabs((float)1 / game->player->raydir_x);
+	if (game->player->raydir_y == 0)
+		game->player->delta_distance_y = 1e30;
+	else
+		game->player->delta_distance_y = fabs((float)1 / game->player->raydir_y);
+}
+
+//initialize the side and the side_dist
+void	side_side_dist_init(t_gamestruct *game)
+{
+	if(game->player->raydir_x < 0)
+    {
+       	game->player->step_x = -1;
+        game->player->side_distance_x = (game->player->player_pos_x - game->player->map_x) * game->player->delta_distance_x;
+    }
+  	else
 	{
-		while (count < drstart)
+      	game->player->step_x = 1;
+      	game->player->side_distance_x = (game->player->map_x + 1.0 - game->player->player_pos_x) * game->player->delta_distance_x;
+    }
+    if (game->player->raydir_y < 0)
+    {
+        game->player->step_y = -1;
+        game->player->side_distance_y = (game->player->player_pos_y - game->player->map_y) * game->player->delta_distance_y;
+    }
+    else
+    {
+       game->player->step_y = 1;
+       game->player->side_distance_y = (game->player->map_y + 1.0 - game->player->player_pos_y) * game->player->delta_distance_y;
+    }
+}
+
+//performing DDA and check if the ray hit a wall
+void	hit_wall_check(t_gamestruct *game)
+{
+	int	hit;
+
+	hit = 0;
+	while(hit == 0)
+	{
+		//jump to the next map square
+		if(game->player->side_distance_x < game->player->side_distance_y)
 		{
-			mlx_put_pixel(new_image, x, count, game->ceiling_rgb);
-			count++;
+			game->player->side_distance_x += game->player->delta_distance_x;
+			game->player->map_x += game->player->step_x;
+			game->player->side = 0;
 		}
-	}
-	while (drstart < drend)
-	{
-		mlx_put_pixel(new_image, x, drstart, colour);
-		drstart++;
-	}
-	if (drend < SCREEN_HEIGHT - 1)
-	{
-		while (drend < SCREEN_HEIGHT - 1)
+		else
 		{
-			mlx_put_pixel(new_image, x, drend, game->floor_rgb);
-			drend++;
+			game->player->side_distance_y += game->player->delta_distance_y;
+			game->player->map_y += game->player->step_y;
+			game->player->side = 1;
 		}
+		if(game->map[(int)game->player->map_y][(int)game->player->map_x] == '1')
+			hit = 1;
 	}
 }
 
-void	basic_raycaster(t_gamestruct *game, t_playerinfo *player)
+//calculate value of wall_x and calculate distance of perpendicular ray
+void	wall_x_perp_wall_dist_calculation(t_gamestruct *game)
+{
+	if (game->player->side == 0)
+	{
+		game->player->perp_wall_dist = (game->player->side_distance_x - game->player->delta_distance_x);
+		game->player->wall_x = (game->player->raydir_y * game->player->perp_wall_dist) + game->player->player_pos_y;
+	}
+	else
+	{
+		game->player->perp_wall_dist = (game->player->side_distance_y - game->player->delta_distance_y);
+		game->player->wall_x = (game->player->raydir_x * game->player->perp_wall_dist) + game->player->player_pos_x;
+	}
+	game->player->wall_x -= floor(game->player->wall_x);
+}
+
+//x cordinate on the texture
+void	texture_x_calculation(t_gamestruct *game, mlx_texture_t *texture)
+{
+	game->player->texture_x = (int)(game->player->wall_x * (double)texture->width);
+	if (game->player->side == 0 && game->player->raydir_x > 0)
+		game->player->texture_x = texture->width - game->player->texture_x - 1;
+	if (game->player->side == 1 && game->player->raydir_y < 0)
+		game->player->texture_x = texture->width - game->player->texture_x - 1;
+}
+
+void	calculation_lowest_highest_pixel(t_gamestruct *game)
+{
+	game->player->line_height = (int)(SCREEN_HEIGHT / game->player->perp_wall_dist);
+	game->player->draw_start = -game->player->line_height / 2 + SCREEN_HEIGHT / 2;
+	game->player->relative_wall_x = game->player->wall_x - (int) game->player->wall_x;
+	if(game->player->draw_start < 0)
+		game->player->draw_start = 0;
+	game->player->draw_end = game->player->line_height / 2 + SCREEN_HEIGHT / 2;
+	if(game->player->draw_end >= SCREEN_HEIGHT) 
+		game->player->draw_end = SCREEN_HEIGHT - 1;
+}
+
+void	draw_ceiling(t_gamestruct *game, int x)
 {
 	int	index;
-	double deltaDistX;
-	double deltaDistY;
-	double sideDistX;
-	double sideDistY;
-	double mapX;
-	double mapY;
-	int	color = transfer_colour(255, 255, 255);
-	int	color1 = transfer_colour(255, 0, 0);
-	int	color2 = transfer_colour(0, 255, 0);
-	int	color3 = transfer_colour(0, 0, 255);
-	int colours[4] = {color, color1, color2, color3};
-	int	j = 0;
+
 	index = 0;
-	player = set_vars_player(player);
+	if (game->player->draw_start > 0)
+	{
+		while (index < game->player->draw_start)
+		{
+			mlx_put_pixel(game->raycaster_img, x, index, game->ceiling_rgb);
+			index++;
+		}
+	}
+}
+
+void 	draw_wall(t_gamestruct *game, mlx_texture_t *texture, int x)
+{
+	uint32_t	text_color;
+	double		texture_pos;
+	double		step;
+
+	// game->player->line_height = (game->player->draw_end - game->player->draw_start);
+	step = 1.0 * texture->height / game->player->line_height;
+
+	texture_pos = (game->player->draw_start - SCREEN_HEIGHT / 2 + game->player->line_height / 2) * step;
+	while (game->player->draw_start < game->player->draw_end)
+	{
+		game->player->texture_y = (int)texture_pos & (texture->height - 1);
+		text_color = get_pixel_from_texture(texture, game->player->relative_wall_x, texture_pos);
+		texture_pos += step;
+		mlx_put_pixel(game->raycaster_img, x, game->player->draw_start, text_color);
+		game->player->draw_start++;
+	}
+}
+
+void	draw_floor(t_gamestruct *game, int x)
+{
+	if (game->player->draw_end < SCREEN_HEIGHT - 1)
+	{
+		while (game->player->draw_end < SCREEN_HEIGHT - 1)
+		{
+			mlx_put_pixel(game->raycaster_img, x, game->player->draw_end, game->floor_rgb);
+			game->player->draw_end++;
+		}
+	}
+}
+
+//fare un buffer che ha come grandezza altezza e larghezza dello schermo dove lo coloreremo
+
+void	basic_raycaster(void *data)
+{
+	mlx_texture_t	*current_texture;
+	t_gamestruct	*game;
+	int				i;
+
+	game = data;
+	i = 0;
+
 	if (!game->raycaster_img)
 	{
 		game->raycaster_img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -91,95 +236,25 @@ void	basic_raycaster(t_gamestruct *game, t_playerinfo *player)
 		mlx_delete_image(game->mlx, game->raycaster_img);
 		game->raycaster_img = NULL;
 		game->raycaster_img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-		mlx_image_to_window(game->mlx, game->raycaster_img, 0, 0);			
+		mlx_image_to_window(game->mlx, game->raycaster_img, 0, 0);
 	}
-	while (index < SCREEN_WIDTH)
+	while (i < SCREEN_WIDTH)
 	{
-		player->camerax = 2 * index / (double)SCREEN_WIDTH - 1;
-		player->raydir_x = player->directionx + player->plane_x * player->camerax;
-		player->raydir_y = player->directiony + player->plane_y * player->camerax;
-		
-		mapX = player->player_posx - 0.5; //if i want the camera to be centered
-		mapY = player->player_posy - 0.5; //if i want the camera to be centered 
-
-		if (player->raydir_x == 0)
-			deltaDistX = 1e30;
-		else 
-			deltaDistX = fabs((float)1 / player->raydir_x);
-		if (player->raydir_y == 0)
-			deltaDistY = 1e30;
-		else
-			deltaDistY = fabs((float)1 / player->raydir_y);
-			
-		double perpWallDist;
-      	int stepX;
-     	int stepY;
-     	int hit = 0; 
-      	int side;
-	
-		if(player->raydir_x < 0)
-      	{
-        	stepX = -1;
-        	sideDistX = (player->player_posx - mapX) * deltaDistX;
-      	}
-      	else
-      	{
-      	  stepX = 1;
-      	  sideDistX = (mapX + 1.0 - player->player_posx) * deltaDistX;
-    	}
-    	if(player->raydir_y < 0)
-     	{
-     	   stepY = -1;
-     	   sideDistY = (player->player_posy - mapY) * deltaDistY;
-    	}
-     	else
-     	{
-     	   stepY = 1;
-     	   sideDistY = (mapY + 1.0 - player->player_posy) * deltaDistY;
-     	}
-
-		while(hit == 0)
-     	{
-       		if(sideDistX < sideDistY)
-        	{
-        		sideDistX += deltaDistX;
-        		mapX += stepX;
-        		side = 0;
-       		}
-        	else
-       		{
-       		   sideDistY += deltaDistY;
-       		   mapY += stepY;
-        	   side = 1;
-       		}
-        	if(game->map[(int)mapY][(int)mapX] == '1')
-			{
-				hit = 1;
-				if ((mapY - 1 > 0) && (game->map[(int)(mapY - 1)][(int)mapX] == '0'))
-					j = 0;
-				else if ((mapY + 1 < get_max_2d(game->map)) && (game->map[(int)(mapY + 1)][(int)mapX] == '0'))
-					j = 1;
-				else if ((mapX - 1 > 0) && (game->map[(int)mapY][(int)(mapX - 1)] == '0'))
-					j = 2;
-				else if ((mapX + 1 < ft_strlen(game->map[(int)mapY])) && (game->map[(int)mapY][(int)(mapX + 1)] == '0'))
-					j = 3;
-			}
-     	}
-		
-		if (side == 0)
-			perpWallDist = (sideDistX - deltaDistX);
-		else
-			perpWallDist = (sideDistY - deltaDistY);
-
-		int	lineheight = (int)SCREEN_HEIGHT / perpWallDist;
-		int drawStart = -lineheight / 2 + SCREEN_HEIGHT / 2;
-		if(drawStart < 0) 
-			drawStart = 0;
-     	int drawEnd = lineheight / 2 + SCREEN_HEIGHT / 2;
-		if(drawEnd >= SCREEN_HEIGHT) 
-			drawEnd = SCREEN_HEIGHT - 1;
-		draw_line_screen(game->raycaster_img, index, drawStart, drawEnd, colours[j], game);
-		index++;
+		game->player->camera_x = 2 * i / (double)SCREEN_WIDTH - 1;
+		game->player->raydir_x = game->player->direction_x + game->player->plane_x * game->player->camera_x;
+		game->player->raydir_y = game->player->direction_y + game->player->plane_y * game->player->camera_x;
+		game->player->map_x = game->player->player_pos_x - 0.5; //if i want the camera to be centered
+		game->player->map_y = game->player->player_pos_y - 0.5; //if i want the camera to be centered 
+		ray_length(game);
+		side_side_dist_init(game);
+		hit_wall_check(game);
+		current_texture = put_texture(game, current_texture);
+		wall_x_perp_wall_dist_calculation(game);
+		calculation_lowest_highest_pixel(game);
+		draw_ceiling(game, i);
+		draw_wall(game, current_texture, i);
+		draw_floor(game, i);
+		i++;
 	}
 	return ;
 }

@@ -16,25 +16,44 @@ typedef struct s_parser
 	char	*rgb_ceiling;
 	uint32_t rgb_floor_int;
 	uint32_t rgb_ceiling_int;
-	int		start_posx;
-	int		start_posy;
+	int		start_pos_x;
+	int		start_pos_y;
 	char	start_direction;
 } t_parser;
 
-typedef struct s_playerdirections
+typedef struct s_raycaster
 {
-	char		start_direction;
-	double		player_posx;
-	double		player_posy;
-	double		directionx;
-	double		directiony;
+	double		camera_x;
+	double		direction_x;
+	double		direction_y;
+	double		distance_x;
+	double		distance_y;
+	double		delta_distance_x;
+	double		delta_distance_y;
+	double		map_x;
+	double		map_y;
+	double		perp_wall_dist;
 	double		plane_x;
 	double		plane_y;
-	double		camerax;
+	double		player_pos_x;
+	double		player_pos_y;
 	double		raydir_x;
 	double		raydir_y;
-} t_playerinfo;
-
+	double 		relative_wall_x;
+	double 		relative_wall_y;
+	double		side_distance_x;
+	double		side_distance_y;
+	double		wall_x;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	int			texture_x;
+	int			texture_y;
+	int			side;
+	int			step_x;
+	int			step_y;
+	char		start_direction;
+} t_raycaster;
 typedef struct s_gamestruct t_gamestruct;
 
 typedef struct s_minimap
@@ -72,9 +91,12 @@ typedef struct s_gamestruct
 	mlx_image_t *raycaster_img;
 	uint32_t	floor_rgb;
 	uint32_t	ceiling_rgb;
+	double		rots_speed;
+	double		move_speed;
+	double		frame_time;
 	char		**map;
 	mlx_t		*mlx;
-	t_playerinfo *player;
+	t_raycaster *player;
 	t_minimap	*minimap;
 } t_gamestruct;
 
@@ -91,18 +113,18 @@ int			get_max_2d(char **array);
 char		**copy_2d_array(char **array);
 
 	//raycaster.c
-void	basic_raycaster(t_gamestruct *game, t_playerinfo *player);
+void	basic_raycaster(void *data);
 
-void	start_game(t_gamestruct *game, t_playerinfo *player);
+void	start_game(t_gamestruct *game, t_raycaster *player);
 
-int	transfer_colour(int r, int g, int b);
+uint32_t	transfer_colour(int r, int g, int b);
 
 //////////////PARSER///////////////////////////////////////////////////////////////////////////////////////////
 
 		//parser.c
 t_parser	*parser(t_parser *parser_s, char *argv[]);
 int			transfer_rgb_to_int(char *rgb);
-int			transfer_colour(int r, int g, int b);
+uint32_t		transfer_colour(int r, int g, int b);
 t_parser	*parser_checks(t_parser *parser_s);
 
 		//map_opener.c
@@ -203,7 +225,7 @@ void	enable_fullmap(t_minimap *mini);
 
 
 //convert_data.c
-t_gamestruct	*convert_data(t_parser *parser_s, t_gamestruct *gamestruct, t_playerinfo *player);
+t_gamestruct	*convert_data(t_parser *parser_s, t_gamestruct *gamestruct, t_raycaster *player);
 t_gamestruct	*getting_images(t_parser *parser, t_gamestruct *game);
 t_gamestruct	*texture_to_images(t_gamestruct *game, t_parser *parser);
 
