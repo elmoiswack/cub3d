@@ -52,13 +52,13 @@ void	fullmap_make_player(t_minimap *mini)
 	int y;
 
 	x = 0;
-	mini->fullm_player = mlx_new_image(mini->mlx, mini->fm_scaler / 2, mini->fm_scaler / 2);
+	mini->fullm_player = mlx_new_image(mini->mlx, mini->fm_scaler, mini->fm_scaler);
 	if (!mini->fullm_player)
 		error_game(mini->game, "Failed to allocate the player image fm!");
-	while (x < mini->fm_scaler / 2)
+	while (x < mini->fm_scaler)
 	{
 		y = 0;
-		while (y < mini->fm_scaler / 2)
+		while (y < mini->fm_scaler)
 		{
 			mlx_put_pixel(mini->fullm_player, x, y, transfer_colour(255, 0, 0));
 			y++;

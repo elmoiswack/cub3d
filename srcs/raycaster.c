@@ -215,27 +215,12 @@ void	draw_floor(t_gamestruct *game, int x)
 
 //fare un buffer che ha come grandezza altezza e larghezza dello schermo dove lo coloreremo
 
-void	basic_raycaster(void *data)
+void	basic_raycaster(t_gamestruct	*game)
 {
 	mlx_texture_t	*current_texture;
-	t_gamestruct	*game;
 	int				i;
 
-	game = data;
 	i = 0;
-
-	if (!game->raycaster_img)
-	{
-		game->raycaster_img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-		mlx_image_to_window(game->mlx, game->raycaster_img, 0, 0);
-	}
-	else
-	{
-		mlx_delete_image(game->mlx, game->raycaster_img);
-		game->raycaster_img = NULL;
-		game->raycaster_img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-		mlx_image_to_window(game->mlx, game->raycaster_img, 0, 0);
-	}
 	while (i < SCREEN_WIDTH)
 	{
 		game->player->camera_x = 2 * (i / (double)SCREEN_WIDTH) - 1;

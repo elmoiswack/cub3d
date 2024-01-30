@@ -113,7 +113,7 @@ int			get_max_2d(char **array);
 char		**copy_2d_array(char **array);
 
 	//raycaster.c
-void	basic_raycaster(void *data);
+void	basic_raycaster(t_gamestruct *game);
 
 void	start_game(t_gamestruct *game, t_raycaster *player);
 

@@ -73,17 +73,17 @@ void	mm_make_player(t_minimap *mini)
 	int y;
 
 	x = 0;
-	mini->screen_player = mlx_new_image(mini->mlx, mini->mm_scaler / 2, mini->mm_scaler / 2);
+	mini->screen_player = mlx_new_image(mini->mlx, mini->mm_scaler, mini->mm_scaler);
 	if (!mini->screen_player)
 		error_game(mini->game, "Failed to allocate the player image mm!");
-	while (x < mini->mm_scaler / 2)
+	while (x < mini->mm_scaler)
 	{
 		y = 0;
-		while (y < mini->mm_scaler / 2)
+		while (y < mini->mm_scaler)
 		{
 			mlx_put_pixel(mini->screen_player, x, y, transfer_colour(255, 0, 0));
 			y++;
 		}
 		x++;
-	}		
+	}
 }

@@ -48,4 +48,6 @@ void	set_vars_minimap(t_gamestruct *game)
 	game->minimap->fullmap_enabled = false;
 	calculate_mm_scaler(game->minimap);
 	calculate_fm_scaler(game->minimap);
+	allocate_images_mm(game->minimap);
+	create_fullmap(game->minimap);
 }
