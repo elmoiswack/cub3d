@@ -53,16 +53,14 @@ static uint32_t get_pixel_from_texture(mlx_texture_t *texture, double x_mult, do
 
 mlx_texture_t	*put_texture(t_gamestruct *game, mlx_texture_t *current_texture)
 {
-	if ((game->player->map_y - 1 > 0) && (game->map[(int)(game->player->map_y - 1)][(int)game->player->map_x] == '0'))
-		current_texture = game->east_textu;
-	else if ((game->player->map_y + 1 < get_max_2d(game->map)) && (game->map[(int)(game->player->map_y + 1)][(int)game->player->map_x] == '0'))
+	if (game->player->side == 1 && (game->player->map_y - 1 > 0))
 		current_texture = game->north_textu;
-	else if ((game->player->map_x - 1 > 0) && (game->map[(int)game->player->map_y][(int)(game->player->map_x - 1)] == '0'))
+	else if (game->player->side == 1 && (game->player->map_y + 1 < get_max_2d(game->map)))
 		current_texture = game->south_textu;
-	else if ((game->player->map_x + 1 < ft_strlen(game->map[(int)game->player->map_y])) && (game->map[(int)game->player->map_y][(int)(game->player->map_x + 1)] == '0'))
+	else if (game->player->side == 0  &&  (game->player->map_x - 1 > 0))
 		current_texture = game->west_textu;
-	else
-		printf("out\n");
+	else if (game->player->side == 0 && (game->player->map_x + 1 < ft_strlen(game->map[(int)game->player->map_y])))
+		current_texture = game->east_textu;
 	return (current_texture);
 }
 
@@ -189,7 +187,7 @@ void 	draw_wall(t_gamestruct *game, mlx_texture_t *texture, int x)
 	double		texture_pos;
 	double		step;
 
-	// game->player->line_height = (game->player->draw_end - game->player->draw_start);
+	game->player->line_height = (game->player->draw_end - game->player->draw_start);
 	step = 1.0 * texture->height / game->player->line_height;
 
 	texture_pos = (game->player->draw_start - SCREEN_HEIGHT / 2 + game->player->line_height / 2) * step;
@@ -240,7 +238,7 @@ void	basic_raycaster(void *data)
 	}
 	while (i < SCREEN_WIDTH)
 	{
-		game->player->camera_x = 2 * i / (double)SCREEN_WIDTH - 1;
+		game->player->camera_x = 2 * (i / (double)SCREEN_WIDTH) - 1;
 		game->player->raydir_x = game->player->direction_x + game->player->plane_x * game->player->camera_x;
 		game->player->raydir_y = game->player->direction_y + game->player->plane_y * game->player->camera_x;
 		game->player->map_x = game->player->player_pos_x - 0.5; //if i want the camera to be centered

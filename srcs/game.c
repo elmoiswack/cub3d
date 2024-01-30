@@ -25,8 +25,8 @@ void 	movement_forward(void *param)
 	{
 		if (game->minimap->fullmap_enabled == true)
 			disable_fullmap(game->minimap);
-		new_pos_x = game->player->player_pos_x + (game->player->direction_x * move_speed);
-		new_pos_y = game->player->player_pos_y + (game->player->direction_y * move_speed);
+		new_pos_x = (game->player->player_pos_x + (game->player->direction_x * move_speed));
+		new_pos_y = (game->player->player_pos_y + (game->player->direction_y * move_speed));
 		if (player_hits_wall(game, new_pos_x, new_pos_y) == 0)
 		{
 			game->player->player_pos_x += (game->player->direction_x * move_speed);
@@ -53,8 +53,8 @@ void 	movement_backwards(void *param)
 	{
 		if (game->minimap->fullmap_enabled == true)
 			disable_fullmap(game->minimap);
-		new_pos_x =  game->player->player_pos_x - (game->player->direction_x * move_speed);
-		new_pos_y =  game->player->player_pos_y - (game->player->direction_y * move_speed);
+		new_pos_x =  (game->player->player_pos_x - (game->player->direction_x * move_speed));
+		new_pos_y =  (game->player->player_pos_y - (game->player->direction_y * move_speed));
 		if (player_hits_wall(game, new_pos_x, new_pos_y) == 0)
 		{
 			game->player->player_pos_x -= (game->player->direction_x * move_speed);
@@ -81,8 +81,8 @@ void 	movement_right(void *param)
 	{
 		if (game->minimap->fullmap_enabled == true)
 			disable_fullmap(game->minimap);
-		new_pos_x  = game->player->player_pos_x + (game->player->plane_x * move_speed);
-		new_pos_y =  game->player->player_pos_y + (game->player->plane_y * move_speed);
+		new_pos_x = (game->player->player_pos_x + (game->player->plane_x * move_speed));
+		new_pos_y = ( game->player->player_pos_y + (game->player->plane_y * move_speed));
 		if (player_hits_wall(game, new_pos_x, new_pos_y) == 0)
 		{
 			game->player->player_pos_x += (game->player->plane_x * move_speed);
@@ -102,15 +102,15 @@ void	movement_left(void *param)
 	double			move_speed;
 	double			new_pos_x;
 	double			new_pos_y;
-
+	
 	game = (t_gamestruct *)param;
 	move_speed = game->mlx->delta_time * 5.0;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 	{
 		if (game->minimap->fullmap_enabled == true)
 			disable_fullmap(game->minimap);
-		new_pos_x = game->player->player_pos_x - (game->player->plane_x * move_speed);
-		new_pos_y = game->player->player_pos_y - (game->player->plane_y * move_speed);
+		new_pos_x = (game->player->player_pos_x - (game->player->plane_x * move_speed));
+		new_pos_y = (game->player->player_pos_y - (game->player->plane_y * move_speed));
 		if (player_hits_wall(game, new_pos_x, new_pos_y) == 0)
 		{
 			game->player->player_pos_x -= (game->player->plane_x * move_speed);
@@ -141,7 +141,6 @@ void 	view_player(void *param)
 		old_plane_x = game->player->plane_x;
 		game->player->plane_x = game->player->plane_x * cos(rots) - game->player->plane_y * sin(rots);
 		game->player->plane_y = old_plane_x * sin(rots) + game->player->plane_y * cos(rots);
-		// minimap(game->minimap);
 	}
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 	{
@@ -151,7 +150,6 @@ void 	view_player(void *param)
 		old_plane_x = game->player->plane_x;
 		game->player->plane_x = game->player->plane_x * cos(-rots) - game->player->plane_y * sin(-rots);
 		game->player->plane_y = old_plane_x * sin(-rots) + game->player->plane_y * cos(-rots);
-		// minimap(game->minimap);
 	}
 }
 
