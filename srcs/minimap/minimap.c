@@ -72,7 +72,7 @@ void	create_minimap(t_minimap *minimap)
 	char	**arr;
 
 	delete_minimap(minimap);
-	arr = allocate_array_mm(minimap->game);
+	arr = allocate_array_mm(minimap);
 	arr = fill_array_mm(arr, minimap->file_map, minimap->player_x, minimap->player_y);
 	allocate_images_mm(minimap);
 	mm_place_content(arr, minimap);

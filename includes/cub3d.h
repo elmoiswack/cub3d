@@ -35,6 +35,8 @@ typedef struct s_playerdirections
 	double		raydir_y;
 } t_playerinfo;
 
+typedef struct s_gamestruct t_gamestruct;
+
 typedef struct s_minimap
 {
 	bool		fullmap_enabled;

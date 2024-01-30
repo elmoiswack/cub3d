@@ -44,7 +44,7 @@ t_parser *parser(t_parser *parser_s, char *argv[])
 	parser_s = parser_checks(parser_s);
 	parser_s->rgb_floor_int = transfer_rgb_to_int(parser_s->rgb_floor);
 	parser_s->rgb_ceiling_int = transfer_rgb_to_int(parser_s->rgb_ceiling);
-	if (parser_s->rgb_ceiling_int == -1 || parser_s->rgb_floor_int == -1)
+	if (parser_s->rgb_ceiling_int == (uint32_t)-1 || parser_s->rgb_floor_int == (uint32_t)-1)
 		error_parser(parser_s, "Failed to transfer rgb to uint");
 	return (parser_s);
 }

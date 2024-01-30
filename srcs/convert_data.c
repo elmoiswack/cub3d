@@ -15,7 +15,7 @@ t_gamestruct *texture_to_images(t_gamestruct *game, t_parser *parser)
 	game->west = mlx_texture_to_image(game->mlx, game->west_textu);
 	if (!game->west)
 		error_convert(parser, game, "failed to convert western texture to image!");
-	delete_textures(game);
+	delete_game_textures(game);
 	return (game);
 }
 
