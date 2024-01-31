@@ -194,7 +194,6 @@ void	movement_hook(void *param)
 		movement_left(param);
 }
 
-
 //this is the main start of the game
 //the raycaster creates the line be drawn on the screen, this loop goes on untill you have cover the entire screen
 //mlx_loop starts the game loop

@@ -16,7 +16,7 @@ int	check_argv(char **argv)
 		if (argv[1][index_arg] != str[index_str])
 			return (-1);
 		index_arg--;
-		index_str--;	
+		index_str--;
 	}
 	return (1);
 }

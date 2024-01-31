@@ -87,3 +87,22 @@ void	mm_make_player(t_minimap *mini)
 		x++;
 	}
 }
+
+void	create_minimap_border(t_minimap *mini)
+{
+	mini->mm_border = mlx_new_image(mini->mlx, mini->mm_scaler * 6,  mini->mm_scaler * 6);
+	int x;
+	int y;
+
+	y = 0;
+	while (y < ( mini->mm_scaler * 6))
+	{
+		x = 0;
+		while (x < ( mini->mm_scaler * 6))
+		{
+			mlx_put_pixel(mini->mm_border, x, y, transfer_colour(0, 0, 255));
+			x++;
+		}
+		y++;
+	}
+}

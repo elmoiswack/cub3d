@@ -31,7 +31,7 @@ int	skip_whitespaces(char *line, int index)
 {
 	while (line[index] && is_whitespace(line[index]) == 1)
 		index++;
-	return (1);
+	return (index);
 }
 
 //gets the index on which the map starts in full_file

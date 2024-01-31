@@ -78,6 +78,23 @@ int	check_char_map(char	**map)
 	return (1);
 }
 
+int	check_spaces_in_line(char **map, int index, int i)
+{
+	while(map[index][i] && map[index][i] != '\n')
+	{
+		if (map[index][i] == ' ')
+		{
+			if (map[index][i - 1] != '1')
+				return (-1);
+			i = skip_whitespaces(map[index], i);
+			if (map[index][i] != '1')
+				return (-1);
+		}
+		i++;
+	}
+	return (i);
+}
+
 //checks the border of the map
 //say there are whitespaces inbetween walls, it skips them to check if the next occurence of a char is a '1'
 int	border_check(char **map)
@@ -97,12 +114,10 @@ int	border_check(char **map)
 			i++;
 		if (map[index][i] == '\0' && map[index + 1] != NULL)
 			return (-1);
-		while (map[index][i] == ' ')
+		if (map[index][i] == ' ')
 		{
-			if (map[index][i - 1] != '1')
-				return (-1);
-			i = skip_whitespaces(map[index], i);
-			if (map[index][i] != '1')
+			i = check_spaces_in_line(map, index, i);
+			if (i == -1)
 				return (-1);
 		}
 		if (map[index][i - 1] != '1')
