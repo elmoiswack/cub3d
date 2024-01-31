@@ -1,7 +1,7 @@
-NO ./textures/kisspng-bert-ernie-elmo-big-bird-cookie-monster-wall-hole-5adfbb633b4e06.9805700015246119392429.png
-SO ./textures/kisspng-cookie-monster-elmo-zoe-big-bird-ernie-cookie-monster-5ac2f8919b73c5.3587261415227270576367.png
-EA ./textures/kisspng-elmo-cookie-monster-oscar-the-grouch-ernie-big-bir-sesame-5abf4dc3815831.6555985015224867235298.png
-WE ./textures/kisspng-grover-ernie-elmo-bert-sesame-street-5-patitos-de-sesame-street-5ad7ef06905772.8839695915241008705912.png
+NO ./textures/CookieMonster_cropped.png
+SO ./textures/elmoonfire.png
+EA ./textures/l-intro-1690905734.png
+WE ./textures/Pino-670x375.png
 
 F 0,180,0
 C 0,60,0
@@ -16,7 +16,7 @@ C 0,60,0
 11110111111111011101010010001
 11000000110101011100000010001
 10000000000000001100000010001
-10000000000000001101010010001
-11000001110101011111011110N0111
+100000000N0000001101010010001
+1100000111010101111101111000111
 11110111 1110101 101111010001
 11111111 1111111 111111111111

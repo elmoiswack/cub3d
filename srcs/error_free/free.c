@@ -26,7 +26,8 @@ void	free_game_struct(t_gamestruct *game)
 		return ;
 	delete_game_textures(game);
 	delete_game_images(game);
-	free_minimap_struct(game->minimap);
+	if (game->minimap)
+		free_minimap_struct(game->minimap);
 	free(game->minimap);
 	if (game->mlx)
 		mlx_terminate(game->mlx);
