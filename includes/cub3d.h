@@ -67,6 +67,7 @@ typedef struct s_minimap
 	double		player_x;
 	double		player_y;
 	mlx_t		*mlx;
+	mlx_image_t	*mm_border;
 	mlx_image_t	*screen_border;
 	mlx_image_t *screen_wall;
 	mlx_image_t *screen_floor;
@@ -194,12 +195,14 @@ void	mm_make_border(t_minimap *mini);
 void	mm_make_walls(t_minimap *mini);
 void	mm_make_floors(t_minimap *mini);
 void	mm_make_player(t_minimap *mini);
+void	create_minimap_border(t_minimap *mini);
 
 		//mm_placing.c
 void	mm_place_player(t_minimap *mini, int x, int y);
 void	mm_place_floors(t_minimap *mini, int x, int y);
 void	mm_place_walls(t_minimap *mini, int x, int y);
 void	mm_place_border(t_minimap *mini, int x, int y);
+void	place_minimap_border(t_minimap *mini);
 
 		//fullmap.c
 void	create_fullmap(t_minimap *mini);

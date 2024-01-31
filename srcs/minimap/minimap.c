@@ -70,6 +70,11 @@ void	create_minimap(t_minimap *minimap)
 {
 	char	**arr;
 
+	if (!minimap->mm_border)
+	{
+		create_minimap_border(minimap);
+		place_minimap_border(minimap);
+	}
 	arr = allocate_array_mm(minimap);
 	arr = fill_array_mm(arr, minimap->file_map, minimap->player_x, minimap->player_y);
 	mm_place_content(arr, minimap);
