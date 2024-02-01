@@ -39,12 +39,12 @@ MLX42_A	:= ./minilibx-linux/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 LIBS	:= $(LIBFT_A) $(MLX42_A)
 
 CMP		:= gcc 
-FLAGS 	:= -Wall -Wextra
+FLAGS 	:= -Wall -Wextra -Ofast -march=native -mtune=native
 HEADER	:= -I ./includes/
 HEADERS	:= -I ./libft/ -I $(MLX)/include/
 
 ifdef DEBUG
-	CMP += -g -fsanitize=address
+	CMP += -g -fsanitize=address 
 endif
 
 ifdef VALGRIND

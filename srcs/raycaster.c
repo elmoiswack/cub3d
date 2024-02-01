@@ -44,11 +44,11 @@ static uint32_t get_pixel_from_texture(mlx_texture_t *texture, double x_mult, do
 	int int_x_mult = (int) x_mult;
 	int int_y_mult = (int) y_mult;
 
-	r = texture->pixels[(((int_y_mult % texture->width) * texture->width + int_x_mult % texture->width)) * texture->bytes_per_pixel];
-	g = texture->pixels[(((int_y_mult % texture->width) * texture->width + int_x_mult % texture->width)) * texture->bytes_per_pixel + 1];
-	b = texture->pixels[(((int_y_mult % texture->width) * texture->width + int_x_mult % texture->width)) * texture->bytes_per_pixel + 2];
-	a = texture->pixels[(((int_y_mult % texture->width) * texture->width + int_x_mult % texture->width)) * texture->bytes_per_pixel + 3];
-	return (transfer_colour(r, g, b));
+	r = texture->pixels[(int_y_mult * texture->width + int_x_mult) * texture->bytes_per_pixel];
+	g = texture->pixels[(int_y_mult * texture->width + int_x_mult) * texture->bytes_per_pixel + 1];
+	b = texture->pixels[(int_y_mult * texture->width + int_x_mult) * texture->bytes_per_pixel + 2];
+	a = texture->pixels[(int_y_mult * texture->width + int_x_mult) * texture->bytes_per_pixel + 3];
+	return (transfer_colour_texture(r, g, b, a));
 }
 
 mlx_texture_t	*put_texture(t_gamestruct *game, mlx_texture_t *current_texture)
@@ -189,13 +189,12 @@ void 	draw_wall(t_gamestruct *game, mlx_texture_t *texture, int x)
 
 	game->player->line_height = (game->player->draw_end - game->player->draw_start);
 	step = 1.0 * texture->height / game->player->line_height;
-
 	texture_pos = (game->player->draw_start - SCREEN_HEIGHT / 2 + game->player->line_height / 2) * step;
 	while (game->player->draw_start < game->player->draw_end)
 	{
 		game->player->texture_y = (int)texture_pos & (texture->height - 1);
-		text_color = get_pixel_from_texture(texture, game->player->relative_wall_x, texture_pos);
 		texture_pos += step;
+		text_color = get_pixel_from_texture(texture, game->player->texture_x, game->player->texture_y);
 		mlx_put_pixel(game->raycaster_img, x, game->player->draw_start, text_color);
 		game->player->draw_start++;
 	}
@@ -214,12 +213,12 @@ void	draw_floor(t_gamestruct *game, int x)
 }
 
 //fare un buffer che ha come grandezza altezza e larghezza dello schermo dove lo coloreremo
-
 void	basic_raycaster(t_gamestruct	*game)
 {
 	mlx_texture_t	*current_texture;
 	int				i;
 
+	current_texture = NULL;
 	i = 0;
 	while (i < SCREEN_WIDTH)
 	{
@@ -231,9 +230,10 @@ void	basic_raycaster(t_gamestruct	*game)
 		ray_length(game);
 		side_side_dist_init(game);
 		hit_wall_check(game);
-		current_texture = put_texture(game, current_texture);
 		wall_x_perp_wall_dist_calculation(game);
 		calculation_lowest_highest_pixel(game);
+		current_texture = put_texture(game, current_texture);
+		texture_x_calculation(game, current_texture);
 		draw_ceiling(game, i);
 		draw_wall(game, current_texture, i);
 		draw_floor(game, i);

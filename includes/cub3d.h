@@ -90,8 +90,9 @@ typedef struct s_gamestruct
 	mlx_image_t *west;
 	mlx_image_t *east;
 	mlx_image_t *raycaster_img;
-	uint32_t	floor_rgb;
 	uint32_t	ceiling_rgb;
+	uint32_t	floor_rgb;
+	uint32_t	**image_buffer;
 	double		rots_speed;
 	double		move_speed;
 	double		frame_time;
@@ -102,7 +103,7 @@ typedef struct s_gamestruct
 } t_gamestruct;
 
 # define SCREEN_WIDTH 1920
-# define SCREEN_HEIGHT 1080
+# define SCREEN_HEIGHT 1420
 
 # define MINIMAP_WIDTH (SCREEN_WIDTH / 5)
 # define MINIMAP_HEIGHT (SCREEN_HEIGHT / 5)
@@ -120,7 +121,7 @@ void	start_game(t_gamestruct *game, t_raycaster *player);
 
 void	set_vars_player(t_raycaster *player);
 
-uint32_t	transfer_colour(int r, int g, int b);
+uint32_t	transfer_colour_texture(int r, int g, int b, int a);
 
 //////////////PARSER///////////////////////////////////////////////////////////////////////////////////////////
 
