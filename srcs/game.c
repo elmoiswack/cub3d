@@ -8,24 +8,6 @@ int	player_hits_wall(t_gamestruct *game, int x, int y)
 	return (0);
 }
 
-int	init_image_buffer(t_gamestruct *game)
-{
-	int	i;
-
-	i = 0;
-	game->image_buffer = (uint32_t **)malloc(sizeof(uint32_t) * SCREEN_HEIGHT);
-	if (!game->image_buffer)
-		return (1);
-	i = 0;
-	while (i < SCREEN_HEIGHT)
-	{
-		game->image_buffer[i] = (uint32_t *)malloc(sizeof(uint32_t) * SCREEN_WIDTH);
-		if (!game->image_buffer)
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 void	draw_screen(t_gamestruct *game)
 {
@@ -156,7 +138,6 @@ void 	view_player(void *param)
 	double			rots;
 
 	game = (t_gamestruct *) param;
-	// rots = 3.0;
 	rots = game->mlx->delta_time * 4.0;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 	{
@@ -219,7 +200,6 @@ void	movement_hook(void *param)
 //mlx_loop starts the game loop
 void	start_game(t_gamestruct *game, t_raycaster *player)
 {
-	game->image_buffer = NULL;
 	game->player = player;
 	set_vars_player(game->player);
 	game->minimap = ft_calloc(1, sizeof(t_minimap));
@@ -231,8 +211,6 @@ void	start_game(t_gamestruct *game, t_raycaster *player)
 		game->raycaster_img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 		mlx_image_to_window(game->mlx, game->raycaster_img, 0, 0);
 	}
-	// if (init_image_buffer(game) == 1)
-	// 	return (1);
 	basic_raycaster(game);
 	create_minimap(game->minimap);
 	mlx_loop_hook(game->mlx, &movement_hook, game);

@@ -92,7 +92,6 @@ typedef struct s_gamestruct
 	mlx_image_t *raycaster_img;
 	uint32_t	ceiling_rgb;
 	uint32_t	floor_rgb;
-	uint32_t	**image_buffer;
 	double		rots_speed;
 	double		move_speed;
 	double		frame_time;
