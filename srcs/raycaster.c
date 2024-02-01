@@ -53,13 +53,13 @@ static uint32_t get_pixel_from_texture(mlx_texture_t *texture, double x_mult, do
 
 mlx_texture_t	*put_texture(t_gamestruct *game, mlx_texture_t *current_texture)
 {
-	if (game->player->side == 1 && (game->player->map_y - 1 > 0))
+	if (game->player->side == 1 && game->player->raydir_y > 0)
 		current_texture = game->north_textu;
-	else if (game->player->side == 1 && (game->player->map_y + 1 < get_max_2d(game->map)))
+	else if (game->player->side == 1 && game->player->raydir_y < 0)
 		current_texture = game->south_textu;
-	else if (game->player->side == 0  &&  (game->player->map_x - 1 > 0))
+	else if (game->player->side == 0  && game->player->raydir_x > 0)
 		current_texture = game->west_textu;
-	else if (game->player->side == 0 && (game->player->map_x + 1 < ft_strlen(game->map[(int)game->player->map_y])))
+	else if (game->player->side == 0 && game->player->raydir_x < 0)
 		current_texture = game->east_textu;
 	return (current_texture);
 }
