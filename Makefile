@@ -6,8 +6,6 @@ SRC 	:= main.c \
 				game.c \
 				minimap/initialize.c \
 				minimap/minimap.c \
-				minimap/mm_creating.c \
-				minimap/mm_placing.c \
 				minimap/fullmap.c \
 				minimap/fm_creating.c \
 				minimap/fm_placing.c \

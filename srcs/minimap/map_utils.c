@@ -4,7 +4,7 @@ int	get_size_biggest_line(char **map)
 {
 	int	y;
 	int	size;
-	
+
 	y = 0;
 	size = (int)ft_strlen(map[y]);
 	y++;
@@ -39,20 +39,43 @@ char	**allocate_array_mm(t_minimap *mini)
 	return (arr);
 }
 
-bool		out_of_map_x(char **map, int player_x, int player_y, int x)
+bool	out_of_map_x(char **map, int player_x, int player_y, int x)
 {
 	if (player_x + x > (int)ft_strlen(map[player_y]) - 2)
 		return (true);
 	if (player_x + x < 0)
 		return (true);
-	return (false); 
+	return (false);
 }
 
-bool		out_of_map_y(char **map, int player_y, int y)
+bool	out_of_map_y(char **map, int player_y, int y)
 {
 	if (player_y + y > get_max_2d(map) - 1)
 		return (true);
 	if (player_y + y < 0)
 		return (true);
 	return (false);
+}
+
+void	create_minimap_border(t_minimap *mini)
+{
+	int	x;
+	int	y;
+
+	mini->minimap_border = mlx_new_image(mini->mlx, \
+		mini->mm_scaler * 6, mini->mm_scaler * 6);
+	if (!mini->minimap_border)
+		error_game(mini->game, "Failed to allocate the minimap_border image!");
+	y = 0;
+	while (y < (mini->mm_scaler * 6))
+	{
+		x = 0;
+		while (x < (mini->mm_scaler * 6))
+		{
+			mlx_put_pixel(mini->minimap_border, x, y, \
+				transfer_colour(0, 0, 255));
+			x++;
+		}
+		y++;
+	}
 }

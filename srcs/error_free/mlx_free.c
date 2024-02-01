@@ -54,24 +54,14 @@ void	delete_fullmap(t_minimap *minimap)
 
 void	delete_minimap(t_minimap *mini)
 {
-	if (mini->screen_border)
+	if (mini->minimap_border)
 	{
-		mlx_delete_image(mini->mlx, mini->screen_border);
-		mini->screen_border = NULL;
+		mlx_delete_image(mini->mlx, mini->minimap_border);
+		mini->minimap_border = NULL;
 	}
-	if (mini->screen_floor)
+	if (mini->minimap_image)
 	{
-		mlx_delete_image(mini->mlx, mini->screen_floor);
-		mini->screen_floor = NULL;
-	}
-	if (mini->screen_player)
-	{
-		mlx_delete_image(mini->mlx, mini->screen_player);
-		mini->screen_player = NULL;
-	}
-	if (mini->screen_wall)
-	{
-		mlx_delete_image(mini->mlx, mini->screen_wall);
-		mini->screen_wall = NULL;
+		mlx_delete_image(mini->mlx, mini->minimap_image);
+		mini->minimap_image = NULL;
 	}
 }

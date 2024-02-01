@@ -18,7 +18,7 @@ void	draw_screen(t_gamestruct *game)
 	basic_raycaster(game);
 	if (game->minimap->minimap_enabled == false)
 		enable_minimap(game->minimap);
-	create_minimap(game->minimap);	
+	create_minimap(game->minimap);
 }
 
 //if a key is pressed and the conditions are met, the player posx or posy are changed
