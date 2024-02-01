@@ -195,6 +195,64 @@ void	movement_hook(void *param)
 		movement_left(param);
 }
 
+void	new_plane_calculator(t_gamestruct *game, bool towards_left, double rots)
+{
+	double			old_dir_x;
+	double			old_plane_x;
+	
+	if (towards_left == true)
+	{
+		old_dir_x = game->player->direction_x;
+		game->player->direction_x = game->player->direction_x * cos(rots) - game->player->direction_y * sin(rots);
+		game->player->direction_y = old_dir_x * sin(rots) + game->player->direction_y * cos(rots);
+		old_plane_x = game->player->plane_x;
+		game->player->plane_x = game->player->plane_x * cos(rots) - game->player->plane_y * sin(rots);
+		game->player->plane_y = old_plane_x * sin(rots) + game->player->plane_y * cos(rots);		
+	}
+	else
+	{
+		old_dir_x = game->player->direction_x;
+		game->player->direction_x = game->player->direction_x * cos(-rots) - game->player->direction_y * sin(-rots);
+		game->player->direction_y = old_dir_x * sin(-rots) + game->player->direction_y * cos(-rots);
+		old_plane_x = game->player->plane_x;
+		game->player->plane_x = game->player->plane_x * cos(-rots) - game->player->plane_y * sin(-rots);
+		game->player->plane_y = old_plane_x * sin(-rots) + game->player->plane_y * cos(-rots);		
+	}
+}
+
+void	mouse_movement(void *param)
+{
+	t_gamestruct *game;
+	int32_t	new_x;
+	int32_t	new_y;
+	int32_t	mouse_x;
+	double			rots;
+
+	game = param;
+	rots = game->mlx->delta_time * 4.0;
+	mouse_x = SCREEN_WIDTH / 2;
+	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
+	mlx_get_mouse_pos(game->mlx, &new_x, &new_y);
+	if (mouse_x != new_x)
+	{
+		if (new_x > SCREEN_WIDTH)
+			new_x = SCREEN_WIDTH;
+		if (new_x < 0)
+			new_x = 0;
+		if (new_x < mouse_x)
+		{
+			new_plane_calculator(game, true, rots);
+			draw_screen(game);		
+		}
+		else
+		{
+			new_plane_calculator(game, false, rots);
+			draw_screen(game);
+		}
+	}
+	mlx_set_mouse_pos(game->mlx, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+}
+
 //this is the main start of the game
 //the raycaster creates the line be drawn on the screen, this loop goes on untill you have cover the entire screen
 //mlx_loop starts the game loop
@@ -216,6 +274,7 @@ void	start_game(t_gamestruct *game, t_raycaster *player)
 	mlx_loop_hook(game->mlx, &movement_hook, game);
 	mlx_loop_hook(game->mlx, &view_player, game);
 	mlx_loop_hook(game->mlx, &extra_features, game);
+	mlx_loop_hook(game->mlx, &mouse_movement, game);
 	mlx_loop(game->mlx);
 	mlx_close_window(game->mlx);
 }
