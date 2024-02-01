@@ -9,7 +9,7 @@ void	allocate_fullmap(t_minimap *mini)
 	fullmap_make_player(mini);
 }
 
-void 	place_fullmap(t_minimap *mini)
+void	place_fullmap(t_minimap *mini)
 {
 	fullmap_place_background(mini);
 	fullmap_place_floors(mini);

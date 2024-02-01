@@ -67,11 +67,8 @@ typedef struct s_minimap
 	double		player_x;
 	double		player_y;
 	mlx_t		*mlx;
-	mlx_image_t	*mm_border;
-	mlx_image_t	*screen_border;
-	mlx_image_t *screen_wall;
-	mlx_image_t *screen_floor;
-	mlx_image_t *screen_player;
+	mlx_image_t	*minimap_border;
+	mlx_image_t *minimap_image;
 	mlx_image_t	*fullm_background;
 	mlx_image_t *fullm_wall;
 	mlx_image_t *fullm_floor;
@@ -102,10 +99,10 @@ typedef struct s_gamestruct
 } t_gamestruct;
 
 # define SCREEN_WIDTH 1920
-# define SCREEN_HEIGHT 1420
+# define SCREEN_HEIGHT 1080
 
 # define MINIMAP_WIDTH (SCREEN_WIDTH / 5)
-# define MINIMAP_HEIGHT (SCREEN_HEIGHT / 5)
+# define MINIMAP_HEIGHT (SCREEN_WIDTH / 5)
 
 	//MAIN.C
 int			main(int argc, char *argv[]);
@@ -175,34 +172,21 @@ int			are_there_empty_inputs(t_parser *parser_s);
 //////////////MINIMAP///////////////////////////////////////////////////////////////////////////////////////////
 		//initialize.c
 void	set_vars_minimap(t_gamestruct *game);
-void	calculate_mm_scaler(t_minimap *mini);
 void	calculate_fm_scaler(t_minimap *mini);
 
 		//minimap.c
+char **fill_array_mm(char **array, char **map, int player_x, int player_y);
+void	draw_onto_image(t_minimap *mini, int x, int y, uint32_t color);
 void	mm_place_content(char **array, t_minimap *mini);
-char	**fill_array_mm(char **array, char **map, int player_x, int player_y);
-void	allocate_images_mm(t_minimap *mini);
-void	create_minimap(t_minimap *minimap);
+void	place_minimap_border(t_minimap *mini);
+void	create_minimap(t_minimap *mini);
 
 		//map_utils.c
 int		get_size_biggest_line(char **map);
 char	**allocate_array_mm(t_minimap *mini);
 bool	out_of_map_x(char **map, int player_x, int player_y, int x);
 bool	out_of_map_y(char **map, int player_y, int y);
-
-		//mm_creating.c
-void	mm_make_border(t_minimap *mini);
-void	mm_make_walls(t_minimap *mini);
-void	mm_make_floors(t_minimap *mini);
-void	mm_make_player(t_minimap *mini);
 void	create_minimap_border(t_minimap *mini);
-
-		//mm_placing.c
-void	mm_place_player(t_minimap *mini, int x, int y);
-void	mm_place_floors(t_minimap *mini, int x, int y);
-void	mm_place_walls(t_minimap *mini, int x, int y);
-void	mm_place_border(t_minimap *mini, int x, int y);
-void	place_minimap_border(t_minimap *mini);
 
 		//fullmap.c
 void	create_fullmap(t_minimap *mini);
