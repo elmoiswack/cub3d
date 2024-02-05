@@ -71,22 +71,27 @@ int	rgb_checks(char *line)
 	return (1);
 }
 
-int	alpha_in_texture(char *line)
+int	texture_checks(char *line)
 {
+	const char str[] = ".png";
 	int	index;
 	int	count;
 
 	index = 0;
 	count = 0;
-	//say for example our evaluator changes the directory and the names of the textures to only numbers this ft would fail, should i change it or nah?
 	while (line[index])
-	{
-		if (ft_isalpha(line[index]) == 1 || line[index] == '/')
-			count++;
 		index++;
-	}
-	if (count == 0)
+	if (index < 4)
 		return (-1);
+	count = 3;
+	index--;
+	while (count >= 0)
+	{
+		if (str[count] != line[index])
+			return (-1);
+		count--;
+		index--;
+	}
 	return (1);
 }
 
@@ -98,13 +103,13 @@ int	are_there_empty_inputs(t_parser *parser_s)
 		return (-1);
 	if (!parser_s->map)
 		error_parser(parser_s, "Missing Map!");
-	if (!parser_s->n_texture || alpha_in_texture(parser_s->n_texture) == -1)
+	if (!parser_s->n_texture || texture_checks(parser_s->n_texture) == -1)
 		error_parser(parser_s, "Missing North texture!");
-	if (!parser_s->e_texture || alpha_in_texture(parser_s->e_texture) == -1)
+	if (!parser_s->e_texture || texture_checks(parser_s->e_texture) == -1)
 		error_parser(parser_s, "Missing East texture!");
-	if (!parser_s->s_texture || alpha_in_texture(parser_s->s_texture) == -1)
+	if (!parser_s->s_texture || texture_checks(parser_s->s_texture) == -1)
 		error_parser(parser_s, "Missing South texture!");
-	if (!parser_s->w_texture || alpha_in_texture(parser_s->w_texture) == -1)
+	if (!parser_s->w_texture || texture_checks(parser_s->w_texture) == -1)
 		error_parser(parser_s, "Missing West texture!");
 	if (!parser_s->rgb_ceiling || rgb_checks(parser_s->rgb_ceiling) == -1)
 		error_parser(parser_s, "Invalid Ceiling colours!");
