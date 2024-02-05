@@ -131,12 +131,12 @@ int			transfer_rgb_to_int(char *rgb);
 uint32_t		transfer_colour(int r, int g, int b);
 t_parser	*parser_checks(t_parser *parser_s);
 
-		//map_opener.c
+		//file_opener.c
 int			check_argv(char **argv);
-int			how_many_lines(int fd);
+int			how_many_lines_file(int fd);
 char		**get_content_into_array(char **array, int fd, int count);
-char		**get_content_map(int fd, char *argv[]);
-t_parser	*get_info_map(t_parser *parser_s, char *argv[]);
+char		**get_content_file(int fd, char *argv[]);
+t_parser	 *get_info_file(t_parser *parser_s, char *argv[]);
 
 		//map_checks.c
 int			border_check(char **map);

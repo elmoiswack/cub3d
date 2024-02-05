@@ -89,7 +89,7 @@ t_parser *get_info_file(t_parser *parser_s, char *argv[])
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		error_parser(parser_s, "Failed to open the file, either open failed, the file doens't have reading rights or doesn't exist");
-	parser_s->full_file = get_content_map(fd, argv);
+	parser_s->full_file = get_content_file(fd, argv);
 	close(fd);
 	if (!parser_s->full_file)
 		error_parser(parser_s, "Failed to get the content of the file");

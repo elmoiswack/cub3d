@@ -44,7 +44,7 @@ int	transfer_rgb_to_int(char *rgb)
 
 t_parser *parser(t_parser *parser_s, char *argv[])
 {
-	parser_s = get_info_map(parser_s, argv);
+	parser_s = get_info_file(parser_s, argv);
 	parser_s = sort_content(parser_s);
 	parser_s = parser_checks(parser_s);
 	parser_s->rgb_floor_int = transfer_rgb_to_int(parser_s->rgb_floor);
