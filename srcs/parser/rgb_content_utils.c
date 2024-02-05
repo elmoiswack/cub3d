@@ -1,8 +1,6 @@
 #include "../../includes/cub3d.h"
 #include "stdio.h"
 
-//checks of there is a r, g and a b value and seperated by a ','
-//if not, the rgb value is invalid and -1 is returned
 int	ammount_input_rgb(char *line)
 {
 	int	index;
@@ -21,8 +19,6 @@ int	ammount_input_rgb(char *line)
 	return (1);
 }
 
-//checks if the line passed isn't bigger than max int
-//if it is, this ft will find it and returns -1
 int	overflow_check(char *line)
 {
 	int		index;

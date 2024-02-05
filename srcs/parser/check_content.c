@@ -1,14 +1,19 @@
 #include "../../includes/cub3d.h"
 #include "stdio.h"
 
-//the floodfill algorithm
-//it goes to every square that is allowed to go to
-//if it goes to a square that shouldn't be reachable it returns -1 and an error is thrown
-//else it goes on untill it has no squares to go to and returns 1
+int	floodfill_check(char **map, int start_x, int start_y)
+{
+	if ((start_x <= 0) || (start_y <= 0) || \
+		(start_x >= (int)ft_strlen(map[start_y]) - 2) || \
+		(start_y >= get_max_2d(map) - 1) || \
+		(map[start_y][start_x] == ' '))
+		return (-1);
+	return (1);
+}
+
 int	floodfill(char	**map, int start_x, int start_y)
 {
-	if ((start_x <= 0) || (start_y <= 0) || (start_x >= (int)ft_strlen(map[start_y]) - 2) 
-		|| (start_y >= get_max_2d(map) - 1) || (map[start_y][start_x] == ' '))
+	if (floodfill_check(map, start_x, start_y) == -1)
 		return (-1);
 	map[start_y][start_x] = '@';
 	if (map[start_y][start_x + 1] != '@' && map[start_y][start_x + 1] != '1')
@@ -34,18 +39,19 @@ int	floodfill(char	**map, int start_x, int start_y)
 	return (1);
 }
 
-//the main of the map checks, these are all the ft's used to check the map
 int	map_checker(char **map, t_parser *parser_s)
 {
 	char	**map_copy;
-	
+
 	if (check_howmany_start(map) == -1)
-		error_parser(parser_s, "Only 1 start position is needed, either an 'N', 'E', 'S' or 'W'!");
+		error_parser(parser_s, "Only 1 start position is needed, \
+			either an 'N', 'E', 'S' or 'W'!");
 	if (check_char_map(map) == -1)
 		error_parser(parser_s, "An invalid character is inside the map!");
 	if (border_check(map) == -1)
 		error_parser(parser_s, "Unclosed borders!");
-	get_start_pos(map, &parser_s->start_pos_x, &parser_s->start_pos_y, &parser_s->start_direction);
+	get_start_pos(map, &parser_s->start_pos_x, &parser_s->start_pos_y, \
+		&parser_s->start_direction);
 	map_copy = copy_2d_array(map);
 	if (!map_copy)
 		error_parser(parser_s, "Allocation map_copy failed!");
@@ -59,23 +65,11 @@ int	map_checker(char **map, t_parser *parser_s)
 	return (1);
 }
 
-//the main of the rgb checks, these are all the ft's used to check if the rgb values given are valid
-int	rgb_checks(char *line)
-{
-	if (check_chars_rgb(line) == -1)
-		return (-1);
-	if (ammount_input_rgb(line) == -1)
-		return (-1);
-	if (check_range_rgb(line) == -1)
-		return (-1);
-	return (1);
-}
-
 int	texture_checks(char *line)
 {
-	const char str[] = ".png";
-	int	index;
-	int	count;
+	const char	str[] = ".png";
+	int			index;
+	int			count;
 
 	index = 0;
 	count = 0;
@@ -95,8 +89,6 @@ int	texture_checks(char *line)
 	return (1);
 }
 
-//safety check to see if there are any empty input
-//if so, error is thrown because we need all of them to run cub3d
 int	are_there_empty_inputs(t_parser *parser_s)
 {
 	if (!parser_s)
