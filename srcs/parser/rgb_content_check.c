@@ -60,8 +60,10 @@ int	check_range_rgb(char *line)
 	index = 0;
 	while(line[index])
 	{
-		if (line[index] == ',' || line[index] == '\n')
+		if (line[index] == ',' || line[index + 1] == '\0')
 		{
+			if (line[index + 1] == '\0')
+				index++;
 			begin = index;
 			begin--;
 			while (begin > 0 && line[begin] != ',')

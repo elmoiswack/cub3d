@@ -7,7 +7,7 @@
 //else it goes on untill it has no squares to go to and returns 1
 int	floodfill(char	**map, int start_x, int start_y)
 {
-	if ((start_x <= 0) || (start_y <= 0) || ((size_t) start_x >= ft_strlen(map[start_y]) - 2) 
+	if ((start_x <= 0) || (start_y <= 0) || (start_x >= (int)ft_strlen(map[start_y]) - 2) 
 		|| (start_y >= get_max_2d(map) - 1) || (map[start_y][start_x] == ' '))
 		return (-1);
 	map[start_y][start_x] = '@';

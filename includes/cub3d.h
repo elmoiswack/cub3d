@@ -119,8 +119,12 @@ void	set_vars_player(t_raycaster *player);
 
 uint32_t	transfer_colour_texture(int r, int g, int b, int a);
 
-//////////////PARSER///////////////////////////////////////////////////////////////////////////////////////////
+//convert_data.c
+t_gamestruct	*convert_data(t_parser *parser_s, t_gamestruct *gamestruct, t_raycaster *player);
+t_gamestruct	*getting_images(t_parser *parser, t_gamestruct *game);
+t_gamestruct	*texture_to_images(t_gamestruct *game, t_parser *parser);
 
+//////////////PARSER///////////////////////////////////////////////////////////////////////////////////////////
 		//parser.c
 t_parser	*parser(t_parser *parser_s, char *argv[]);
 int			transfer_rgb_to_int(char *rgb);
@@ -211,15 +215,6 @@ void	disable_minimap(t_minimap *mini);
 void	disable_fullmap(t_minimap *mini);
 void	enable_fullmap(t_minimap *mini);
 
-
-
-//convert_data.c
-t_gamestruct	*convert_data(t_parser *parser_s, t_gamestruct *gamestruct, t_raycaster *player);
-t_gamestruct	*getting_images(t_parser *parser, t_gamestruct *game);
-t_gamestruct	*texture_to_images(t_gamestruct *game, t_parser *parser);
-
-
-
 //////////////FREE AND ERROR/////////////////////////////////////////////////////////////////////////////////////
 
 	//free.c
@@ -236,8 +231,8 @@ void	delete_fullmap(t_minimap *minimap);
 void	delete_minimap(t_minimap *mini);
 
 	//error.c
-void		error_parser( t_parser *parser_s, const char *str);
-void		error_convert(t_parser *parser, t_gamestruct *game, const char *str);
-void		error_game(t_gamestruct *game, const char *str);
+void	error_parser( t_parser *parser_s, const char *str);
+void	error_convert(t_parser *parser, t_gamestruct *game, const char *str);
+void	error_game(t_gamestruct *game, const char *str);
 
 #endif
