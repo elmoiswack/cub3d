@@ -22,7 +22,7 @@ int	check_argv(char **argv)
 }
 
 //this ft counts how many lines there are in a file so that we can allocate the 2d array
-int	how_many_lines(int fd)
+int	how_many_lines_file(int fd)
 {
 	char	*gnl_line;
 	int		count;
@@ -57,12 +57,12 @@ char	**get_content_into_array(char **array, int fd, int count)
 }
 
 //this ft allocates a 2d array to store the map in
-char	**get_content_map(int fd, char *argv[])
+char	**get_content_file(int fd, char *argv[])
 {
 	char	**array;
 	int		count;
 
-	count = how_many_lines(fd);
+	count = how_many_lines_file(fd);
 	if (count == -1)
 		return (NULL);
 	array = ft_calloc(count + 1, sizeof(char *));
@@ -80,7 +80,7 @@ char	**get_content_map(int fd, char *argv[])
 }
 
 //the main of getting the entire file into full_file
-t_parser *get_info_map(t_parser *parser_s, char *argv[])
+t_parser *get_info_file(t_parser *parser_s, char *argv[])
 {
 	int	fd;
 	
@@ -88,10 +88,10 @@ t_parser *get_info_map(t_parser *parser_s, char *argv[])
 		error_parser(parser_s, "Map doesn't end with .cub");
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		error_parser(parser_s, "Failed to open the file, either open failed, the file doens;t have reading rights or doesn't exist");
+		error_parser(parser_s, "Failed to open the file, either open failed, the file doens't have reading rights or doesn't exist");
 	parser_s->full_file = get_content_map(fd, argv);
 	close(fd);
 	if (!parser_s->full_file)
-		error_parser(parser_s, "Getting the maps content failed");
+		error_parser(parser_s, "Failed to get the content of the file");
 	return (parser_s);
 }

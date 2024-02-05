@@ -78,6 +78,7 @@ int	alpha_in_texture(char *line)
 
 	index = 0;
 	count = 0;
+	//say for example our evaluator changes the directory and the names of the textures to only numbers this ft would fail, should i change it or nah?
 	while (line[index])
 	{
 		if (ft_isalpha(line[index]) == 1 || line[index] == '/')

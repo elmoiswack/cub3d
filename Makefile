@@ -12,7 +12,7 @@ SRC 	:= main.c \
 				minimap/enable_disable.c \
 				minimap/map_utils.c \
 				parser/parser.c \
-				parser/map_opener.c \
+				parser/file_opener.c \
 				parser/content_sorter.c \
 				parser/check_content.c \
 				parser/map_checks.c \

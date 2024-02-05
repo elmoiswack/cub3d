@@ -34,6 +34,22 @@ int	skip_whitespaces(char *line, int index)
 	return (index);
 }
 
+bool	check_line_for_map(char *line)
+{
+	int	index;
+
+	index = 0;
+	while (line[index])
+	{
+		if (line[index] == '\n')
+			return (true);
+		if (ft_isdigit(line[index]) == 0)
+			return (false);
+		index++;
+	}
+	return (true);
+}
+
 //gets the index on which the map starts in full_file
 int	get_start_map(t_parser *parser_s)
 {
@@ -48,8 +64,13 @@ int	get_start_map(t_parser *parser_s)
 		{
 			if (ft_isalpha(parser_s->full_file[index][0]) == 1)
 				break ;
-			if (parser_s->full_file[index][j] == '1')
-				return (index);
+			if (ft_isdigit(parser_s->full_file[index][j]) == 1)
+			{
+				if (check_line_for_map(parser_s->full_file[index]) == true)
+					return (index);
+				else
+					break ;
+			}
 			j++;
 		}
 		index++;
