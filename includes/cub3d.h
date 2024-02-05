@@ -139,7 +139,7 @@ char		**get_content_file(int fd, char *argv[]);
 t_parser	 *get_info_file(t_parser *parser_s, char *argv[]);
 
 		//map_checks.c
-int			border_check(char **map);
+int			border_check(char **map, int index);
 int			check_char_map(char	**map);
 void		get_start_pos(char **map, int *x, int *y, char *start_derection);
 int			check_howmany_start(char **map);
@@ -163,14 +163,14 @@ int			ammount_input_rgb(char *line);
 		//content_sorter.c
 t_parser	*sort_content(t_parser *parser_s);
 t_parser	*get_map(t_parser *parser_s , int index);
-t_parser	*get_textures_rgb_path(t_parser *parser_s);
+t_parser	*get_textures_rgb_path(t_parser *parser_s, int index);
 char		*line_into_struct(char	*line, t_parser *parser_s);
 
 		//check_content.c
 int			floodfill(char	**map, int start_x, int start_y);
 int			map_checker(char **map, t_parser *parser_s);
 int			rgb_checks(char *line);
-int			alpha_in_texture(char *line);
+int			texture_checks(char *line);
 int			are_there_empty_inputs(t_parser *parser_s);
 
 //////////////MINIMAP///////////////////////////////////////////////////////////////////////////////////////////

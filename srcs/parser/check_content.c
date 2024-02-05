@@ -48,7 +48,7 @@ int	map_checker(char **map, t_parser *parser_s)
 			either an 'N', 'E', 'S' or 'W'!");
 	if (check_char_map(map) == -1)
 		error_parser(parser_s, "An invalid character is inside the map!");
-	if (border_check(map) == -1)
+	if (border_check(map, 0) == -1)
 		error_parser(parser_s, "Unclosed borders!");
 	get_start_pos(map, &parser_s->start_pos_x, &parser_s->start_pos_y, \
 		&parser_s->start_direction);
