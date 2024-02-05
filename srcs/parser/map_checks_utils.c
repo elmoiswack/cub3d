@@ -75,5 +75,5 @@ int	get_start_map(t_parser *parser_s)
 		}
 		index++;
 	}
-	return (-1);	
+	return (-1);
 }

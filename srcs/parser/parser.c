@@ -1,8 +1,7 @@
 #include "../../includes/cub3d.h"
 #include "stdio.h"
 
-//safety checks for the parser
-t_parser *parser_checks(t_parser *parser_s)
+t_parser	*parser_checks(t_parser *parser_s)
 {
 	if (are_there_empty_inputs(parser_s) == -1)
 		error_parser(parser_s, "Missing important information from the file");
@@ -11,7 +10,6 @@ t_parser *parser_checks(t_parser *parser_s)
 	return (parser_s);
 }
 
-//transfers the idividual r,g,b into a single uint32_t
 uint32_t	transfer_colour_texture(int32_t r, int32_t g, int32_t b, int32_t a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
@@ -22,12 +20,11 @@ uint32_t	transfer_colour(int r, int g, int b)
 	return (r << 24 | g << 16 | b << 8 | 255);
 }
 
-//turns a string of rgb number into a uint32_t
 int	transfer_rgb_to_int(char *rgb)
 {
-	int	r;
-	int	g;
-	int	b;
+	int		r;
+	int		g;
+	int		b;
 	char	**temp;
 
 	temp = ft_split(rgb, ',');
@@ -40,16 +37,15 @@ int	transfer_rgb_to_int(char *rgb)
 	return (transfer_colour(r, g, b));
 }
 
-//beginning of the parser
-
-t_parser *parser(t_parser *parser_s, char *argv[])
+t_parser	*parser(t_parser *parser_s, char *argv[])
 {
 	parser_s = get_info_file(parser_s, argv);
 	parser_s = sort_content(parser_s);
 	parser_s = parser_checks(parser_s);
 	parser_s->rgb_floor_int = transfer_rgb_to_int(parser_s->rgb_floor);
 	parser_s->rgb_ceiling_int = transfer_rgb_to_int(parser_s->rgb_ceiling);
-	if (parser_s->rgb_ceiling_int == (uint32_t)-1 || parser_s->rgb_floor_int == (uint32_t)-1)
+	if (parser_s->rgb_ceiling_int == (uint32_t)-1 \
+		|| parser_s->rgb_floor_int == (uint32_t)-1)
 		error_parser(parser_s, "Failed to transfer rgb to uint");
 	return (parser_s);
 }
