@@ -1,6 +1,6 @@
 NO ./textures/CookieMonster.png
 SO ./textures/elmoonfire.png
-EA./textures/grover.png
+EA ./textures/grover.png
 WE ./textures/Pino.png
 
 F 0,128,0

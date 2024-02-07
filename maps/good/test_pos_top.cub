@@ -1,0 +1,21 @@
+NO ./textures/CookieMonster.png
+SO ./textures/elmoonfire.png
+EA ./textures/grover.png
+WE ./textures/Pino.png
+
+F 20,20,20
+C 200,200,200
+
+111
+1N1
+101
+101
+101
+101
+101
+101
+101
+101
+101
+101
+111

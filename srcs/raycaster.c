@@ -166,15 +166,15 @@ void	calculation_lowest_highest_pixel(t_gamestruct *game)
 
 void	draw_ceiling(t_gamestruct *game, int x)
 {
-	int	index;
+	int	y;
 
-	index = 0;
+	y = 0;
 	if (game->player->draw_start > 0)
 	{
-		while (index < game->player->draw_start && index < SCREEN_HEIGHT)
+		while (y < game->player->draw_start && y < SCREEN_HEIGHT)
 		{
-			mlx_put_pixel(game->raycaster_img, x, index, game->ceiling_rgb);
-			index++;
+			mlx_put_pixel(game->raycaster_img, x, y, game->ceiling_rgb);
+			y++;
 		}
 	}
 }
@@ -202,17 +202,17 @@ void	draw_floor(t_gamestruct *game, int x)
 	int	y;
 
 	y = game->player->draw_end;
-	if (game->player->draw_end < SCREEN_HEIGHT - 1)
+	if (y < SCREEN_HEIGHT - 1)
 	{
 		while (y < SCREEN_HEIGHT - 1)
 		{
+			// printf("This is y: %i\n", y);
 			mlx_put_pixel(game->raycaster_img, x, y, game->floor_rgb);
 			y++;
 		}
 	}
 }
 
-//fare un buffer che ha come grandezza altezza e larghezza dello schermo dove lo coloreremo
 void	basic_raycaster(t_gamestruct	*game)
 {
 	mlx_texture_t	*current_texture;
