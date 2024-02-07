@@ -110,7 +110,6 @@ void	hit_wall_check(t_gamestruct *game)
 	hit = 0;
 	while(hit == 0)
 	{
-		//jump to the next map square
 		if(game->player->side_distance_x < game->player->side_distance_y)
 		{
 			game->player->side_distance_x += game->player->delta_distance_x;
@@ -123,7 +122,7 @@ void	hit_wall_check(t_gamestruct *game)
 			game->player->map_y += game->player->step_y;
 			game->player->side = 1;
 		}
-		if(game->map[(int)game->player->map_y][(int)game->player->map_x] == '1')
+		if(game->map[game->player->map_y][game->player->map_x] == '1')
 			hit = 1;
 	}
 }
@@ -183,19 +182,18 @@ void	draw_ceiling(t_gamestruct *game, int x)
 void 	draw_wall(t_gamestruct *game, mlx_texture_t *texture, int x)
 {
 	uint32_t	text_color;
-	double		texture_pos;
-	double		step;
+	int			y;
 
-	game->player->line_height = (game->player->draw_end - game->player->draw_start);
-	step = 1.0 * texture->height / game->player->line_height;
-	texture_pos = (game->player->draw_start - SCREEN_HEIGHT / 2 + game->player->line_height / 2) * step;
-	while (game->player->draw_start < game->player->draw_end)
+	y = game->player->draw_start;
+	game->player->step = 1.0 * texture->height / game->player->line_height;
+	game->player->texture_pos = (game->player->draw_start - SCREEN_HEIGHT / 2 + game->player->line_height / 2) * game->player->step;
+	while (y < game->player->draw_end)
 	{
-		game->player->texture_y = (int)texture_pos & (texture->height - 1);
-		texture_pos += step;
+		game->player->texture_y = (int)game->player->texture_pos & (texture->height - 1);
+		game->player->texture_pos += game->player->step;
 		text_color = get_pixel_from_texture(texture, game->player->texture_x, game->player->texture_y);
-		mlx_put_pixel(game->raycaster_img, x, game->player->draw_start, text_color);
-		game->player->draw_start++;
+		mlx_put_pixel(game->raycaster_img, x, y, text_color);
+		y++;
 	}
 }
 
