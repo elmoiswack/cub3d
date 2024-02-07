@@ -30,8 +30,6 @@ typedef struct s_raycaster
 	double		distance_y;
 	double		delta_distance_x;
 	double		delta_distance_y;
-	double		map_x;
-	double		map_y;
 	double		perp_wall_dist;
 	double		plane_x;
 	double		plane_y;
@@ -45,8 +43,10 @@ typedef struct s_raycaster
 	double		side_distance_y;
 	double		wall_x;
 	int			line_height;
-	int			draw_start;
-	int			draw_end;
+	int32_t		draw_start;
+	int32_t		draw_end;
+	double		map_x;
+	double		map_y;
 	int			texture_x;
 	int			texture_y;
 	int			side;

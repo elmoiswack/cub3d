@@ -7,31 +7,31 @@ void	set_vars_player(t_raycaster *player)
 {
 	if (player->start_direction == 'N')
 	{
-		player->direction_x = -1;
-		player->direction_y = 0;
-		player->plane_x = 0;
-		player->plane_y = 0.66;
+		player->direction_x = 0;
+		player->direction_y = -1;
+		player->plane_x = -0.66;
+		player->plane_y = 0;
 	}
 	else if (player->start_direction == 'S')
+	{
+		player->direction_x = 0;
+		player->direction_y = 1;
+		player->plane_x = 0.66;
+		player->plane_y = 0;
+	}
+	else if (player->start_direction == 'E')
 	{
 		player->direction_x = 1;
 		player->direction_y = 0;
 		player->plane_x = 0;
 		player->plane_y = -0.66;
 	}
-	else if (player->start_direction == 'E')
-	{
-		player->direction_x = 0;
-		player->direction_y = 1;
-		player->plane_x = -0.66;
-		player->plane_y = 0;
-	}
 	else if (player->start_direction == 'W')
 	{
-		player->direction_x = 0;
-		player->direction_y = -1;
-		player->plane_x = 0.66;
-		player->plane_y = 0;
+		player->direction_x = -1;
+		player->direction_y = 0;
+		player->plane_x = 0;
+		player->plane_y = 0.66;
 	}
 }
 
@@ -158,7 +158,6 @@ void	calculation_lowest_highest_pixel(t_gamestruct *game)
 {
 	game->player->line_height = (int)(SCREEN_HEIGHT / game->player->perp_wall_dist);
 	game->player->draw_start = -game->player->line_height / 2 + SCREEN_HEIGHT / 2;
-	game->player->relative_wall_x = game->player->wall_x - (int) game->player->wall_x;
 	if(game->player->draw_start < 0)
 		game->player->draw_start = 0;
 	game->player->draw_end = game->player->line_height / 2 + SCREEN_HEIGHT / 2;
@@ -173,7 +172,7 @@ void	draw_ceiling(t_gamestruct *game, int x)
 	index = 0;
 	if (game->player->draw_start > 0)
 	{
-		while (index < game->player->draw_start)
+		while (index < game->player->draw_start && index < SCREEN_HEIGHT)
 		{
 			mlx_put_pixel(game->raycaster_img, x, index, game->ceiling_rgb);
 			index++;
@@ -202,12 +201,15 @@ void 	draw_wall(t_gamestruct *game, mlx_texture_t *texture, int x)
 
 void	draw_floor(t_gamestruct *game, int x)
 {
+	int	y;
+
+	y = game->player->draw_end;
 	if (game->player->draw_end < SCREEN_HEIGHT - 1)
 	{
-		while (game->player->draw_end < SCREEN_HEIGHT - 1)
+		while (y < SCREEN_HEIGHT - 1)
 		{
-			mlx_put_pixel(game->raycaster_img, x, game->player->draw_end, game->floor_rgb);
-			game->player->draw_end++;
+			mlx_put_pixel(game->raycaster_img, x, y, game->floor_rgb);
+			y++;
 		}
 	}
 }
@@ -225,8 +227,8 @@ void	basic_raycaster(t_gamestruct	*game)
 		game->player->camera_x = 2 * (i / (double)SCREEN_WIDTH) - 1;
 		game->player->raydir_x = game->player->direction_x + game->player->plane_x * game->player->camera_x;
 		game->player->raydir_y = game->player->direction_y + game->player->plane_y * game->player->camera_x;
-		game->player->map_x = game->player->player_pos_x - 0.5; //if i want the camera to be centered
-		game->player->map_y = game->player->player_pos_y - 0.5; //if i want the camera to be centered 
+		game->player->map_x = (int)game->player->player_pos_x;
+		game->player->map_y = (int)game->player->player_pos_y; 
 		ray_length(game);
 		side_side_dist_init(game);
 		hit_wall_check(game);

@@ -42,7 +42,7 @@ HEADER	:= -I ./includes/
 HEADERS	:= -I ./libft/ -I $(MLX)/include/
 
 ifdef DEBUG
-	CMP += -g -fsanitize=address 
+	CMP += -g3 -fsanitize=address 
 endif
 
 ifdef VALGRIND

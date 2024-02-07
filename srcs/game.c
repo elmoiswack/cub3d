@@ -3,9 +3,7 @@
 
 int	player_hits_wall(t_gamestruct *game, int x, int y)
 {
-	if (game->map[y][x] == '1')
-		return (1);
-	return (0);
+	return (game->map[y][x] == '1');
 }
 
 
@@ -32,7 +30,7 @@ void 	movement_forward(void *param)
 	double			new_pos_y;
 
 	game = (t_gamestruct *)param;
-	move_speed = 0.2;
+	move_speed = 0.15;
 	new_pos_x = game->player->player_pos_x + (game->player->direction_x * move_speed);
 	new_pos_y = game->player->player_pos_y + (game->player->direction_y * move_speed);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
@@ -60,7 +58,7 @@ void 	movement_backwards(void *param)
 	double			new_pos_y;
 
 	game = (t_gamestruct *)param;
-	move_speed = 0.2;
+	move_speed = 0.15;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
 	{
 		if (game->minimap->fullmap_enabled == true)
@@ -86,7 +84,7 @@ void 	movement_right(void *param)
 	double			new_pos_y;
 
 	game = (t_gamestruct *)param;
-	move_speed = 0.2;
+	move_speed = 0.15;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 	{
 		if (game->minimap->fullmap_enabled == true)
@@ -112,7 +110,7 @@ void	movement_left(void *param)
 	double			new_pos_y;
 
 	game = (t_gamestruct *)param;
-	move_speed = 0.2;
+	move_speed = 0.15;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 	{
 		if (game->minimap->fullmap_enabled == true)
@@ -274,7 +272,7 @@ void	start_game(t_gamestruct *game, t_raycaster *player)
 	mlx_loop_hook(game->mlx, &movement_hook, game);
 	mlx_loop_hook(game->mlx, &view_player, game);
 	mlx_loop_hook(game->mlx, &extra_features, game);
-	mlx_loop_hook(game->mlx, &mouse_movement, game);
+	// mlx_loop_hook(game->mlx, &mouse_movement, game);
 	mlx_loop(game->mlx);
 	mlx_close_window(game->mlx);
 }
