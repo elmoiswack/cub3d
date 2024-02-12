@@ -1,14 +1,18 @@
-NO      ./textures/CookieMonster.png
-SO   ./textures/elmoonfire.png
-EA              ./textures/grover.png
-WE    ./textures/Pino.png
-
-F   69, 222, 199
+[0;31mTest Error[0m for maps/good/test_whitespace.cub
+string error = "ERROR: Missing East Texture"
+this happens because there are whitsespaces infront of the identifier
+this error can be argued, the subject doenst state that its acceptable to be spaces infront of the identifiers
 
 
+need to fix the fullmap!!!!!!!
+maps/mini.cub
+11111
+10001
+10N01
+11111
 
-C 235, 198, 52
 
+maps/good/square_map.cub
 111111111111111111111111
 100000000000000000000001
 100000000000000000000001

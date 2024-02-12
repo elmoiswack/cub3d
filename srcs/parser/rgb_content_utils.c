@@ -11,7 +11,11 @@ int	ammount_input_rgb(char *line)
 	while (line[index] && line[index] != '\n')
 	{
 		if (line[index] == ',')
+		{
 			count++;
+			if (line[index + 1] == '\0' || line[index + 1] == '\n')
+				return (-1);
+		}
 		index++;
 	}
 	if (count != 2)

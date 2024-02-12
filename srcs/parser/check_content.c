@@ -43,6 +43,7 @@ int	map_checker(char **map, t_parser *parser_s)
 {
 	char	**map_copy;
 
+	trim_nl_arr(map);
 	if (check_howmany_start(map) == -1)
 		error_parser(parser_s, "Only 1 start position is needed, \
 			either an 'N', 'E', 'S' or 'W'!");

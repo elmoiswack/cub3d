@@ -2,20 +2,20 @@
 
 void	calculate_fm_scaler(t_minimap *mini)
 {
-	int	line_width;
-	int	line_height;
-	int	divider;
+	int	map_width;
+	int	map_height;
+	int	devider;
 
 	if (SCREEN_WIDTH > SCREEN_HEIGHT)
-		divider = SCREEN_WIDTH;
+		devider = SCREEN_WIDTH;
 	else
-		divider = SCREEN_HEIGHT;
-	line_width = get_size_biggest_line(mini->file_map);
-	line_height = get_max_2d(mini->file_map);
-	if (line_width > line_height)
-		mini->fm_scaler = divider / line_width;
+		devider = SCREEN_HEIGHT;
+	map_width = get_size_biggest_line(mini->file_map);
+	map_height = get_max_2d(mini->file_map);
+	if (map_width > map_height)
+		mini->fm_scaler = devider / map_width;
 	else
-		mini->fm_scaler = divider / line_height;
+		mini->fm_scaler = devider / map_height;
 	mini->fm_offset = (SCREEN_HEIGHT / 2) - \
 		((get_max_2d(mini->file_map) / 2) * mini->fm_scaler);
 }

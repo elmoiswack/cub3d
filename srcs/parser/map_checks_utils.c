@@ -41,6 +41,8 @@ bool	check_line_for_map(char *line)
 	index = 0;
 	while (line[index])
 	{
+		if (is_whitespace(line[index]) == 1)
+			index = skip_whitespaces(line, index);
 		if (line[index] == '\n')
 			return (true);
 		if (ft_isdigit(line[index]) == 0)
@@ -51,18 +53,17 @@ bool	check_line_for_map(char *line)
 }
 
 //gets the index on which the map starts in full_file
-int	get_start_map(t_parser *parser_s)
+int	get_start_map(t_parser *parser_s, int index, int j)
 {
-	int	index;
-	int	j;
-
-	index = 0;
-	j = 0;
 	while (parser_s->full_file[index])
 	{
+		j = 0;
 		while (parser_s->full_file[index][j])
 		{
-			if (ft_isalpha(parser_s->full_file[index][0]) == 1)
+			if (is_whitespace(parser_s->full_file[index][j]) == 1)
+				j = skip_whitespaces(parser_s->full_file[index], j);
+			if (ft_isalpha(parser_s->full_file[index][0]) == 1 \
+				|| parser_s->full_file[index][0] == '\n')
 				break ;
 			if (ft_isdigit(parser_s->full_file[index][j]) == 1)
 			{

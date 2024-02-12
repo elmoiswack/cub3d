@@ -150,7 +150,10 @@ int			check_howmany_start(char **map);
 int			is_whitespace(char c);
 int			valid_char(char c);
 int			skip_whitespaces(char *line, int index);
-int			get_start_map(t_parser *parser_s);
+int			get_start_map(t_parser *parser_s, int index, int j);
+
+		//map_checks_fts.c
+void	trim_nl_arr(char **map);
 
 		//rgb_content_checks.c
 int			check_range_rgb(char *line);

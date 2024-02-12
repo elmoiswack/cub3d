@@ -86,7 +86,7 @@ t_parser	*sort_content(t_parser *parser_s)
 	parser_s = get_textures_rgb_path(parser_s, 0);
 	if (!parser_s)
 		error_parser(parser_s, "getting textures failed");
-	index = get_start_map(parser_s);
+	index = get_start_map(parser_s, 0, 0);
 	if (index == -1)
 		error_parser(parser_s, "failed to get the map");
 	parser_s = get_map(parser_s, index);

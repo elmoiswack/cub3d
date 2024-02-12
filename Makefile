@@ -17,6 +17,7 @@ SRC 	:= main.c \
 				parser/check_content.c \
 				parser/map_checks.c \
 				parser/map_checks_utils.c \
+				parser/map_checks_fts.c \
 				parser/rgb_content_check.c \
 				parser/rgb_content_utils.c \
 				convert_data.c \

@@ -201,12 +201,12 @@ void	draw_floor(t_gamestruct *game, int x)
 {
 	int	y;
 
-	y = game->player->draw_end;
+	y = (int)game->player->draw_end;
 	if (y < SCREEN_HEIGHT - 1)
 	{
 		while (y < SCREEN_HEIGHT - 1)
 		{
-			// printf("This is y: %i\n", y);
+			//printf("This is y: %i\n", y);
 			mlx_put_pixel(game->raycaster_img, x, y, game->floor_rgb);
 			y++;
 		}

@@ -8,6 +8,10 @@ int	check_chars_rgb(char *line)
 	index = 0;
 	while (line[index] && line[index] != '\n')
 	{
+		if (is_whitespace(line[index]) == 1)
+		{
+			index = skip_whitespaces(line, index);
+		}
 		if (ft_isdigit(line[index]) != 1 && line[index] != ',')
 			return (-1);
 		index++;
@@ -61,7 +65,7 @@ int	check_range_rgb(char *line)
 				index++;
 			begin = index;
 			begin--;
-			while (begin > 0 && line[begin] != ',')
+			while (begin > 0 && (line[begin] != ',' && line[index] != ' '))
 				begin--;
 			if (line[begin] == ',')
 				begin++;
