@@ -154,6 +154,7 @@ int			get_start_map(t_parser *parser_s, int index, int j);
 
 		//map_checks_fts.c
 void	trim_nl_arr(char **map);
+int		new_line_check_map(char **map, int index, int i);
 
 		//rgb_content_checks.c
 int			check_range_rgb(char *line);

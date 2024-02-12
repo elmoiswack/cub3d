@@ -251,14 +251,46 @@ void	mouse_movement(void *param)
 	mlx_set_mouse_pos(game->mlx, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 }
 
+void	clean_map_array(t_gamestruct *game)
+{
+	int	index;
+	int	x;
 
-//this is the main start of the game
-//the raycaster creates the line be drawn on the screen, this loop goes on untill you have cover the entire screen
-//mlx_loop starts the game loop
-void	start_game(t_gamestruct *game, t_raycaster *player)
+	index = 0;
+	while (game->map[index])
+	{
+		x = ft_strlen(game->map[index]);
+		x--;
+		while (x > 0 && game->map[index][x] != '1')
+			x--;
+		if (game->map[index][x] == '1')
+		{
+			x++;
+			game->map[index][x] = '\0';
+		}
+		index++;
+	}
+}
+
+void	print_size(char **map)
+{
+	int i;
+
+	i = 0;
+	while (map[i])
+	{
+		printf("map[%i] len = %i\n", i, (int)ft_strlen(map[i]));
+		i++;
+	}
+}
+
+void	setup_game_variables(t_gamestruct *game, t_raycaster *player)
 {
 	game->player = player;
 	set_vars_player(game->player);
+	print_size(game->map);
+	clean_map_array(game);
+	print_size(game->map);
 	game->minimap = ft_calloc(1, sizeof(t_minimap));
 	if (!game->minimap)
 		error_game(game, "Allocation of minimap failed!");
@@ -268,6 +300,14 @@ void	start_game(t_gamestruct *game, t_raycaster *player)
 		game->raycaster_img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 		mlx_image_to_window(game->mlx, game->raycaster_img, 0, 0);
 	}
+}
+
+//this is the main start of the game
+//the raycaster creates the line be drawn on the screen, this loop goes on untill you have cover the entire screen
+//mlx_loop starts the game loop
+void	start_game(t_gamestruct *game, t_raycaster *player)
+{
+	setup_game_variables(game, player);
 	basic_raycaster(game);
 	create_minimap(game->minimap);
 	mlx_loop_hook(game->mlx, &movement_hook, game);

@@ -41,7 +41,7 @@ char	**allocate_array_mm(t_minimap *mini)
 
 bool	out_of_map_x(char **map, int player_x, int player_y, int x)
 {
-	if (player_x + x > (int)ft_strlen(map[player_y]) - 2)
+	if (player_x + x > (int)ft_strlen(map[player_y]) - 1)
 		return (true);
 	if (player_x + x < 0)
 		return (true);

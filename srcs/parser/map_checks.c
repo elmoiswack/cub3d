@@ -63,11 +63,9 @@ int	check_char_map(char	**map)
 		i = 0;
 		if (map[index][0] == '\n')
 		{
-			while (map[index] && map[index][0] == '\n')
-				index++;
-			if (map[index] == NULL)
-				return (1);
-			return (-1);
+			if (new_line_check_map(map, index, i) == -1)
+				return (-1);
+			return (1);
 		}
 		while (map[index][i] && map[index][i] != '\n')
 		{
@@ -89,15 +87,15 @@ int	check_spaces_in_line(char **map, int index, int i)
 			if (map[index][i - 1] != '1')
 				return (-1);
 			i = skip_whitespaces(map[index], i);
-			if (map[index][i] != '1' && map[index][i] != '\n')
-			{
-				printf("bruh\n\n");
+			if ((map[index][i] != '\0') && (map[index][i] != '1') \
+				&& (map[index][i] != '\n'))
 				return (-1);
-			}
 		}
-		if (map[index][i] != '\n')
+		if (map[index][i] != '\0' && map[index][i] != '\n')
 			i++;
 	}
+	if (map[index][i] == '\0')
+		i--;
 	return (i);
 }
 
@@ -122,7 +120,7 @@ int	border_check(char **map, int index)
 			if (i == -1)
 				return (-1);
 		}
-		if (map[index][i - 1] != '1' && map[index][i] != '\n')
+		else if (map[index][i - 1] != '1' && map[index][i] != '\n')
 			return (-1);
 		index++;
 	}
