@@ -1,6 +1,23 @@
 #include "../../includes/cub3d.h"
 #include "stdio.h"
 
+char	*trim_end_line(char *new_line)
+{
+	int	index;
+
+	index = ft_strlen(new_line);
+	index--;
+	while (index > 0)
+	{
+		if (ft_isalnum(new_line[index]) == 1)
+			break ;
+		index--;
+	}
+	index++;
+	new_line[index] = '\0';
+	return (new_line);
+}
+
 char	*line_into_struct(char	*line, t_parser *parser_s)
 {
 	char	*new_line;
@@ -22,6 +39,7 @@ char	*line_into_struct(char	*line, t_parser *parser_s)
 		index++;
 		index_new++;
 	}
+	new_line = trim_end_line(new_line);
 	return (new_line);
 }
 

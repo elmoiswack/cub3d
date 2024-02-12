@@ -1,3 +1,9 @@
+NO ./textures/CookieMonster.png               
+
+
+
+
+SO ./textures/elmoonfire.png 
 
 
 
@@ -6,20 +12,14 @@
 
 
 
-NO textures/test/north.png
 
 
 
 
+EA ./textures/grover.png
+WE ./textures/Pino.png          
 
-
-
-
-SO textures/test/south.png
-                        WE textures/test/west.png
-        EA textures/test/east.png            
-
-        F 20,           20,             20
+F 20,           20,             20
 C 200,          200,200
 
 11111

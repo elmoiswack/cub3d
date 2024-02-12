@@ -164,21 +164,6 @@ void	calculation_lowest_highest_pixel(t_gamestruct *game)
 		game->player->draw_end = SCREEN_HEIGHT - 1;
 }
 
-void	draw_ceiling(t_gamestruct *game, int x)
-{
-	int	y;
-
-	y = 0;
-	if (game->player->draw_start > 0)
-	{
-		while (y < game->player->draw_start && y < SCREEN_HEIGHT)
-		{
-			mlx_put_pixel(game->raycaster_img, x, y, game->ceiling_rgb);
-			y++;
-		}
-	}
-}
-
 void 	draw_wall(t_gamestruct *game, mlx_texture_t *texture, int x)
 {
 	uint32_t	text_color;
@@ -197,19 +182,24 @@ void 	draw_wall(t_gamestruct *game, mlx_texture_t *texture, int x)
 	}
 }
 
-void	draw_floor(t_gamestruct *game, int x)
+void	draw_ceiling_floor(t_gamestruct *game)
 {
-	int	y;
+	int y;
+	int	x;
 
-	y = (int)game->player->draw_end;
-	if (y < SCREEN_HEIGHT - 1)
+	y = 0;
+	while (y < SCREEN_HEIGHT)
 	{
-		while (y < SCREEN_HEIGHT - 1)
+		x = 0;
+		while (x < SCREEN_WIDTH)
 		{
-			//printf("This is y: %i\n", y);
-			mlx_put_pixel(game->raycaster_img, x, y, game->floor_rgb);
-			y++;
+			if (y < SCREEN_HEIGHT / 2)
+				mlx_put_pixel(game->raycaster_img, x, y, game->ceiling_rgb);
+			else
+				mlx_put_pixel(game->raycaster_img, x, y, game->floor_rgb);
+			x++;
 		}
+		y++;
 	}
 }
 
@@ -220,6 +210,7 @@ void	basic_raycaster(t_gamestruct	*game)
 
 	current_texture = NULL;
 	i = 0;
+	draw_ceiling_floor(game);
 	while (i < SCREEN_WIDTH)
 	{
 		game->player->camera_x = 2 * (i / (double)SCREEN_WIDTH) - 1;
@@ -234,9 +225,7 @@ void	basic_raycaster(t_gamestruct	*game)
 		calculation_lowest_highest_pixel(game);
 		current_texture = put_texture(game, current_texture);
 		texture_x_calculation(game, current_texture);
-		draw_ceiling(game, i);
 		draw_wall(game, current_texture, i);
-		draw_floor(game, i);
 		i++;
 	}
 	return ;

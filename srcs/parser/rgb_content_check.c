@@ -39,6 +39,8 @@ int	get_single_rgb_value(char *line, int index, int begin)
 {
 	char	*temp;
 
+	if (is_whitespace(line[begin]) == 1)
+		begin = skip_whitespaces(line, begin);
 	temp = ft_substr(line, begin, index - begin);
 	if (!temp)
 		return (-1);

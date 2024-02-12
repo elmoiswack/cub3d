@@ -251,6 +251,7 @@ void	mouse_movement(void *param)
 	mlx_set_mouse_pos(game->mlx, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 }
 
+
 //this is the main start of the game
 //the raycaster creates the line be drawn on the screen, this loop goes on untill you have cover the entire screen
 //mlx_loop starts the game loop

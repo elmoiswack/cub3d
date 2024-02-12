@@ -40,3 +40,13 @@ maps/good/square_map.cub
 100000000000000000000001
 100000000000000000000001
 111111111111111111111111
+
+
+
+
+char **arr
+len array = SCREEN_WIDTH
+in this array we will store drstart and draw_end
+so every index should have a [0] and [1]
+the 0 = drstart and 1 = draw_end
+the ceiling color should be drawn until drstart, and the floor from draw_end to SCREEN_HEIGHT

@@ -33,7 +33,8 @@ void	free_game_struct(t_gamestruct *game)
 		mlx_terminate(game->mlx);
 	if (game->map)
 		free_2d_array(game->map);
-	free(game->player);
+	if (game->player)
+		free(game->player);
 	free(game);
 }
 
