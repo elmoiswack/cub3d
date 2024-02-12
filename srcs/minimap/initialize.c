@@ -16,7 +16,8 @@ void	calculate_fm_scaler(t_minimap *mini)
 		mini->fm_scaler = devider / map_width;
 	else
 		mini->fm_scaler = devider / map_height;
-	mini->fm_offset = (SCREEN_HEIGHT / 2) - \
+	mini->fm_scaler = mini->fm_scaler / 2;
+	mini->fm_offset_y = (SCREEN_HEIGHT / 2) - \
 		((get_max_2d(mini->file_map) / 2) * mini->fm_scaler);
 }
 
