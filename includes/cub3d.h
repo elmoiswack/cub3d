@@ -64,7 +64,7 @@ typedef struct s_minimap
 	bool		minimap_enabled;
 	int			mm_scaler;
 	int			fm_scaler;
-	int			fm_offset;
+	int			fm_offset_y;
 	char		**file_map;
 	double		player_x;
 	double		player_y;

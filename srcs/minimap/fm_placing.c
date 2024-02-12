@@ -16,7 +16,7 @@ void	fullmap_place_walls(t_minimap *mini)
 			{
 				if (mlx_image_to_window(mini->mlx, mini->fullm_wall, \
 					(x * mini->fm_scaler), \
-					(y * mini->fm_scaler + mini->fm_offset)) == -1)
+					(y * mini->fm_scaler + mini->fm_offset_y)) == -1)
 					error_game(mini->game, "Failed to place the wall fm!");
 			}
 			x++;
@@ -41,7 +41,7 @@ void	fullmap_place_floors(t_minimap *mini)
 			{
 				if (mlx_image_to_window(mini->mlx, mini->fullm_floor, \
 					(x * mini->fm_scaler), \
-					(y * mini->fm_scaler + mini->fm_offset)) == -1)
+					(y * mini->fm_scaler + mini->fm_offset_y)) == -1)
 					error_game(mini->game, "Failed to place the floor fm!");
 			}
 			x++;
@@ -61,6 +61,6 @@ void	fullmap_place_player(t_minimap *mini)
 {
 	if (mlx_image_to_window(mini->mlx, mini->fullm_player, \
 		(((int)mini->player_x) * mini->fm_scaler), \
-		(((int)mini->player_y) * mini->fm_scaler) + mini->fm_offset) == -1)
+		(((int)mini->player_y) * mini->fm_scaler) + mini->fm_offset_y) == -1)
 		error_game(mini->game, "Failed to place the player fm!");
 }

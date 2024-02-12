@@ -272,25 +272,11 @@ void	clean_map_array(t_gamestruct *game)
 	}
 }
 
-void	print_size(char **map)
-{
-	int i;
-
-	i = 0;
-	while (map[i])
-	{
-		printf("map[%i] len = %i\n", i, (int)ft_strlen(map[i]));
-		i++;
-	}
-}
-
 void	setup_game_variables(t_gamestruct *game, t_raycaster *player)
 {
 	game->player = player;
 	set_vars_player(game->player);
-	print_size(game->map);
 	clean_map_array(game);
-	print_size(game->map);
 	game->minimap = ft_calloc(1, sizeof(t_minimap));
 	if (!game->minimap)
 		error_game(game, "Allocation of minimap failed!");
