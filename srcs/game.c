@@ -238,15 +238,10 @@ void	mouse_movement(void *param)
 		if (new_x < 0)
 			new_x = 0;
 		if (new_x < mouse_x)
-		{
 			new_plane_calculator(game, true, rots);
-			draw_screen(game);		
-		}
 		else
-		{
 			new_plane_calculator(game, false, rots);
-			draw_screen(game);
-		}
+		draw_screen(game);
 	}
 	mlx_set_mouse_pos(game->mlx, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 }
@@ -296,10 +291,11 @@ void	start_game(t_gamestruct *game, t_raycaster *player)
 	setup_game_variables(game, player);
 	basic_raycaster(game);
 	create_minimap(game->minimap);
+	mlx_set_mouse_pos(game->mlx, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	mlx_loop_hook(game->mlx, &movement_hook, game);
 	mlx_loop_hook(game->mlx, &view_player, game);
 	mlx_loop_hook(game->mlx, &extra_features, game);
-	// mlx_loop_hook(game->mlx, &mouse_movement, game);
+	mlx_loop_hook(game->mlx, &mouse_movement, game);
 	mlx_loop(game->mlx);
 	mlx_close_window(game->mlx);
 }
