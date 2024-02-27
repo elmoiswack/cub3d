@@ -40,8 +40,8 @@ static void	load_textures(t_gamestruct *game, t_parser *parse)
 t_gamestruct *convert_data(t_parser *parser_s, t_gamestruct *gamestruct, t_raycaster *player)
 {
 	gamestruct->map = copy_2d_array(parser_s->map);
-	player->player_pos_x = parser_s->start_pos_x;
-	player->player_pos_y = parser_s->start_pos_y;
+	player->player_pos_x = parser_s->start_pos_x + 0.5;
+	player->player_pos_y = parser_s->start_pos_y + 0.5;
 	player->start_direction = parser_s->start_direction;
 	gamestruct->floor_rgb = parser_s->rgb_floor_int;
 	gamestruct->ceiling_rgb = parser_s->rgb_ceiling_int;
