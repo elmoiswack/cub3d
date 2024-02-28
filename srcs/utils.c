@@ -2,10 +2,10 @@
 
 int	get_max_2d(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(array[i])
+	while (array[i])
 		i++;
 	return (i);
 }

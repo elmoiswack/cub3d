@@ -3,7 +3,7 @@
 
 void	free_2d_array(char	**array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (array[i])

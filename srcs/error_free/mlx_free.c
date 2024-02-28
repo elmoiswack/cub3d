@@ -32,23 +32,23 @@ void	delete_fullmap(t_minimap *minimap)
 {
 	if (minimap->fullm_background)
 	{
-	    mlx_delete_image(minimap->mlx, minimap->fullm_background);
-	    minimap->fullm_background = NULL;
+		mlx_delete_image(minimap->mlx, minimap->fullm_background);
+		minimap->fullm_background = NULL;
 	}
 	if (minimap->fullm_floor)
 	{
-	    mlx_delete_image(minimap->mlx, minimap->fullm_floor);
-    	minimap->fullm_floor = NULL;
+		mlx_delete_image(minimap->mlx, minimap->fullm_floor);
+		minimap->fullm_floor = NULL;
 	}
 	if (minimap->fullm_player)
 	{
-	   mlx_delete_image(minimap->mlx, minimap->fullm_player);
-	   minimap->fullm_player = NULL;
+		mlx_delete_image(minimap->mlx, minimap->fullm_player);
+		minimap->fullm_player = NULL;
 	}
 	if (minimap->fullm_wall)
 	{
-	   mlx_delete_image(minimap->mlx, minimap->fullm_wall);
-    	minimap->fullm_wall = NULL;
+		mlx_delete_image(minimap->mlx, minimap->fullm_wall);
+		minimap->fullm_wall = NULL;
 	}
 }
 

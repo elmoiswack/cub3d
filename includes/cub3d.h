@@ -115,16 +115,40 @@ char		**copy_2d_array(char **array);
 	//raycaster.c
 void	basic_raycaster(t_gamestruct *game);
 
-void	start_game(t_gamestruct *game, t_raycaster *player);
 
 void	set_vars_player(t_raycaster *player);
 
-uint32_t	transfer_colour_texture(int r, int g, int b, int a);
 
-//convert_data.c
+	//convert_data.c
 t_gamestruct	*convert_data(t_parser *parser_s, t_gamestruct *gamestruct, t_raycaster *player);
-t_gamestruct	*getting_images(t_parser *parser, t_gamestruct *game);
 t_gamestruct	*texture_to_images(t_gamestruct *game, t_parser *parser);
+
+	//setup_game.c
+void	clean_map_array(t_gamestruct *game);
+void	setup_game_variables(t_gamestruct *game, t_raycaster *player);
+
+	//game.c
+void	start_game(t_gamestruct *game, t_raycaster *player);
+void	draw_screen(t_gamestruct *game);
+
+	//movement.c
+int		player_hits_wall(t_gamestruct *game, int x, int y);
+void 	movement_forward(void *param);
+void 	movement_backwards(void *param);
+void 	movement_right(void *param);
+void	movement_left(void *param);
+
+	//loop_hooks.c
+void 	view_player_left(void *param);
+void 	view_player_right(void *param);
+void	extra_features(void *param);
+void	movement_hook(void *param);
+
+	//mouse_move.c
+void	mouse_movement(void *param);
+void	new_plane_calc_right(t_gamestruct *game, double rots);
+void	new_plane_calc_left(t_gamestruct *game, double rots);
+
 
 //////////////PARSER///////////////////////////////////////////////////////////////////////////////////////////
 		//parser.c
@@ -132,6 +156,7 @@ t_parser	*parser(t_parser *parser_s, char *argv[]);
 int			transfer_rgb_to_int(char *rgb);
 uint32_t		transfer_colour(int r, int g, int b);
 t_parser	*parser_checks(t_parser *parser_s);
+uint32_t	transfer_colour_texture(int32_t r, int32_t g, int32_t b, int32_t a);
 
 		//file_opener.c
 int			check_argv(char **argv);

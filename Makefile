@@ -4,6 +4,10 @@ SRC 	:= main.c \
 				utils.c \
 				raycaster.c \
 				game.c \
+				movement.c \
+				loop_hooks.c \
+				setup_game.c \
+				mouse_move.c \
 				minimap/initialize.c \
 				minimap/minimap.c \
 				minimap/fullmap.c \
