@@ -6,7 +6,7 @@
 /*   By: dhussain <dhussain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 11:26:10 by dhussain          #+#    #+#             */
-/*   Updated: 2022/12/21 11:48:54 by dhussain         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:55:40 by dhussain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		i;
 	int		j;
 	char	*ptr;
-	
+
 	ptr = (char *) malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!ptr)
 		return (NULL);

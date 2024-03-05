@@ -6,7 +6,7 @@
 /*   By: dhussain <dhussain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 16:57:36 by dhussain          #+#    #+#             */
-/*   Updated: 2022/10/19 14:06:14 by dhussain         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:55:53 by dhussain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize)
 
 	i = 0;
 	if (dstsize != 0)
-	{	
+	{
 		while ((src[i] != '\0') && (i < (dstsize - 1)))
 		{
 			dest[i] = src[i];

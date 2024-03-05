@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dhussain <dhussain@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/05 17:14:48 by dhussain          #+#    #+#             */
+/*   Updated: 2024/03/05 17:14:50 by dhussain         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 #include <math.h>
 
@@ -7,7 +19,7 @@ void	draw_screen(t_gamestruct *game)
 		disable_fullmap(game->minimap);
 	if (game->raycaster_img->enabled == false)
 		game->raycaster_img->enabled = true;
-	basic_raycaster(game);
+	raycaster(game, 0);
 	if (game->minimap->minimap_enabled == false)
 		enable_minimap(game->minimap);
 	game->minimap->player_y = game->player->player_pos_y;
@@ -22,7 +34,7 @@ void	draw_screen(t_gamestruct *game)
 void	start_game(t_gamestruct *game, t_raycaster *player)
 {
 	setup_game_variables(game, player);
-	basic_raycaster(game);
+	raycaster(game, 0);
 	create_minimap(game->minimap);
 	mlx_set_mouse_pos(game->mlx, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	mlx_loop_hook(game->mlx, &movement_hook, game);

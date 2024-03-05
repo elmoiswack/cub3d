@@ -6,7 +6,7 @@
 /*   By: dhussain <dhussain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 12:02:01 by dhussain          #+#    #+#             */
-/*   Updated: 2023/12/04 10:35:35 by dhussain         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:56:10 by dhussain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		{
 			if (n[b] == '\0' && h[a + b] == '\0')
 				return (&h[a]);
-		b++;
+			b++;
 		}
 		if (n[b] == '\0')
 			return (h + a);

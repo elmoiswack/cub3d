@@ -6,7 +6,7 @@
 /*   By: dhussain <dhussain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 11:29:15 by dhussain          #+#    #+#             */
-/*   Updated: 2022/12/14 12:20:56 by dhussain         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:55:27 by dhussain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_printf(const char *string, ...)
 	len = 0;
 	va_start(ptr, string);
 	while (string[i] != '\0')
-	{	
+	{
 		while (string[i] == '%' && string[i + 1])
 		{
 			len = ft_printf_check(string, i, ptr, len);
